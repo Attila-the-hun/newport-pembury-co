@@ -128,7 +128,7 @@
 [data-theme="dark"] {
   --color-text-primary:   var(--primitive-ivory);
   --color-text-secondary: #A0AEBB;
-  --color-text-inverse:   var(--primitive-charcoal);
+  --color-text-inverse:   #FAFAFA;
 
   --color-bg-primary:     #0D1520;
   --color-bg-secondary:   var(--primitive-dark);
@@ -163,12 +163,12 @@
   --shadow-xl:   0 20px 48px rgba(0, 0, 0, 0.4);
   --shadow-gold: 0 8px 24px rgba(212, 184, 122, 0.2);
 
-  /* Legacy aliases point to dark values */
-  --brand-charcoal:   var(--primitive-charcoal);
+  /* Legacy aliases — remap for dark mode readability */
+  --brand-charcoal:   var(--primitive-ivory);
   --brand-gold:       #D4B87A;
   --brand-gold-light: #E0C88A;
   --brand-ivory:      var(--primitive-ivory);
-  --brand-slate:      #A0AEBB;
+  --brand-slate:      #C0CDD8;
   --brand-dark:       var(--primitive-dark);
   --brand-cream:      #0D1520;
   --cta-color:        #D4B87A;
@@ -180,7 +180,7 @@
   :root:not([data-theme="light"]) {
     --color-text-primary:   var(--primitive-ivory);
     --color-text-secondary: #A0AEBB;
-    --color-text-inverse:   var(--primitive-charcoal);
+    --color-text-inverse:   #FAFAFA;
 
     --color-bg-primary:     #0D1520;
     --color-bg-secondary:   var(--primitive-dark);
@@ -215,11 +215,11 @@
     --shadow-xl:   0 20px 48px rgba(0, 0, 0, 0.4);
     --shadow-gold: 0 8px 24px rgba(212, 184, 122, 0.2);
 
-    --brand-charcoal:   var(--primitive-charcoal);
+    --brand-charcoal:   var(--primitive-ivory);
     --brand-gold:       #D4B87A;
     --brand-gold-light: #E0C88A;
     --brand-ivory:      var(--primitive-ivory);
-    --brand-slate:      #A0AEBB;
+    --brand-slate:      #C0CDD8;
     --brand-dark:       var(--primitive-dark);
     --brand-cream:      #0D1520;
     --cta-color:        #D4B87A;
@@ -4060,5 +4060,103 @@ body.mobile-cta-visible {
 @media (min-width: 1025px) {
   .mobile-toc {
     display: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   DARK MODE — Background & component overrides.
+   --brand-charcoal remaps to ivory for text in dark mode,
+   so background uses must reference the primitive directly.
+   ═══════════════════════════════════════════════════ */
+
+/* Shared dark-mode selectors (manual toggle) */
+[data-theme="dark"] .hero-section,
+[data-theme="dark"] .heritage-section,
+[data-theme="dark"] .cta-banner,
+[data-theme="dark"] .process-section,
+[data-theme="dark"] .article-hero {
+  background: linear-gradient(135deg, var(--primitive-dark) 0%, var(--primitive-charcoal) 100%);
+}
+
+[data-theme="dark"] .credential-badge,
+[data-theme="dark"] .submit-btn,
+[data-theme="dark"] .back-to-top {
+  background: var(--primitive-charcoal);
+}
+
+[data-theme="dark"] .btn-outline:hover {
+  background: var(--primitive-charcoal);
+  color: #FAFAFA;
+}
+
+[data-theme="dark"] .btn-outline {
+  color: #FAFAFA;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] .btn-secondary:hover,
+[data-theme="dark"] .btn-ghost:hover {
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .card-number {
+  color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .category-pill.systems {
+  color: var(--color-text-primary);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .article-card-hero {
+  background: linear-gradient(to top, var(--primitive-charcoal) 0%, rgba(27, 40, 56, 0.95) 100%);
+}
+
+/* OS preference dark mode (same overrides) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hero-section,
+  :root:not([data-theme="light"]) .heritage-section,
+  :root:not([data-theme="light"]) .cta-banner,
+  :root:not([data-theme="light"]) .process-section,
+  :root:not([data-theme="light"]) .article-hero {
+    background: linear-gradient(135deg, var(--primitive-dark) 0%, var(--primitive-charcoal) 100%);
+  }
+
+  :root:not([data-theme="light"]) .credential-badge,
+  :root:not([data-theme="light"]) .submit-btn,
+  :root:not([data-theme="light"]) .back-to-top {
+    background: var(--primitive-charcoal);
+  }
+
+  :root:not([data-theme="light"]) .btn-outline:hover {
+    background: var(--primitive-charcoal);
+    color: #FAFAFA;
+  }
+
+  :root:not([data-theme="light"]) .btn-outline {
+    color: #FAFAFA;
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  :root:not([data-theme="light"]) .btn-secondary:hover,
+  :root:not([data-theme="light"]) .btn-ghost:hover {
+    background: var(--color-bg-surface);
+    color: var(--color-text-primary);
+  }
+
+  :root:not([data-theme="light"]) .card-number {
+    color: rgba(255, 255, 255, 0.08);
+  }
+
+  :root:not([data-theme="light"]) .category-pill.systems {
+    color: var(--color-text-primary);
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  :root:not([data-theme="light"]) .article-card-hero {
+    background: linear-gradient(to top, var(--primitive-charcoal) 0%, rgba(27, 40, 56, 0.95) 100%);
   }
 }
