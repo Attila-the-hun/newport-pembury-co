@@ -1,105 +1,69 @@
-// Theme Toggle Script - Load ASAP to prevent FOUC (Flash of Unstyled Content)
+// Theme Toggle — Two-state light/dark switch
+// Loads before DOM to prevent FOUC (Flash of Unstyled Content)
 (function() {
   const THEME_KEY = 'np-theme-preference';
 
-  // Immediately apply saved theme before DOM is ready (prevents flash)
-  function applyThemeSync() {
-    const saved = localStorage.getItem(THEME_KEY) || 'auto';
-
-    if (saved === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else if (saved === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-    // 'auto' means no attribute - let prefers-color-scheme handle it
+  // Resolve effective theme: saved preference or OS default
+  function getEffectiveTheme() {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === 'light' || saved === 'dark') return saved;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
-  // Call immediately (inline script should run before other scripts)
-  applyThemeSync();
+  // Apply immediately to prevent flash
+  document.documentElement.setAttribute('data-theme', getEffectiveTheme());
 
-  // Full initialization on DOMContentLoaded
+  // Full init after DOM ready
   function init() {
-    const THEME_KEY = 'np-theme-preference';
+    const theme = getEffectiveTheme();
+    document.documentElement.setAttribute('data-theme', theme);
+    updateToggleUI(theme);
 
-    function getSystemTheme() {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-
-    function applyTheme(preference) {
-      // preference: 'light', 'dark', or 'auto'
-      if (preference === 'auto') {
-        document.documentElement.removeAttribute('data-theme');
-      } else {
-        document.documentElement.setAttribute('data-theme', preference);
-      }
-
-      // Update toggle UI active state
-      document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.theme === preference);
-      });
-
-      // Update meta theme-color for browser chrome
-      const isDark = preference === 'dark' ||
-                     (preference === 'auto' && getSystemTheme() === 'dark');
-      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-      if (metaThemeColor) {
-        metaThemeColor.setAttribute('content', isDark ? '#0D1520' : '#1B2838');
-      }
-    }
-
-    // Get initial preference from localStorage, default to 'auto'
-    const saved = localStorage.getItem(THEME_KEY) || 'auto';
-    applyTheme(saved);
-
-    // Listen for OS theme changes (relevant when in auto mode)
-    const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    darkModeQuery.addEventListener('change', () => {
-      const current = localStorage.getItem(THEME_KEY) || 'auto';
-      if (current === 'auto') {
-        applyTheme('auto');
+    // Listen for OS preference changes (only matters if user hasn't set a manual preference)
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (!localStorage.getItem(THEME_KEY)) {
+        const newTheme = getEffectiveTheme();
+        document.documentElement.setAttribute('data-theme', newTheme);
+        updateToggleUI(newTheme);
       }
     });
 
-    // Bind click handlers to all theme toggle buttons
+    // Click handler — single button toggles between states
     document.addEventListener('click', (e) => {
-      const btn = e.target.closest('.theme-btn');
-      if (btn) {
-        const theme = btn.dataset.theme;
-        localStorage.setItem(THEME_KEY, theme);
-        applyTheme(theme);
-      }
+      const btn = e.target.closest('.theme-toggle-btn');
+      if (!btn) return;
+      const current = document.documentElement.getAttribute('data-theme') || getEffectiveTheme();
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(THEME_KEY, next);
+      document.documentElement.setAttribute('data-theme', next);
+      updateToggleUI(next);
     });
 
-    // Keyboard navigation support (arrow keys)
+    // Keyboard support — Enter and Space
     document.addEventListener('keydown', (e) => {
-      const btn = e.target.closest('.theme-btn');
+      const btn = e.target.closest('.theme-toggle-btn');
       if (!btn) return;
-
-      const container = btn.closest('.theme-toggle');
-      if (!container) return;
-
-      const buttons = Array.from(container.querySelectorAll('.theme-btn'));
-      const currentIndex = buttons.indexOf(btn);
-
-      let nextBtn = null;
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        nextBtn = buttons[(currentIndex + 1) % buttons.length];
+      if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        nextBtn = buttons[(currentIndex - 1 + buttons.length) % buttons.length];
-        e.preventDefault();
-      }
-
-      if (nextBtn) {
-        const theme = nextBtn.dataset.theme;
-        localStorage.setItem(THEME_KEY, theme);
-        applyTheme(theme);
-        nextBtn.focus();
+        btn.click();
       }
     });
   }
 
-  // Wait for DOM to be ready before binding events
+  function updateToggleUI(theme) {
+    document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+      const sunIcon = btn.querySelector('.icon-sun');
+      const moonIcon = btn.querySelector('.icon-moon');
+      if (sunIcon && moonIcon) {
+        sunIcon.style.opacity = theme === 'light' ? '0' : '1';
+        sunIcon.style.transform = theme === 'light' ? 'rotate(-90deg) scale(0)' : 'rotate(0) scale(1)';
+        moonIcon.style.opacity = theme === 'light' ? '1' : '0';
+        moonIcon.style.transform = theme === 'light' ? 'rotate(0) scale(1)' : 'rotate(90deg) scale(0)';
+      }
+      btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
