@@ -4075,7 +4075,7 @@ body.mobile-cta-visible {
 [data-theme="dark"] .cta-banner,
 [data-theme="dark"] .process-section,
 [data-theme="dark"] .article-hero {
-  background: linear-gradient(135deg, var(--primitive-dark) 0%, var(--primitive-charcoal) 100%);
+  background: linear-gradient(135deg, var(--primitive-dark) 0%, var(--primitive-charcoal) 100%) !important;
 }
 
 [data-theme="dark"] .credential-badge,
@@ -4114,6 +4114,54 @@ body.mobile-cta-visible {
   background: linear-gradient(to top, var(--primitive-charcoal) 0%, rgba(27, 40, 56, 0.95) 100%);
 }
 
+[data-theme="dark"] .featured-card,
+[data-theme="dark"] .article-card {
+  background: var(--color-bg-surface);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .article-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(197, 165, 90, 0.3);
+}
+
+[data-theme="dark"] .featured-card:hover {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  border-color: rgba(197, 165, 90, 0.3);
+}
+
+[data-theme="dark"] .category-pill.ma,
+[data-theme="dark"] .category-pill.growth,
+[data-theme="dark"] .category-pill.strategy {
+  color: var(--color-text-primary) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+[data-theme="dark"] .article-image,
+[data-theme="dark"] .featured-image {
+  background: linear-gradient(135deg, var(--primitive-dark) 0%, var(--primitive-charcoal) 100%) !important;
+}
+
+[data-theme="dark"] .policy-hero,
+[data-theme="dark"] .lead-capture,
+[data-theme="dark"] .newsletter-section,
+[data-theme="dark"] .newsletter-cta,
+[data-theme="dark"] .mid-article-cta,
+[data-theme="dark"] .key-takeaways,
+[data-theme="dark"] .contact-info-box {
+  background: linear-gradient(135deg, var(--primitive-dark) 0%, var(--primitive-charcoal) 100%);
+}
+
+[data-theme="dark"] .approach-step-num,
+[data-theme="dark"] .headshot-circle {
+  background: var(--primitive-charcoal);
+}
+
+[data-theme="dark"] .mobile-cta {
+  background: linear-gradient(to top, var(--primitive-charcoal) 0%, rgba(27, 40, 56, 0.95) 100%);
+}
+
 /* OS preference dark mode (same overrides) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hero-section,
@@ -4121,7 +4169,7 @@ body.mobile-cta-visible {
   :root:not([data-theme="light"]) .cta-banner,
   :root:not([data-theme="light"]) .process-section,
   :root:not([data-theme="light"]) .article-hero {
-    background: linear-gradient(135deg, var(--primitive-dark) 0%, var(--primitive-charcoal) 100%);
+    background: linear-gradient(135deg, var(--primitive-dark) 0%, var(--primitive-charcoal) 100%) !important;
   }
 
   :root:not([data-theme="light"]) .credential-badge,
@@ -4157,6 +4205,54 @@ body.mobile-cta-visible {
   }
 
   :root:not([data-theme="light"]) .article-card-hero {
+    background: linear-gradient(to top, var(--primitive-charcoal) 0%, rgba(27, 40, 56, 0.95) 100%);
+  }
+
+  :root:not([data-theme="light"]) .featured-card,
+  :root:not([data-theme="light"]) .article-card {
+    background: var(--color-bg-surface);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  :root:not([data-theme="light"]) .article-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(197, 165, 90, 0.3);
+  }
+
+  :root:not([data-theme="light"]) .featured-card:hover {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    border-color: rgba(197, 165, 90, 0.3);
+  }
+
+  :root:not([data-theme="light"]) .category-pill.ma,
+  :root:not([data-theme="light"]) .category-pill.growth,
+  :root:not([data-theme="light"]) .category-pill.strategy {
+    color: var(--color-text-primary) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+  }
+
+  :root:not([data-theme="light"]) .article-image,
+  :root:not([data-theme="light"]) .featured-image {
+    background: linear-gradient(135deg, var(--primitive-dark) 0%, var(--primitive-charcoal) 100%) !important;
+  }
+
+  :root:not([data-theme="light"]) .policy-hero,
+  :root:not([data-theme="light"]) .lead-capture,
+  :root:not([data-theme="light"]) .newsletter-section,
+  :root:not([data-theme="light"]) .newsletter-cta,
+  :root:not([data-theme="light"]) .mid-article-cta,
+  :root:not([data-theme="light"]) .key-takeaways,
+  :root:not([data-theme="light"]) .contact-info-box {
+    background: linear-gradient(135deg, var(--primitive-dark) 0%, var(--primitive-charcoal) 100%);
+  }
+
+  :root:not([data-theme="light"]) .approach-step-num,
+  :root:not([data-theme="light"]) .headshot-circle {
+    background: var(--primitive-charcoal);
+  }
+
+  :root:not([data-theme="light"]) .mobile-cta {
     background: linear-gradient(to top, var(--primitive-charcoal) 0%, rgba(27, 40, 56, 0.95) 100%);
   }
 }
