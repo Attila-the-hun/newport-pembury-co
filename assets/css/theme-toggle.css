@@ -5,21 +5,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 9999px;
-  border: 1px solid var(--color-border, rgba(27, 40, 56, 0.1));
+  border: none;
   background: transparent;
   cursor: pointer;
-  margin-right: 12px;
-  transition: background 200ms ease, border-color 200ms ease;
+  margin-left: 16px;
+  transition: opacity 200ms ease;
   padding: 0;
+  opacity: 0.45;
   -webkit-tap-highlight-color: transparent;
 }
 
 .theme-toggle-btn:hover {
-  background: rgba(197, 165, 90, 0.08);
-  border-color: rgba(197, 165, 90, 0.3);
+  opacity: 1;
 }
 
 .theme-toggle-btn:focus-visible {
@@ -35,15 +35,15 @@
 .theme-toggle-btn .icon-sun,
 .theme-toggle-btn .icon-moon {
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   transition: opacity 300ms ease, transform 300ms ease;
 }
 
 /* SVG icon styling */
 .theme-toggle-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -59,32 +59,30 @@
 /* Dark mode adjustments */
 html[data-theme="dark"] .theme-toggle-btn {
   color: var(--brand-gold, #C5A55A);
-  border-color: rgba(255, 255, 255, 0.1);
 }
 
 html[data-theme="dark"] .theme-toggle-btn:hover {
-  background: rgba(212, 184, 122, 0.1);
-  border-color: rgba(197, 165, 90, 0.3);
+  opacity: 1;
 }
 
 /* Mobile responsive */
 @media (max-width: 768px) {
   .theme-toggle-btn {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     margin: 12px auto 4px;
-    order: -1;
+    opacity: 0.6;
   }
 
   .theme-toggle-btn .icon-sun,
   .theme-toggle-btn .icon-moon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 
   .theme-toggle-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 }
 
