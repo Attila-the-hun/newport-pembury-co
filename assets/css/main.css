@@ -366,9 +366,9 @@ nav.scrolled {
   box-shadow: 0 4px 24px rgba(27, 40, 56, 0.06);
 }
 
-/* Override Tailwind justify-between — logo + links left, CTA right */
+/* Nav container: position relative so centred links can anchor to it */
 #navbar > div {
-  justify-content: flex-start;
+  position: relative;
 }
 
 .nav-logo {
@@ -384,13 +384,17 @@ nav.scrolled {
   color: var(--brand-gold);
 }
 
+/* Centre nav links in the navbar, independent of logo/CTA widths */
 .nav-links {
   display: flex;
   align-items: center;
   list-style: none;
-  margin: 0 0 0 48px;
+  margin: 0;
   padding: 0;
   gap: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .nav-links li {
@@ -403,9 +407,9 @@ nav.scrolled {
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.02em;
-  padding: 10px 16px;
+  padding: 14px 20px;
   position: relative;
-  transition: color 0.3s var(--ease-smooth), opacity 0.3s var(--ease-smooth);
+  transition: color 0.3s var(--ease-smooth);
 }
 
 .nav-links a.active {
@@ -416,9 +420,9 @@ nav.scrolled {
 .nav-links a::after {
   content: '';
   position: absolute;
-  bottom: 2px;
-  left: 16px;
-  right: 16px;
+  bottom: 4px;
+  left: 20px;
+  right: 20px;
   height: 1.5px;
   background: var(--brand-gold);
   transform: scaleX(0);
@@ -436,15 +440,6 @@ nav.scrolled {
   color: var(--brand-gold);
 }
 
-.nav-links:hover a {
-  opacity: 0.5;
-}
-
-.nav-links:hover a:hover,
-.nav-links:hover a.active {
-  opacity: 1;
-}
-
 .nav-cta {
   display: inline-flex;
   margin-left: auto;
@@ -456,8 +451,8 @@ nav.scrolled {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
   background: none;
   border: none;
@@ -503,6 +498,7 @@ nav.scrolled {
     top: 100%;
     left: 0;
     right: 0;
+    transform: none;
     flex-direction: column;
     background: rgba(255, 255, 255, 0.99);
     backdrop-filter: blur(10px);
