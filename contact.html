@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Newport Pembury & Co</title>
+    <meta name="description" content="Schedule a free 30-minute consultation with Newport Pembury & Co. Confidential, no obligation financial advisory discussion.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/theme-toggle.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { corePlugins: { preflight: false } }</script>
+    <script src="assets/js/theme-toggle.js"></script>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://newportpembury.com.au/contact">
+    <meta property="og:title" content="Contact Newport Pembury & Co | Schedule Your Free Consultation">
+    <meta property="og:description" content="Schedule a free 30-minute consultation with Newport Pembury & Co. Confidential, no obligation financial advisory discussion.">
+    <meta property="og:image" content="https://newportpembury.com.au/og-image.jpg">
+    <meta property="og:locale" content="en_AU">
+    <meta property="og:site_name" content="Newport Pembury & Co">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact Newport Pembury & Co | Schedule Your Free Consultation">
+    <meta name="twitter:description" content="Schedule a free 30-minute consultation with Newport Pembury & Co. Confidential, no obligation financial advisory discussion.">
+    <meta name="twitter:image" content="https://newportpembury.com.au/og-image.jpg">
+    <link rel="canonical" href="https://newportpembury.com.au/contact">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://newportpembury.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Contact",
+          "item": "https://newportpembury.com.au/contact"
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="nav-logo">Newport Pembury <span class="gold-amp">&amp;</span> Co</a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="/">Home</a>
+                <a href="/about">Our Firm</a>
+                <a href="/services">What We Do</a>
+                <a href="/insights/">Insights</a>
+                <a href="/contact" class="active" aria-current="page">Get in Touch</a>
+            </div>
+            <div class="theme-toggle" role="radiogroup" aria-label="Color theme">
+                <button class="theme-btn" data-theme="light" aria-label="Light theme" title="Light">☀</button>
+                <button class="theme-btn" data-theme="auto" aria-label="Auto theme" title="Auto">●</button>
+                <button class="theme-btn" data-theme="dark" aria-label="Dark theme" title="Dark">☾</button>
+            </div>
+            <a href="/contact" class="btn btn-primary btn-sm nav-cta">
+                Book My Free Call
+            </a>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li aria-current="page">Contact</li>
+        </ol>
+    </nav>
+
+    <!-- Main content -->
+    <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero-section" style="background: linear-gradient(135deg, var(--color-bg-inverse) 0%, var(--primitive-charcoal) 100%);">
+        <h1>Start the Conversation</h1>
+        <p>Every engagement begins with understanding. Schedule your confidential 30-minute consultation to discuss your business needs.</p>
+    </section>
+
+    <!-- Main Content -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="content-wrapper reveal">
+                <!-- Left: Consultation Booking Form -->
+                <div>
+                    <div class="form-container">
+                        <h2 style="font-size: 1.8rem; margin-bottom: 30px; color: var(--color-text-primary);">Schedule Your Free Consultation</h2>
+
+                        <div id="successAlert" class="alert alert-success" role="alert" aria-live="polite">
+                            <strong>Success!</strong> Your consultation request has been received. We'll be in touch within 24 hours.
+                        </div>
+                        <div id="errorAlert" class="alert alert-error" role="alert" aria-live="polite"></div>
+
+                        <form id="consultationForm" method="POST" action="/api/contact" novalidate>
+                            <!-- Honeypot field for spam protection -->
+                            <input type="text" name="_gotcha" class="honeypot" aria-hidden="true" tabindex="-1">
+
+                            <!-- First Name -->
+                            <div class="form-group">
+                                <label for="firstName">First Name <span style="color: var(--color-error, #c0392b);">*</span><span class="sr-only">(Required)</span></label>
+                                <input type="text" id="firstName" name="firstName" required aria-required="true" aria-describedby="firstName-error">
+                                <div id="firstName-error" class="input-feedback" role="alert"></div>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="form-group">
+                                <label for="lastName">Last Name <span style="color: var(--color-error, #c0392b);">*</span><span class="sr-only">(Required)</span></label>
+                                <input type="text" id="lastName" name="lastName" required aria-required="true" aria-describedby="lastName-error">
+                                <div id="lastName-error" class="input-feedback" role="alert"></div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email">Email <span style="color: var(--color-error, #c0392b);">*</span><span class="sr-only">(Required)</span></label>
+                                <input type="email" id="email" name="email" required aria-required="true" aria-describedby="email-error">
+                                <div id="email-error" class="input-feedback" role="alert"></div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="form-group">
+                                <label for="phone">Phone <span style="color: var(--color-error, #c0392b);">*</span><span class="sr-only">(Required)</span></label>
+                                <input type="tel" id="phone" name="phone" required aria-required="true" aria-describedby="phone-error">
+                                <div id="phone-error" class="input-feedback" role="alert"></div>
+                            </div>
+
+                            <!-- Company Name -->
+                            <div class="form-group">
+                                <label for="companyName">Company Name <span style="color: var(--color-error, #c0392b);">*</span><span class="sr-only">(Required)</span></label>
+                                <input type="text" id="companyName" name="companyName" required aria-required="true" aria-describedby="companyName-error">
+                                <div id="companyName-error" class="input-feedback" role="alert"></div>
+                            </div>
+
+                            <!-- Company Revenue -->
+                            <div class="form-group">
+                                <label for="companyRevenue">Company Revenue</label>
+                                <select id="companyRevenue" name="companyRevenue">
+                                    <option value="">Select revenue range</option>
+                                    <option value="Under $1M">Under $1M</option>
+                                    <option value="$1M-$5M">$1M - $5M</option>
+                                    <option value="$5M-$20M">$5M - $20M</option>
+                                    <option value="$20M-$50M">$20M - $50M</option>
+                                    <option value="$50M+">$50M+</option>
+                                </select>
+                            </div>
+
+                            <!-- Industry -->
+                            <div class="form-group">
+                                <label for="industry">Industry</label>
+                                <select id="industry" name="industry">
+                                    <option value="">Select industry</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Manufacturing">Manufacturing</option>
+                                    <option value="Professional Services">Professional Services</option>
+                                    <option value="Tourism & Hospitality">Tourism & Hospitality</option>
+                                    <option value="E-Commerce">E-Commerce</option>
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <!-- What are you looking for -->
+                            <div class="form-group">
+                                <label style="margin-bottom: 12px;">What are you looking for?</label>
+                                <div class="checkboxes-group">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="mAndA" name="services" value="M&A Advisory">
+                                        <label for="mAndA">M&A Advisory</label>
+                                    </div>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="modeling" name="services" value="Financial Modeling & Forecasting">
+                                        <label for="modeling">Financial Modeling & Forecasting</label>
+                                    </div>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="cashflow" name="services" value="Cash Flow Strategy">
+                                        <label for="cashflow">Cash Flow Strategy</label>
+                                    </div>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="systems" name="services" value="Systems & Digital Transformation">
+                                        <label for="systems">Systems & Digital Transformation</label>
+                                    </div>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="debt" name="services" value="Debt Restructuring">
+                                        <label for="debt">Debt Restructuring</label>
+                                    </div>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="planning" name="services" value="Strategic Financial Planning">
+                                        <label for="planning">Strategic Financial Planning</label>
+                                    </div>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="guidance" name="services" value="Not sure yet — I need guidance">
+                                        <label for="guidance">Not sure yet — I need guidance</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Notes -->
+                            <div class="form-group">
+                                <label for="notes">Additional Notes</label>
+                                <textarea id="notes" name="notes" rows="4" placeholder="Tell us a bit about your situation..."></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" id="submitBtn">Schedule My Consultation</button>
+
+                            <!-- Form Note -->
+                            <p class="form-note">Your information is strictly confidential. We'll respond within 24 hours.</p>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right: Contact Information + Trust Signals -->
+                <div>
+                    <div class="contact-info-box">
+                        <h3>Prefer to reach out directly?</h3>
+
+                        <div class="contact-item">
+                            <label>Email</label>
+                            <a href="mailto:hello@newportpembury.com.au">hello@newportpembury.com.au</a>
+                        </div>
+
+                        <div class="contact-item">
+                            <label>Phone</label>
+                            <a href="tel:+61280051234">+61 2 8005 1234</a>
+                        </div>
+
+                        <div class="contact-item">
+                            <label>Location</label>
+                            <p>Sydney, Australia</p>
+                        </div>
+
+                        <div class="contact-item">
+                            <label>Operating Hours</label>
+                            <p>Monday – Friday, 8:00 AM – 6:00 PM AEST</p>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/timothymessieh/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div class="credentials-line">
+                            Chartered Accountant · 20 Years Experience
+                        </div>
+
+                        <div class="trust-signals">
+                            <h4>Why work with us?</h4>
+                            <div class="trust-signal-item">
+                                <div class="check-mark">✓</div>
+                                <span>30-minute consultation, completely free</span>
+                            </div>
+                            <div class="trust-signal-item">
+                                <div class="check-mark">✓</div>
+                                <span>100% confidential</span>
+                            </div>
+                            <div class="trust-signal-item">
+                                <div class="check-mark">✓</div>
+                                <span>No obligation to proceed</span>
+                            </div>
+                            <div class="trust-signal-item">
+                                <div class="check-mark">✓</div>
+                                <span>Response within 24 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-padding" style="background-color: var(--color-bg-surface);">
+        <div class="container">
+            <div class="faq-section reveal">
+                <h2>Frequently Asked Questions</h2>
+
+                <div class="accordion">
+                    <!-- FAQ Item 1 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-1">
+                            <h3 class="accordion-title">What is a fractional CFO?</h3>
+                            <div class="accordion-toggle">+</div>
+                        </div>
+                        <div class="accordion-content" id="faq-1" role="region">
+                            <div class="accordion-text">
+                                A fractional CFO provides part-time, strategic financial leadership to businesses that need CFO-level expertise without the full-time salary commitment. You get the same calibre of financial strategy as a Fortune 500 company, scaled to your business.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-2">
+                            <h3 class="accordion-title">How much does it cost?</h3>
+                            <div class="accordion-toggle">+</div>
+                        </div>
+                        <div class="accordion-content" id="faq-2" role="region">
+                            <div class="accordion-text">
+                                Engagements start from $3,000/month for retainer arrangements, or from $5,000 for project-based work. Interim CFO placements are priced based on scope and duration. Every engagement is customised — we'll discuss pricing in your consultation.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-3">
+                            <h3 class="accordion-title">How quickly can you start?</h3>
+                            <div class="accordion-toggle">+</div>
+                        </div>
+                        <div class="accordion-content" id="faq-3" role="region">
+                            <div class="accordion-text">
+                                For most engagements, we can begin within one to two weeks of agreement. For urgent situations — pending transactions, compliance deadlines, or interim coverage — we can mobilise within days.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-4">
+                            <h3 class="accordion-title">Do you work with businesses outside Sydney?</h3>
+                            <div class="accordion-toggle">+</div>
+                        </div>
+                        <div class="accordion-content" id="faq-4" role="region">
+                            <div class="accordion-text">
+                                Absolutely. While we're based in Sydney, we work with businesses across Australia and internationally. Most of our work is conducted remotely with periodic in-person sessions as needed.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-5">
+                            <h3 class="accordion-title">What industries do you specialise in?</h3>
+                            <div class="accordion-toggle">+</div>
+                        </div>
+                        <div class="accordion-content" id="faq-5" role="region">
+                            <div class="accordion-text">
+                                Our experience spans manufacturing, tourism, professional services, technology, and e-commerce. The financial principles we apply are universal, but we bring particular depth in businesses with seasonal revenue patterns, M&A activity, or complex systems requirements.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="cta-banner reveal" style="background: linear-gradient(135deg, var(--color-bg-inverse) 0%, var(--primitive-charcoal) 100%); box-shadow: 0 10px 30px rgba(27, 40, 56, 0.2);">
+                <h3>Not Ready for a Consultation?</h3>
+                <p>That's perfectly fine. Drop us an email with your question and we'll get back to you within 24 hours. No pressure, just expertise.</p>
+                <a href="mailto:hello@newportpembury.com.au" class="cta-button">Email Us Directly</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    </main>
+
+    <footer style="background: var(--footer-bg); color: var(--footer-text); padding: 64px 24px 24px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 48px; max-width: 1200px; margin: 0 auto 48px;">
+            <div>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: var(--color-action-primary); margin-bottom: 8px;">Newport Pembury &amp; Co</h3>
+                <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 16px;">Strategic Financial Leadership</p>
+                <div style="display: flex; gap: 16px; margin-top: 16px;">
+                    <a href="https://www.linkedin.com/in/timothymessieh/" style="width: 36px; height: 36px; border-radius: 6px; background: rgba(197, 165, 90, 0.1); display: flex; align-items: center; justify-content: center; color: var(--color-action-primary); text-decoration: none; font-weight: 700; transition: all 0.3s;" aria-label="LinkedIn">in</a>
+                </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <h4 style="font-size: 13px; color: white; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px;">Services</h4>
+                <a href="/services" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">M&amp;A Advisory</a>
+                <a href="/services" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Financial Modeling</a>
+                <a href="/services" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Cash Flow Strategy</a>
+                <a href="/services" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Systems &amp; Transformation</a>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <h4 style="font-size: 13px; color: white; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px;">Company</h4>
+                <a href="/about" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Our Firm</a>
+                <a href="/services" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">What We Do</a>
+                <a href="/insights/" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Insights</a>
+                <a href="/contact" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Get in Touch</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Get in Touch</h4>
+                <a href="mailto:hello@newportpembury.com.au">hello@newportpembury.com.au</a>
+                <a href="tel:+61280051234">+61 2 8005 1234</a>
+                <p class="footer-location">Sydney, Australia</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Newport Pembury &amp; Co. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form Validation
+        const form = document.getElementById('consultationForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successAlert = document.getElementById('successAlert');
+        const errorAlert = document.getElementById('errorAlert');
+
+        const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'companyName'];
+        const fields = {
+            firstName: { type: 'text', minLength: 2 },
+            lastName: { type: 'text', minLength: 2 },
+            email: { type: 'email' },
+            phone: { type: 'tel' },
+            companyName: { type: 'text', minLength: 2 }
+        };
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function validatePhone(phone) {
+            return /^[\d\s\-\+\(\)]+$/.test(phone) && phone.replace(/\D/g, '').length >= 10;
+        }
+
+        function validateField(fieldId) {
+            const field = document.getElementById(fieldId);
+            const feedback = field.nextElementSibling;
+            let isValid = false;
+
+            if (!field.value.trim() && requiredFields.includes(fieldId)) {
+                feedback.textContent = 'This field is required';
+                feedback.classList.add('error', 'show');
+                field.classList.remove('valid');
+                field.classList.add('error');
+                return false;
+            }
+
+            if (!field.value.trim()) {
+                field.classList.remove('valid', 'error');
+                feedback.classList.remove('show');
+                return true;
+            }
+
+            if (fieldId === 'email' && !validateEmail(field.value)) {
+                feedback.innerHTML = '<span>✗</span> Invalid email format';
+                feedback.classList.add('error', 'show');
+                field.classList.remove('valid');
+                field.classList.add('error');
+                return false;
+            }
+
+            if (fieldId === 'phone' && !validatePhone(field.value)) {
+                feedback.innerHTML = '<span>✗</span> Invalid phone number';
+                feedback.classList.add('error', 'show');
+                field.classList.remove('valid');
+                field.classList.add('error');
+                return false;
+            }
+
+            if (fields[fieldId].minLength && field.value.length < fields[fieldId].minLength) {
+                feedback.textContent = `Minimum ${fields[fieldId].minLength} characters required`;
+                feedback.classList.add('error', 'show');
+                field.classList.remove('valid');
+                field.classList.add('error');
+                return false;
+            }
+
+            feedback.innerHTML = '<span>✓</span> Looks good';
+            feedback.classList.remove('error');
+            feedback.classList.add('valid', 'show');
+            field.classList.remove('error');
+            field.classList.add('valid');
+            return true;
+        }
+
+        // Real-time validation
+        requiredFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            field.addEventListener('blur', () => validateField(fieldId));
+            field.addEventListener('input', () => {
+                if (field.classList.contains('valid') || field.classList.contains('error')) {
+                    validateField(fieldId);
+                }
+            });
+        });
+
+        // Form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Validate all required fields
+            let isFormValid = true;
+            requiredFields.forEach(fieldId => {
+                if (!validateField(fieldId)) {
+                    isFormValid = false;
+                }
+            });
+
+            if (!isFormValid) {
+                errorAlert.textContent = 'Please fill in all required fields correctly.';
+                errorAlert.classList.add('show');
+                return;
+            }
+
+            // Hide alerts
+            successAlert.classList.remove('show');
+            errorAlert.classList.remove('show');
+
+            // Prepare form data
+            const formData = new FormData(form);
+            const services = Array.from(document.querySelectorAll('input[name="services"]:checked'))
+                .map(cb => cb.value);
+
+            if (services.length > 0) {
+                formData.set('services', services.join(', '));
+            }
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            try {
+                // Build JSON payload for Cloudflare Worker
+                const payload = {};
+                for (const [key, value] of formData.entries()) {
+                    if (key === 'services') continue; // handled separately
+                    payload[key] = value;
+                }
+                payload.services = services;
+
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.ok) {
+                    successAlert.classList.add('show');
+                    form.reset();
+                    requiredFields.forEach(fieldId => {
+                        document.getElementById(fieldId).classList.remove('valid', 'error');
+                        document.getElementById(fieldId).nextElementSibling.classList.remove('show');
+                    });
+
+                    // Scroll to success message
+                    successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    errorAlert.textContent = result.message || 'There was an error submitting your form. Please try again.';
+                    errorAlert.classList.add('show');
+                }
+            } catch (error) {
+                errorAlert.textContent = 'Network error. Please check your connection and try again.';
+                errorAlert.classList.add('show');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Schedule My Consultation';
+            }
+        });
+
+        // Accordion Functionality
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const isActive = header.classList.contains('active');
+
+                // Close all other accordions
+                accordionHeaders.forEach(h => {
+                    h.classList.remove('active');
+                    document.getElementById(h.getAttribute('aria-controls')).classList.remove('active');
+                    h.setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle current accordion
+                if (!isActive) {
+                    header.classList.add('active');
+                    document.getElementById(header.getAttribute('aria-controls')).classList.add('active');
+                    header.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            // Keyboard support
+            header.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    header.click();
+                }
+            });
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                const expanded = hamburger.classList.contains('active');
+                hamburger.setAttribute('aria-expanded', expanded);
+            });
+
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        }
+
+        // Navbar shadow on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

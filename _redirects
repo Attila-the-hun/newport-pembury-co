@@ -1,0 +1,6 @@
+# Newport Pembury & Co — Cloudflare Pages Redirects
+# Format: from  to  status
+
+/article-ma-readiness.html  /insights/ma-readiness-checklist/  301
+/article-ma-readiness  /insights/ma-readiness-checklist/  301
+/insights.html  /insights/  301

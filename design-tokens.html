@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Tokens | Newport Pembury &amp; Co</title>
+<meta name="description" content="Interactive design token reference for Newport Pembury & Co. Browse colour, spacing, typography, shadow, radius, and motion tokens across all three tiers with dark mode, WCAG contrast, and code export.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --p-charcoal: #1B2838; --p-gold: #C5A55A; --p-gold-light: #D4C085;
+  --p-dark: #0F1923; --p-slate: #6B7B8D; --p-ivory: #F5F0E8;
+  --p-cream: #FAF8F4; --p-white: #FFFFFF; --p-success: #28A745;
+  --p-error: #DC3545; --p-warning: #FFC107;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'DM Mono', 'SF Mono', monospace;
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,0.1); --ease: cubic-bezier(0.4,0,0.2,1);
+  /* Theme tokens (light) */
+  --theme-bg: var(--p-cream); --theme-bg-alt: var(--p-ivory); --theme-surface: var(--p-white);
+  --theme-text: var(--p-charcoal); --theme-text-secondary: var(--p-slate);
+  --theme-border: rgba(27,40,56,0.08); --theme-sidebar-bg: var(--p-dark);
+  --theme-sidebar-text: rgba(255,255,255,0.7); --theme-sidebar-border: rgba(255,255,255,0.06);
+}
+[data-theme="dark"] {
+  --theme-bg: #0D1520; --theme-bg-alt: var(--p-dark); --theme-surface: #152030;
+  --theme-text: var(--p-ivory); --theme-text-secondary: #A0AEBB;
+  --theme-border: rgba(255,255,255,0.08); --theme-sidebar-bg: #080E16;
+  --theme-sidebar-text: rgba(255,255,255,0.6); --theme-sidebar-border: rgba(255,255,255,0.04);
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); color: var(--theme-text); background: var(--theme-bg); line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s; }
+
+.page-wrapper { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+
+/* Sidebar */
+.sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--theme-sidebar-bg); color: var(--theme-sidebar-text); border-right: 1px solid var(--theme-sidebar-border); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.15) transparent; }
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+.sidebar-header { padding: 24px 20px 16px; border-bottom: 1px solid var(--theme-sidebar-border); }
+.sidebar-header h1 { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--p-white); letter-spacing: -0.02em; margin-bottom: 2px; }
+.sidebar-header .subtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--p-gold); font-weight: 500; }
+.sidebar-nav { padding: 12px 0; }
+.sidebar-nav .nav-group { margin-bottom: 4px; }
+.sidebar-nav .nav-group-title { display: block; padding: 8px 20px 4px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.35); font-weight: 700; }
+.sidebar-nav a { display: flex; align-items: center; gap: 8px; padding: 6px 20px 6px 28px; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; transition: all 0.15s var(--ease); border-left: 2px solid transparent; }
+.sidebar-nav a:hover { color: var(--p-white); background: rgba(255,255,255,0.04); }
+.sidebar-nav a.active { color: var(--p-gold); border-left-color: var(--p-gold); background: rgba(197,165,90,0.06); font-weight: 500; }
+.sidebar-nav a .tier-badge { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 700; letter-spacing: 0.04em; line-height: 1.4; }
+.tier-badge.t1 { background: rgba(220,53,69,0.15); color: #ff6b7a; }
+.tier-badge.t2 { background: rgba(197,165,90,0.15); color: var(--p-gold); }
+.tier-badge.t3 { background: rgba(40,167,69,0.15); color: #5cb85c; }
+
+/* Main */
+.main { padding: 32px 48px 80px; max-width: 1100px; }
+
+/* Page Header */
+.page-header { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--theme-border); }
+.page-header h1 { font-family: var(--font-display); font-size: clamp(32px,4vw,44px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 8px; }
+.page-header p { font-size: 16px; color: var(--theme-text-secondary); max-width: 640px; line-height: 1.65; }
+.tier-legend { display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--theme-text-secondary); }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+.legend-dot.t1 { background: #DC3545; } .legend-dot.t2 { background: var(--p-gold); } .legend-dot.t3 { background: var(--p-success); }
+
+/* Theme toggle */
+.theme-toggle { display: flex; gap: 4px; background: rgba(255,255,255,0.06); border-radius: 6px; padding: 3px; margin: 12px 20px; }
+.theme-toggle button { flex: 1; padding: 6px 0; border: none; border-radius: 4px; background: transparent; color: rgba(255,255,255,0.5); font-family: var(--font-body); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+.theme-toggle button.active { background: var(--p-gold); color: var(--p-dark); }
+
+/* Toolbar */
+.toolbar { display: flex; gap: 10px; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+.search-box { flex: 1; min-width: 220px; position: relative; }
+.search-box input { width: 100%; padding: 10px 16px 10px 40px; border: 1px solid var(--theme-border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 14px; background: var(--theme-surface); color: var(--theme-text); transition: border-color 0.2s, box-shadow 0.2s; }
+.search-box input:focus { outline: none; border-color: var(--p-gold); box-shadow: 0 0 0 3px rgba(197,165,90,0.12); }
+.search-box input::placeholder { color: var(--theme-text-secondary); }
+.search-box svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--theme-text-secondary); }
+.filter-btn { display: flex; align-items: center; gap: 6px; padding: 9px 14px; border: 1px solid var(--theme-border); border-radius: var(--radius-md); background: var(--theme-surface); font-family: var(--font-body); font-size: 12px; color: var(--theme-text); cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.filter-btn:hover { border-color: var(--p-gold); }
+.filter-btn.active { background: var(--p-charcoal); color: var(--p-white); border-color: var(--p-charcoal); }
+[data-theme="dark"] .filter-btn.active { background: var(--p-gold); color: var(--p-dark); }
+.results-count { font-size: 12px; color: var(--theme-text-secondary); margin-left: auto; }
+.export-btn { padding: 9px 14px; border: 1px solid var(--p-gold); border-radius: var(--radius-md); background: transparent; color: var(--p-gold); font-family: var(--font-body); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+.export-btn:hover { background: var(--p-gold); color: var(--p-dark); }
+
+/* Format toggle (mini bar in toolbar) */
+.format-toggle { display: flex; gap: 2px; background: var(--theme-border); border-radius: 5px; padding: 2px; }
+.format-toggle button { padding: 5px 10px; border: none; border-radius: 3px; background: transparent; font-family: var(--font-mono); font-size: 10px; color: var(--theme-text-secondary); cursor: pointer; transition: all 0.15s; }
+.format-toggle button.active { background: var(--theme-surface); color: var(--theme-text); font-weight: 600; box-shadow: var(--shadow-sm); }
+
+/* Stats bar */
+.stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px,1fr)); gap: 10px; margin-bottom: 28px; }
+.stat-card { background: var(--theme-surface); border-radius: var(--radius-md); padding: 14px 18px; box-shadow: var(--shadow-sm); border: 1px solid var(--theme-border); }
+.stat-card .stat-value { font-family: var(--font-display); font-size: 30px; font-weight: 700; line-height: 1.1; }
+.stat-card .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--theme-text-secondary); margin-top: 3px; font-weight: 600; }
+
+/* Sections */
+.section-header { display: flex; align-items: center; gap: 12px; margin-top: 40px; margin-bottom: 6px; scroll-margin-top: 24px; }
+.section-header h2 { font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+.section-count { font-size: 11px; color: var(--theme-text-secondary); background: var(--theme-bg-alt); padding: 2px 8px; border-radius: 10px; font-family: var(--font-mono); }
+.subsection-header { margin-top: 24px; margin-bottom: 10px; scroll-margin-top: 24px; }
+.subsection-header h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--theme-text); }
+.section-description { font-size: 13px; color: var(--theme-text-secondary); margin-bottom: 16px; line-height: 1.55; max-width: 680px; }
+.usage-tip { font-size: 12px; padding: 10px 14px; border-radius: var(--radius-sm); margin-bottom: 14px; line-height: 1.5; border-left: 3px solid; }
+.usage-tip.do { background: rgba(40,167,69,0.06); border-color: var(--p-success); color: var(--p-success); }
+.usage-tip.dont { background: rgba(220,53,69,0.06); border-color: var(--p-error); color: var(--p-error); }
+[data-theme="dark"] .usage-tip.do { background: rgba(40,167,69,0.1); }
+[data-theme="dark"] .usage-tip.dont { background: rgba(220,53,69,0.1); }
+
+/* Token table */
+.token-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 10px; }
+.token-table thead th { text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--theme-text-secondary); padding: 8px 14px; border-bottom: 2px solid var(--theme-border); font-weight: 600; position: sticky; top: 0; background: var(--theme-bg); z-index: 1; }
+.token-table tbody tr { transition: background 0.12s; }
+.token-table tbody tr:hover { background: rgba(197,165,90,0.04); }
+.token-table td { padding: 12px 14px; border-bottom: 1px solid var(--theme-border); vertical-align: middle; font-size: 13px; }
+.token-table td:first-child { width: 34%; }
+
+/* Token name pill */
+.token-name { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; background: var(--theme-bg-alt); border-radius: 4px; font-family: var(--font-mono); font-size: 11.5px; color: var(--theme-text); font-weight: 500; cursor: pointer; transition: background 0.15s; word-break: break-all; }
+.token-name:hover { background: rgba(197,165,90,0.12); }
+.token-name .copy-icon { width: 11px; height: 11px; opacity: 0; transition: opacity 0.15s; flex-shrink: 0; }
+.token-name:hover .copy-icon { opacity: 0.5; }
+.token-name.copied { background: rgba(40,167,69,0.12); }
+.token-description { font-size: 11.5px; color: var(--theme-text-secondary); margin-top: 3px; line-height: 1.4; }
+.token-tier { display: inline-block; font-size: 8px; padding: 1px 4px; border-radius: 3px; font-weight: 700; letter-spacing: 0.04em; vertical-align: middle; margin-left: 5px; }
+.token-version { font-size: 10px; color: var(--theme-text-secondary); font-family: var(--font-mono); margin-left: 6px; opacity: 0.6; }
+
+/* Value previews */
+.value-cell { white-space: nowrap; }
+.color-preview { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.color-swatch { width: 32px; height: 32px; border-radius: 6px; border: 1px solid rgba(128,128,128,0.15); flex-shrink: 0; }
+.color-value { font-family: var(--font-mono); font-size: 11.5px; }
+.color-value .ref { font-size: 10px; color: var(--theme-text-secondary); display: block; margin-top: 1px; }
+.color-dual { display: flex; gap: 16px; align-items: center; }
+.color-dual .theme-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--theme-text-secondary); font-weight: 600; width: 32px; text-align: center; }
+.contrast-badge { display: inline-block; font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 700; margin-left: 4px; }
+.contrast-badge.pass { background: rgba(40,167,69,0.12); color: #28A745; }
+.contrast-badge.fail { background: rgba(220,53,69,0.12); color: #DC3545; }
+.contrast-info { font-size: 10px; color: var(--theme-text-secondary); font-family: var(--font-mono); }
+
+.spacing-preview { display: flex; align-items: center; gap: 8px; }
+.spacing-bar { height: 10px; background: linear-gradient(90deg, var(--p-gold), var(--p-gold-light)); border-radius: 2px; min-width: 2px; }
+.spacing-value { font-family: var(--font-mono); font-size: 11.5px; }
+
+.shadow-preview { display: inline-flex; align-items: center; gap: 8px; }
+.shadow-swatch { width: 44px; height: 28px; background: var(--theme-surface); border-radius: 6px; flex-shrink: 0; }
+.shadow-value { font-family: var(--font-mono); font-size: 10.5px; max-width: 260px; word-break: break-all; }
+
+.radius-preview { display: inline-flex; align-items: center; gap: 8px; }
+.radius-swatch { width: 32px; height: 32px; border: 2px solid var(--p-gold); background: rgba(197,165,90,0.06); flex-shrink: 0; }
+
+.easing-preview { display: inline-flex; align-items: center; gap: 8px; }
+.easing-swatch { width: 44px; height: 20px; position: relative; overflow: hidden; }
+.easing-dot { width: 7px; height: 7px; background: var(--p-gold); border-radius: 50%; position: absolute; top: 50%; transform: translateY(-50%); left: 0; }
+.token-table tbody tr:hover .easing-dot { animation: ease-demo 1s forwards; }
+@keyframes ease-demo { to { left: calc(100% - 7px); } }
+
+.font-preview { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Toast */
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--p-charcoal); color: var(--p-white); padding: 10px 20px; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; box-shadow: var(--shadow-lg); transform: translateY(80px); opacity: 0; transition: all 0.3s var(--ease); z-index: 100; }
+.toast.visible { transform: translateY(0); opacity: 1; }
+
+/* No results */
+.no-results { text-align: center; padding: 60px 20px; color: var(--theme-text-secondary); }
+.no-results h3 { font-size: 18px; margin-bottom: 8px; color: var(--theme-text); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .page-wrapper { grid-template-columns: 1fr; }
+  .sidebar { position: relative; height: auto; display: none; }
+  .main { padding: 24px 20px 60px; }
+  .color-dual { flex-direction: column; gap: 6px; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>Newport Pembury &amp; Co</h1>
+      <div class="subtitle">Design Tokens v1.0</div>
+    </div>
+    <div class="theme-toggle">
+      <button onclick="setTheme('light')" class="active" data-theme-btn="light">Light</button>
+      <button onclick="setTheme('dark')" data-theme-btn="dark">Dark</button>
+      <button onclick="setTheme('auto')" data-theme-btn="auto">Auto</button>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <div class="nav-group"><span class="nav-group-title">Overview</span><a href="#overview" class="active">All tokens <span class="count" id="nav-total">0</span></a></div>
+      <div class="nav-group"><span class="nav-group-title">Colour</span>
+        <a href="#color-brand">Brand palette <span class="tier-badge t1">T1</span></a>
+        <a href="#color-semantic">Semantic <span class="tier-badge t2">T2</span></a>
+        <a href="#color-feedback">Feedback <span class="tier-badge t2">T2</span></a>
+        <a href="#color-component">Component <span class="tier-badge t3">T3</span></a></div>
+      <div class="nav-group"><span class="nav-group-title">Spacing</span>
+        <a href="#spacing-scale">Scale (8px grid) <span class="tier-badge t1">T1</span></a>
+        <a href="#spacing-semantic">Layout <span class="tier-badge t2">T2</span></a></div>
+      <div class="nav-group"><span class="nav-group-title">Elevation</span>
+        <a href="#shadow">Shadow <span class="tier-badge t1">T1</span></a>
+        <a href="#radius">Radius <span class="tier-badge t1">T1</span></a></div>
+      <div class="nav-group"><span class="nav-group-title">Typography</span>
+        <a href="#font">Font families <span class="tier-badge t2">T2</span></a>
+        <a href="#type-scale">Type scale <span class="tier-badge t2">T2</span></a></div>
+      <div class="nav-group"><span class="nav-group-title">Motion</span>
+        <a href="#easing">Easing <span class="tier-badge t1">T1</span></a>
+        <a href="#duration">Duration <span class="tier-badge t2">T2</span></a></div>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="page-header" id="overview">
+      <h1>Design tokens</h1>
+      <p>The single source of truth for every colour, space, shadow, and motion value on the Newport Pembury &amp; Co website. All tokens follow a 3-tier architecture with dark mode support.</p>
+      <div class="tier-legend">
+        <div class="legend-item"><span class="legend-dot t1"></span> Tier 1 Primitive (raw values, never use directly)</div>
+        <div class="legend-item"><span class="legend-dot t2"></span> Tier 2 Semantic (intent-based, use 90% of the time)</div>
+        <div class="legend-item"><span class="legend-dot t3"></span> Tier 3 Component (specific overrides)</div>
+      </div>
+    </header>
+
+    <div class="stats-bar">
+      <div class="stat-card"><div class="stat-value" id="stat-total">0</div><div class="stat-label">Total tokens</div></div>
+      <div class="stat-card"><div class="stat-value" style="color:#DC3545" id="stat-t1">0</div><div class="stat-label">Primitive (T1)</div></div>
+      <div class="stat-card"><div class="stat-value" style="color:#C5A55A" id="stat-t2">0</div><div class="stat-label">Semantic (T2)</div></div>
+      <div class="stat-card"><div class="stat-value" style="color:#28A745" id="stat-t3">0</div><div class="stat-label">Component (T3)</div></div>
+      <div class="stat-card"><div class="stat-value" id="stat-categories">0</div><div class="stat-label">Categories</div></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="search" placeholder="Search tokens..." autocomplete="off">
+      </div>
+      <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
+      <button class="filter-btn" data-filter="1" onclick="setFilter('1')">T1</button>
+      <button class="filter-btn" data-filter="2" onclick="setFilter('2')">T2</button>
+      <button class="filter-btn" data-filter="3" onclick="setFilter('3')">T3</button>
+      <div class="format-toggle">
+        <button class="active" data-fmt="css" onclick="setFormat('css')">CSS</button>
+        <button data-fmt="scss" onclick="setFormat('scss')">SCSS</button>
+        <button data-fmt="json" onclick="setFormat('json')">JSON</button>
+      </div>
+      <button class="export-btn" onclick="downloadDTCG()">Download JSON</button>
+      <span class="results-count" id="results-count"></span>
+    </div>
+
+    <div id="token-sections"></div>
+    <div class="no-results" id="no-results" style="display:none;"><h3>No tokens found</h3><p>Try a different search term or clear your filters.</p></div>
+  </main>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+const TOKENS = [
+  // COLOUR — BRAND PALETTE (T1)
+  { section:"color-brand", sectionTitle:"Colour", subsection:"Brand palette", tier:1, type:"color", name:"--primitive-charcoal", value:"#1B2838", dark:"#1B2838", css:"--brand-charcoal", version:"v1.0", description:"Primary brand dark. Headings, nav backgrounds, footer, dark sections.", contrast:{bg:"#FAF8F4",ratio:"13.2:1",level:"AAA"} },
+  { section:"color-brand", tier:1, type:"color", name:"--primitive-gold", value:"#C5A55A", dark:"#C5A55A", css:"--brand-gold", version:"v1.0", description:"Primary brand accent. CTA buttons, focus rings, links on dark backgrounds.", contrast:{bg:"#0F1923",ratio:"6.8:1",level:"AA"} },
+  { section:"color-brand", tier:1, type:"color", name:"--primitive-gold-light", value:"#D4C085", dark:"#D4C085", css:"--brand-gold-light", version:"v1.0", description:"Gold hover state. Button hover backgrounds, gold accents on light surfaces.", contrast:{bg:"#0F1923",ratio:"8.4:1",level:"AAA"} },
+  { section:"color-brand", tier:1, type:"color", name:"--primitive-dark", value:"#0F1923", dark:"#0F1923", css:"--brand-dark", version:"v1.0", description:"Deepest dark. Footer background, button text on gold, dark mode base.", contrast:{bg:"#FAF8F4",ratio:"16.1:1",level:"AAA"} },
+  { section:"color-brand", tier:1, type:"color", name:"--primitive-slate", value:"#6B7B8D", dark:"#6B7B8D", css:"--brand-slate", version:"v1.0", description:"Secondary text colour. Captions, meta information, timestamps, labels.", contrast:{bg:"#FAF8F4",ratio:"4.7:1",level:"AA"} },
+  { section:"color-brand", tier:1, type:"color", name:"--primitive-ivory", value:"#F5F0E8", dark:"#F5F0E8", css:"--brand-ivory", version:"v1.0", description:"Warm neutral surface. Alternating section backgrounds, card backgrounds.", contrast:{bg:"#1B2838",ratio:"11.8:1",level:"AAA"} },
+  { section:"color-brand", tier:1, type:"color", name:"--primitive-cream", value:"#FAF8F4", dark:"#FAF8F4", css:"--brand-cream", version:"v1.0", description:"Lightest surface. Page background, softest background tier.", contrast:{bg:"#1B2838",ratio:"13.2:1",level:"AAA"} },
+  { section:"color-brand", tier:1, type:"color", name:"--primitive-white", value:"#FFFFFF", dark:"#FFFFFF", css:"--color-white", version:"v1.0", description:"Pure white. Card backgrounds, default surface, inverse text on dark.", contrast:{bg:"#1B2838",ratio:"14.5:1",level:"AAA"} },
+
+  // COLOUR — SEMANTIC (T2)
+  { section:"color-semantic", sectionTitle:"Colour", subsection:"Semantic", tier:2, type:"color", name:"--color-text-primary", value:"#1B2838", dark:"#F5F0E8", ref:"var(--primitive-charcoal)", css:"--color-text-primary", version:"v1.0", description:"Primary text. Body copy, headings, navigation links.", contrast:{bg:"#FAF8F4",ratio:"13.2:1",level:"AAA"}, usageDo:"Use for all body text, headings, and navigation", usageDont:"Don't use for decorative or muted elements" },
+  { section:"color-semantic", tier:2, type:"color", name:"--color-text-secondary", value:"#6B7B8D", dark:"#A0AEBB", ref:"var(--primitive-slate)", css:"--color-text-secondary", version:"v1.0", description:"Secondary text. Captions, helper text, meta dates, form labels.", contrast:{bg:"#FAF8F4",ratio:"4.7:1",level:"AA"} },
+  { section:"color-semantic", tier:2, type:"color", name:"--color-text-inverse", value:"#FAFAFA", dark:"#1B2838", css:"--color-text-inverse", version:"v1.0", description:"Light text on dark backgrounds. Hero text, footer text, CTA banner copy.", contrast:{bg:"#0F1923",ratio:"16.1:1",level:"AAA"} },
+  { section:"color-semantic", tier:2, type:"color", name:"--color-bg-primary", value:"#FAF8F4", dark:"#0D1520", ref:"var(--primitive-cream)", css:"--color-bg-primary", version:"v1.0", description:"Default page background. Applied to body and main content areas." },
+  { section:"color-semantic", tier:2, type:"color", name:"--color-bg-secondary", value:"#F5F0E8", dark:"#0F1923", ref:"var(--primitive-ivory)", css:"--color-bg-secondary", version:"v1.0", description:"Alternating section background. Creates visual rhythm between page sections." },
+  { section:"color-semantic", tier:2, type:"color", name:"--color-bg-inverse", value:"#0F1923", dark:"#F5F0E8", ref:"var(--primitive-dark)", css:"--color-bg-inverse", version:"v1.0", description:"Dark backgrounds. Hero sections, CTA banners, lead capture, footer." },
+  { section:"color-semantic", tier:2, type:"color", name:"--color-action-primary", value:"#C5A55A", dark:"#D4B87A", ref:"var(--primitive-gold)", css:"--color-action-primary", version:"v1.0", description:"Primary interactive colour. CTA buttons, active nav, focus indicators.", contrast:{bg:"#0F1923",ratio:"6.8:1",level:"AA"}, usageDo:"Use on dark backgrounds for CTA buttons and links", usageDont:"Don't use as text colour on light backgrounds (fails 4.5:1)" },
+  { section:"color-semantic", tier:2, type:"color", name:"--color-border", value:"rgba(27,40,56,0.06)", dark:"rgba(255,255,255,0.08)", css:"--color-border", version:"v1.0", description:"Subtle border and divider colour. Card borders, form inputs, section dividers." },
+  { section:"color-semantic", tier:2, type:"color", name:"--color-focus", value:"#C5A55A", dark:"#D4B87A", ref:"var(--primitive-gold)", css:"--color-focus", version:"v1.0", description:"Focus ring colour for accessibility. 2px solid outline with 2px offset." },
+
+  // COLOUR — FEEDBACK (T2)
+  { section:"color-feedback", sectionTitle:"Colour", subsection:"Feedback", tier:2, type:"color", name:"--color-feedback-success", value:"#28A745", dark:"#34D058", css:"--color-success", version:"v1.0", description:"Success state. Form validation passed, positive indicators.", contrast:{bg:"#FFFFFF",ratio:"4.6:1",level:"AA"} },
+  { section:"color-feedback", tier:2, type:"color", name:"--color-feedback-error", value:"#DC3545", dark:"#F97583", css:"--color-error", version:"v1.0", description:"Error state. Form validation failed, required field indicators.", contrast:{bg:"#FFFFFF",ratio:"4.9:1",level:"AA"} },
+  { section:"color-feedback", tier:2, type:"color", name:"--color-feedback-warning", value:"#FFC107", dark:"#FFDF5D", css:"--color-warning", version:"v1.0", description:"Warning state. Caution notices, pending states. Use sparingly.", contrast:{bg:"#1B2838",ratio:"10.2:1",level:"AAA"} },
+
+  // COLOUR — COMPONENT (T3)
+  { section:"color-component", sectionTitle:"Colour", subsection:"Component overrides", tier:3, type:"color", name:"--btn-primary-bg", value:"#C5A55A", dark:"#D4B87A", ref:"var(--color-action-primary)", css:"--btn-primary-bg", version:"v1.0", description:"Primary button background. Gold CTA across all pages." },
+  { section:"color-component", tier:3, type:"color", name:"--btn-primary-text", value:"#0F1923", dark:"#0F1923", ref:"var(--primitive-dark)", css:"--btn-primary-text", version:"v1.0", description:"Primary button text. Dark on gold for 5.8:1 contrast.", contrast:{bg:"#C5A55A",ratio:"5.8:1",level:"AA"} },
+  { section:"color-component", tier:3, type:"color", name:"--btn-primary-hover-bg", value:"#D4C085", dark:"#E0CFA0", ref:"var(--primitive-gold-light)", css:"--btn-primary-hover-bg", version:"v1.0", description:"Primary button hover. Lighter gold on mouse over." },
+  { section:"color-component", tier:3, type:"color", name:"--card-bg", value:"#FFFFFF", dark:"#152030", ref:"var(--primitive-white)", css:"--card-bg", version:"v1.0", description:"Service card and article card background colour." },
+  { section:"color-component", tier:3, type:"color", name:"--card-hover-border", value:"rgba(197,165,90,0.3)", dark:"rgba(212,184,122,0.3)", css:"--card-hover-border", version:"v1.0", description:"Gold tint border on card hover state." },
+  { section:"color-component", tier:3, type:"color", name:"--input-border-focus", value:"#C5A55A", dark:"#D4B87A", ref:"var(--color-action-primary)", css:"--input-border-focus", version:"v1.0", description:"Form input focus border. Gold ring matching brand focus colour." },
+  { section:"color-component", tier:3, type:"color", name:"--input-shadow-focus", value:"rgba(197,165,90,0.15)", dark:"rgba(212,184,122,0.15)", css:"--input-shadow-focus", version:"v1.0", description:"Form input focus shadow. Soft gold glow at 15% opacity." },
+  { section:"color-component", tier:3, type:"color", name:"--nav-bg", value:"rgba(255,255,255,0.98)", dark:"rgba(15,25,35,0.98)", css:"--nav-bg", version:"v1.0", description:"Navigation bar background. Near-opaque with backdrop blur." },
+
+  // SPACING — SCALE (T1)
+  { section:"spacing-scale", sectionTitle:"Spacing", subsection:"Scale (8px grid)", tier:1, type:"spacing", name:"--space-xs", value:"0.25rem", px:4, css:"--space-xs", version:"v1.0", description:"Tightest gap. Icon margins, inline element gaps, tag padding.", usageDo:"Use for tight inline spacing between icons and text", usageDont:"Don't use for section or card padding" },
+  { section:"spacing-scale", tier:1, type:"spacing", name:"--space-sm", value:"0.5rem", px:8, css:"--space-sm", version:"v1.0", description:"Small gap. Inline spacing, compact list items, button icon gaps." },
+  { section:"spacing-scale", tier:1, type:"spacing", name:"--space-md", value:"1rem", px:16, css:"--space-md", version:"v1.0", description:"Standard gap. Paragraph spacing, card internal padding, form group margins." },
+  { section:"spacing-scale", tier:1, type:"spacing", name:"--space-lg", value:"1.5rem", px:24, css:"--space-lg", version:"v1.0", description:"Medium gap. Section subheading spacing, card padding, content blocks." },
+  { section:"spacing-scale", tier:1, type:"spacing", name:"--space-xl", value:"2rem", px:32, css:"--space-xl", version:"v1.0", description:"Large gap. Card padding, form group spacing, content section gaps." },
+  { section:"spacing-scale", tier:1, type:"spacing", name:"--space-2xl", value:"3rem", px:48, css:"--space-2xl", version:"v1.0", description:"Section heading to content distance. Major content block separation." },
+  { section:"spacing-scale", tier:1, type:"spacing", name:"--space-3xl", value:"4rem", px:64, css:"--space-3xl", version:"v1.0", description:"Between major page sections. Creates clear visual separation." },
+  { section:"spacing-scale", tier:1, type:"spacing", name:"--space-4xl", value:"6rem", px:96, css:"--space-4xl", version:"v1.0", description:"CTA banner padding. Large section bottom padding." },
+  { section:"spacing-scale", tier:1, type:"spacing", name:"--space-5xl", value:"8rem", px:128, css:"--space-5xl", version:"v1.0", description:"Largest spacing. Section top padding for maximum breathing room." },
+
+  // SPACING — LAYOUT (T2)
+  { section:"spacing-semantic", sectionTitle:"Spacing", subsection:"Layout", tier:2, type:"spacing", name:"--space-section-top", value:"8rem", px:128, ref:"var(--space-5xl)", css:"--space-section-top", version:"v1.0", description:"Asymmetric section top padding. Larger for visual breathing room." },
+  { section:"spacing-semantic", tier:2, type:"spacing", name:"--space-section-bottom", value:"6rem", px:96, ref:"var(--space-4xl)", css:"--space-section-bottom", version:"v1.0", description:"Asymmetric section bottom padding. Smaller than top, creating flow." },
+  { section:"spacing-semantic", tier:2, type:"spacing", name:"--rhythm", value:"1.5rem", px:24, css:"--rhythm", version:"v1.0", description:"Vertical rhythm baseline. Line height multiplier for consistent text flow." },
+
+  // SHADOW (T1)
+  { section:"shadow", sectionTitle:"Elevation", subsection:"Shadow", tier:1, type:"shadow", name:"--shadow-sm", value:"0 1px 2px rgba(0,0,0,0.05)", css:"--shadow-sm", version:"v1.0", description:"Subtle rest state. Cards at rest, surface separation." },
+  { section:"shadow", tier:1, type:"shadow", name:"--shadow-md", value:"0 4px 12px rgba(0,0,0,0.07)", css:"--shadow-md", version:"v1.0", description:"Hover elevation. Card hover, dropdown menus, tooltips." },
+  { section:"shadow", tier:1, type:"shadow", name:"--shadow-lg", value:"0 10px 24px rgba(0,0,0,0.1)", css:"--shadow-lg", version:"v1.0", description:"High elevation. Modals, elevated cards, important overlays." },
+  { section:"shadow", tier:1, type:"shadow", name:"--shadow-xl", value:"0 20px 48px rgba(0,0,0,0.1)", css:"--shadow-xl", version:"v1.0", description:"Maximum elevation. Hero overlays, sticky header shadows." },
+  { section:"shadow", tier:1, type:"shadow", name:"--shadow-gold", value:"0 8px 24px rgba(197,165,90,0.3)", css:"--shadow-gold", version:"v1.0", description:"Brand-coloured shadow. Primary CTA button hover glow." },
+
+  // RADIUS (T1)
+  { section:"radius", sectionTitle:"Elevation", subsection:"Border radius", tier:1, type:"radius", name:"--radius-sm", value:"4px", css:"--radius-sm", version:"v1.0", description:"Small radius. Chips, tags, small badges, inline code." },
+  { section:"radius", tier:1, type:"radius", name:"--radius-md", value:"8px", css:"--radius-md", version:"v1.0", description:"Standard radius. Cards, buttons, inputs, modals.", usageDo:"Default for buttons, cards, form inputs", usageDont:"Don't use for pill-shaped elements (use --radius-full)" },
+  { section:"radius", tier:1, type:"radius", name:"--radius-lg", value:"12px", css:"--radius-lg", version:"v1.0", description:"Large radius. Large cards, modal dialogs, feature sections." },
+  { section:"radius", tier:1, type:"radius", name:"--radius-xl", value:"16px", css:"--radius-xl", version:"v1.0", description:"Extra large radius. Hero overlays, image masks." },
+  { section:"radius", tier:1, type:"radius", name:"--radius-full", value:"9999px", css:"--radius-full", version:"v1.0", description:"Pill shape. Fully rounded buttons, avatar circles, pill badges." },
+
+  // FONT (T2)
+  { section:"font", sectionTitle:"Typography", subsection:"Font families", tier:2, type:"font", name:"--font-display", value:"'Cormorant Garamond', Georgia, serif", css:"--font-display", version:"v1.0", description:"Display font. H1-H3 headings only. Weight: 600/700.", preview:"Cormorant Garamond", previewFont:"'Cormorant Garamond', serif", previewWeight:700, previewSize:"28px" },
+  { section:"font", tier:2, type:"font", name:"--font-body", value:"'DM Sans', -apple-system, sans-serif", css:"--font-body", version:"v1.0", description:"Body font. All body text, nav, buttons, labels. Weight: 400/700.", preview:"DM Sans", previewFont:"'DM Sans', sans-serif", previewWeight:400, previewSize:"18px" },
+  { section:"font", tier:2, type:"font", name:"--font-mono", value:"'DM Mono', 'SF Mono', monospace", css:"--font-mono", version:"v1.0", description:"Monospace font. Code snippets, token names, technical values.", preview:"DM Mono", previewFont:"'DM Mono', monospace", previewWeight:400, previewSize:"15px" },
+
+  // TYPE SCALE (T2)
+  { section:"type-scale", sectionTitle:"Typography", subsection:"Type scale", tier:2, type:"type", name:"H1 (Hero)", value:"clamp(36px, 5vw, 56px)", css:"font-size", version:"v1.0", description:"Hero heading. Weight: 700, line-height: 1.15, letter-spacing: -1px.", preview:"Hero heading", previewFont:"'Cormorant Garamond', serif", previewWeight:700, previewSize:"36px" },
+  { section:"type-scale", tier:2, type:"type", name:"H2 (Section)", value:"clamp(32px, 5vw, 48px)", css:"font-size", version:"v1.0", description:"Section heading. Weight: 600, line-height: 1.2.", preview:"Section heading", previewFont:"'Cormorant Garamond', serif", previewWeight:600, previewSize:"28px" },
+  { section:"type-scale", tier:2, type:"type", name:"H3 (Card)", value:"20px", css:"font-size", version:"v1.0", description:"Card and subsection heading. Weight: 600, line-height: 1.2.", preview:"Card title", previewFont:"'Cormorant Garamond', serif", previewWeight:600, previewSize:"20px" },
+  { section:"type-scale", tier:2, type:"type", name:"Body", value:"16px (1rem)", css:"font-size", version:"v1.0", description:"Default body text. Weight: 400, line-height: 1.7.", preview:"Body text sample", previewFont:"'DM Sans', sans-serif", previewWeight:400, previewSize:"16px" },
+  { section:"type-scale", tier:2, type:"type", name:"Small / Meta", value:"14px (0.875rem)", css:"font-size", version:"v1.0", description:"Captions, dates, form labels. Weight: 400, line-height: 1.5.", preview:"Meta text", previewFont:"'DM Sans', sans-serif", previewWeight:400, previewSize:"14px" },
+  { section:"type-scale", tier:2, type:"type", name:"Button", value:"13px", css:"font-size", version:"v1.0", description:"Button label. Weight: 700, uppercase, letter-spacing: 0.08em.", preview:"BOOK MY FREE CALL", previewFont:"'DM Sans', sans-serif", previewWeight:700, previewSize:"13px" },
+
+  // EASING (T1)
+  { section:"easing", sectionTitle:"Motion", subsection:"Easing", tier:1, type:"easing", name:"--ease-smooth", value:"cubic-bezier(0.4, 0, 0.2, 1)", css:"--ease-smooth", version:"v1.0", description:"Standard easing. Default for all UI transitions." },
+  { section:"easing", tier:1, type:"easing", name:"--ease-out", value:"cubic-bezier(0, 0, 0.58, 1)", css:"--ease-out", version:"v1.0", description:"Ease-out. Exit animations, menu close." },
+  { section:"easing", tier:1, type:"easing", name:"--ease-in-out", value:"cubic-bezier(0.42, 0, 0.58, 1)", css:"--ease-in-out", version:"v1.0", description:"Ease-in-out. Scroll-triggered reveals." },
+  { section:"easing", tier:1, type:"easing", name:"--ease-spring", value:"cubic-bezier(0.34, 1.56, 0.64, 1)", css:"--ease-spring", version:"v1.0", description:"Spring bounce. Playful micro-interactions. Use sparingly." },
+
+  // DURATION (T2)
+  { section:"duration", sectionTitle:"Motion", subsection:"Duration", tier:2, type:"duration", name:"UI response", value:"0.3s", css:"transition-duration", version:"v1.0", description:"Default transition for buttons, links, inputs, hover states." },
+  { section:"duration", tier:2, type:"duration", name:"Scroll reveal", value:"0.6s", css:"animation-duration", version:"v1.0", description:"IntersectionObserver scroll-triggered reveals." },
+  { section:"duration", tier:2, type:"duration", name:"Hero entrance", value:"0.8s", css:"animation-duration", version:"v1.0", description:"Hero section entrance. Slightly slower for dramatic effect." },
+  { section:"duration", tier:2, type:"duration", name:"Counter animation", value:"1.2s", css:"animation-duration", version:"v1.0", description:"Trust signal counters (3 M&A Deals, $50M+). ease-out timing." },
+];
+
+// Usage guidelines per section
+const USAGE = {
+  "color-brand": { do:"Reference primitives only from semantic or component tokens, never directly in CSS rules.", dont:"Don't use --primitive-gold as text colour on light backgrounds. It fails WCAG 4.5:1 contrast." },
+  "color-semantic": { do:"Use semantic tokens for 90% of styling. They automatically adapt to dark mode.", dont:"Don't bypass semantic tokens by hardcoding hex values or referencing primitives directly." },
+  "color-component": { do:"Use component tokens when a specific element needs to override the semantic default.", dont:"Don't create component tokens for one-off styles. If only one element uses it, use inline." },
+  "spacing-scale": { do:"Use the 8px grid scale. All spacing values should be multiples of 8px (or 4px for tight spaces).", dont:"Don't use arbitrary pixel values like 13px or 37px. Stick to the scale." },
+  "shadow": { do:"Increase shadow depth on hover/focus to indicate elevation change.", dont:"Don't stack multiple shadows. Use a single shadow tier per element state." },
+  "radius": { do:"Use --radius-md (8px) as the default for most components.", dont:"Don't mix radius values on adjacent elements. Keep radius consistent within a section." },
+};
+
+let activeFilter = 'all';
+let searchQuery = '';
+let codeFormat = 'css';
+
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+function formatToken(t) {
+  if (codeFormat === 'css') return `var(${t.css || t.name})`;
+  if (codeFormat === 'scss') return `$${(t.css || t.name).replace(/^--/, '')}`;
+  return `"${(t.css || t.name).replace(/^--/, '')}": "${t.value}"`;
+}
+
+function renderTokens() {
+  const container = document.getElementById('token-sections');
+  const noResults = document.getElementById('no-results');
+  const filtered = TOKENS.filter(t => {
+    if (activeFilter !== 'all' && String(t.tier) !== activeFilter) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      return t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q) ||
+        (t.value && t.value.toLowerCase().includes(q)) || (t.css && t.css.toLowerCase().includes(q)) ||
+        (t.section && t.section.toLowerCase().includes(q));
+    }
+    return true;
+  });
+
+  document.getElementById('results-count').textContent = filtered.length + ' of ' + TOKENS.length + ' tokens';
+  document.getElementById('stat-total').textContent = TOKENS.length;
+  document.getElementById('stat-t1').textContent = TOKENS.filter(t => t.tier===1).length;
+  document.getElementById('stat-t2').textContent = TOKENS.filter(t => t.tier===2).length;
+  document.getElementById('stat-t3').textContent = TOKENS.filter(t => t.tier===3).length;
+  document.getElementById('nav-total').textContent = TOKENS.length;
+  document.getElementById('stat-categories').textContent = new Set(TOKENS.map(t=>t.section)).size;
+
+  if (!filtered.length) { container.innerHTML = ''; noResults.style.display = 'block'; return; }
+  noResults.style.display = 'none';
+
+  const groups = []; let lastSec = null;
+  filtered.forEach(t => {
+    if (t.section !== lastSec) { groups.push({ section:t.section, sectionTitle:t.sectionTitle||'', subsection:t.subsection||'', tokens:[] }); lastSec = t.section; }
+    groups[groups.length-1].tokens.push(t);
+  });
+
+  let html = ''; let prevTitle = '';
+  groups.forEach(g => {
+    if (g.sectionTitle && g.sectionTitle !== prevTitle) {
+      html += '<div class="section-header" id="'+g.section+'"><h2>'+g.sectionTitle+'</h2></div>';
+      prevTitle = g.sectionTitle;
+    }
+    if (g.subsection) html += '<div class="subsection-header" id="'+g.section+'"><h3>'+g.subsection+'</h3></div>';
+
+    // Usage tips
+    const usage = USAGE[g.section];
+    if (usage) {
+      html += '<div class="usage-tip do"><strong>Do:</strong> '+escHtml(usage.do)+'</div>';
+      html += '<div class="usage-tip dont"><strong>Don\'t:</strong> '+escHtml(usage.dont)+'</div>';
+    }
+
+    html += '<table class="token-table"><thead><tr><th>Token &amp; description</th><th>Value</th></tr></thead><tbody>';
+    g.tokens.forEach(t => {
+      const tc = t.tier===1?'t1':t.tier===2?'t2':'t3';
+      const tl = t.tier===1?'T1':t.tier===2?'T2':'T3';
+      const fmtText = formatToken(t);
+
+      let nameCell = '<td id="token-'+encodeURIComponent(t.name)+'">' +
+        '<span class="token-name" onclick="copyToken(\''+fmtText.replace(/'/g,"\\'")+'\', this)" title="Click to copy">' +
+        escHtml(t.name) + '<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>' +
+        '<span class="token-tier '+tc+'">'+tl+'</span>' +
+        '<span class="token-version">'+escHtml(t.version||'')+'</span>' +
+        '<div class="token-description">'+escHtml(t.description)+'</div></td>';
+
+      let valueCell = '<td class="value-cell">';
+      if (t.type === 'color') {
+        valueCell += '<div class="color-dual">';
+        valueCell += '<div><div class="theme-label">Light</div><div class="color-preview"><div class="color-swatch" style="background:'+t.value+'"></div><span class="color-value">'+escHtml(t.value)+'</span></div></div>';
+        if (t.dark && t.dark !== t.value) {
+          valueCell += '<div><div class="theme-label">Dark</div><div class="color-preview"><div class="color-swatch" style="background:'+t.dark+'"></div><span class="color-value">'+escHtml(t.dark)+'</span></div></div>';
+        }
+        valueCell += '</div>';
+        if (t.ref) valueCell += '<div class="color-value"><span class="ref">'+escHtml(t.ref)+'</span></div>';
+        if (t.contrast) {
+          const cls = t.contrast.level === 'FAIL' ? 'fail' : 'pass';
+          valueCell += '<div class="contrast-info">'+escHtml(t.contrast.ratio)+' on '+escHtml(t.contrast.bg)+' <span class="contrast-badge '+cls+'">'+escHtml(t.contrast.level)+'</span></div>';
+        }
+      } else if (t.type === 'spacing') {
+        const bw = Math.min(200, (t.px/128)*200);
+        valueCell += '<div class="spacing-preview"><div class="spacing-bar" style="width:'+Math.max(2,bw)+'px"></div><span class="spacing-value">'+t.value+' <span style="color:var(--theme-text-secondary)">('+t.px+'px)</span>'+(t.ref?' — '+escHtml(t.ref):'')+'</span></div>';
+      } else if (t.type === 'shadow') {
+        valueCell += '<div class="shadow-preview"><div class="shadow-swatch" style="box-shadow:'+t.value+'"></div><span class="shadow-value">'+escHtml(t.value)+'</span></div>';
+      } else if (t.type === 'radius') {
+        valueCell += '<div class="radius-preview"><div class="radius-swatch" style="border-radius:'+t.value+'"></div><span class="spacing-value">'+escHtml(t.value)+'</span></div>';
+      } else if (t.type === 'easing') {
+        valueCell += '<div class="easing-preview"><div class="easing-swatch"><div class="easing-dot" style="transition:left 1s '+t.value+';"></div></div><span class="easing-value" style="font-family:var(--font-mono);font-size:11px;">'+escHtml(t.value)+'</span></div>';
+      } else if ((t.type === 'font' || t.type === 'type') && t.preview) {
+        const ls = t.previewSize==='13px'?'letter-spacing:0.08em;text-transform:uppercase;':'';
+        valueCell += '<div class="font-preview" style="font-family:'+t.previewFont+';font-weight:'+t.previewWeight+';font-size:'+t.previewSize+';'+ls+'">'+escHtml(t.preview)+'</div>';
+      } else if (t.type === 'duration') {
+        valueCell += '<span style="font-family:var(--font-mono);font-size:16px;font-weight:600;">'+escHtml(t.value)+'</span>';
+      } else {
+        valueCell += '<span>'+escHtml(t.value)+'</span>';
+      }
+      valueCell += '</td>';
+      html += '<tr>'+nameCell+valueCell+'</tr>';
+    });
+    html += '</tbody></table>';
+  });
+  container.innerHTML = html;
+}
+
+function copyToken(text, el) {
+  navigator.clipboard.writeText(text).then(() => {
+    el.classList.add('copied'); showToast('Copied: '+text);
+    setTimeout(() => el.classList.remove('copied'), 1500);
+  }).catch(() => showToast('Token: '+text));
+}
+
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('visible'); setTimeout(() => t.classList.remove('visible'), 2000); }
+
+function setFilter(tier) {
+  activeFilter = tier;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === tier));
+  renderTokens();
+}
+
+function setFormat(fmt) {
+  codeFormat = fmt;
+  document.querySelectorAll('.format-toggle button').forEach(b => b.classList.toggle('active', b.dataset.fmt === fmt));
+  renderTokens();
+}
+
+function setTheme(mode) {
+  document.querySelectorAll('.theme-toggle button').forEach(b => b.classList.toggle('active', b.dataset.themeBtn === mode));
+  if (mode === 'auto') {
+    document.documentElement.removeAttribute('data-theme');
+    const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', mode);
+  }
+}
+
+function downloadDTCG() {
+  const dtcg = { "newport-pembury": { color: { primitive: {}, semantic: {}, component: {} }, spacing: { primitive: {}, semantic: {} }, shadow: { primitive: {} }, radius: { primitive: {} }, typography: { semantic: {} }, motion: { primitive: {}, semantic: {} } } };
+  TOKENS.forEach(t => {
+    const key = t.name.replace(/^--/, '');
+    const entry = { "$value": t.value, "$type": t.type === 'spacing' ? 'dimension' : t.type === 'shadow' ? 'shadow' : t.type === 'radius' ? 'dimension' : t.type === 'easing' ? 'cubicBezier' : t.type === 'duration' ? 'duration' : t.type, "$description": t.description };
+    if (t.version) entry["$extensions"] = { "com.newport-pembury.version": t.version };
+    if (t.dark && t.dark !== t.value) entry["$extensions"] = { ...entry["$extensions"], "com.newport-pembury.dark-value": t.dark };
+
+    const tierKey = t.tier===1?'primitive':t.tier===2?'semantic':'component';
+    if (t.type === 'color') dtcg["newport-pembury"].color[tierKey][key] = entry;
+    else if (t.type === 'spacing') dtcg["newport-pembury"].spacing[tierKey][key] = entry;
+    else if (t.type === 'shadow') dtcg["newport-pembury"].shadow.primitive[key] = entry;
+    else if (t.type === 'radius') dtcg["newport-pembury"].radius.primitive[key] = entry;
+    else if (t.type === 'font' || t.type === 'type') dtcg["newport-pembury"].typography.semantic[key] = entry;
+    else if (t.type === 'easing') dtcg["newport-pembury"].motion.primitive[key] = entry;
+    else if (t.type === 'duration') dtcg["newport-pembury"].motion.semantic[key] = entry;
+  });
+  const blob = new Blob([JSON.stringify(dtcg, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'design-tokens.dtcg.json'; a.click();
+  showToast('Downloaded design-tokens.dtcg.json');
+}
+
+document.getElementById('search').addEventListener('input', e => { searchQuery = e.target.value; renderTokens(); });
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  if (!document.querySelector('.theme-toggle button[data-theme-btn="auto"].active')) return;
+  document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+      const link = document.querySelector('.sidebar-nav a[href="#'+entry.target.id+'"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+renderTokens();
+setFilter('all');
+setTimeout(() => { document.querySelectorAll('.subsection-header, .section-header').forEach(el => { if (el.id) observer.observe(el); }); }, 100);
+</script>
+</body>
+</html>

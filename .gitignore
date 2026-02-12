@@ -1,0 +1,26 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Old hosting configs (kept for reference but not deployed)
+.vercel/
+vercel.json
+netlify.toml
+
+# Claude / AI tooling
+.claude/
+
+# Node (if added later)
+node_modules/
+.wrangler/
+
+# Environment
+.env
+.env.local
+.env.production

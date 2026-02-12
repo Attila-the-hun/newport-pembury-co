@@ -1,0 +1,27 @@
+# Newport Pembury & Co — robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /tmp/
+
+# Allow AI crawlers for GEO visibility
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Standard search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://newportpembury.com.au/sitemap.xml
