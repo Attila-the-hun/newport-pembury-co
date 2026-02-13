@@ -854,8 +854,8 @@ nav.scrolled {
 }
 
 .btn-sm {
-  padding: var(--space-xs) var(--space-md);
-  font-size: var(--font-size-xs);
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-size-sm);
 }
 
 /* ==========================================================================
