@@ -372,28 +372,36 @@
     <!-- Footer -->
     </main>
 
-    <footer style="background: var(--footer-bg); color: var(--footer-text); padding: 64px 24px 24px;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 48px; max-width: 1200px; margin: 0 auto 48px;">
-            <div>
-                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: var(--color-action-primary); margin-bottom: 8px;">Newport Pembury &amp; Co</h3>
-                <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 16px;">Strategic Financial Leadership</p>
-                <div style="display: flex; gap: 16px; margin-top: 16px;">
-                    <a href="https://www.linkedin.com/in/timothymessieh/" style="width: 36px; height: 36px; border-radius: 6px; background: rgba(197, 165, 90, 0.1); display: flex; align-items: center; justify-content: center; color: var(--color-action-primary); text-decoration: none; font-weight: 700; transition: all 0.3s;" aria-label="LinkedIn">in</a>
+    <footer>
+        <section>
+            <div class="footer-brand">
+                <h3>Newport Pembury &amp; Co</h3>
+                <p>Strategic Financial Leadership</p>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/timothymessieh/" class="social-icon" aria-label="LinkedIn">in</a>
                 </div>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-                <h4 style="font-size: 13px; color: white; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px;">Services</h4>
-                <a href="/services" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">M&amp;A Advisory</a>
-                <a href="/services" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Financial Modeling</a>
-                <a href="/services" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Cash Flow Strategy</a>
-                <a href="/services" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Systems &amp; Transformation</a>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <nav aria-label="Footer services navigation">
+                <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">
+                    <li><a href="/services">M&amp;A Advisory</a></li>
+                    <li><a href="/services">Cash Flow &amp; Financial Strategy</a></li>
+                    <li><a href="/services">Systems &amp; Transformation</a></li>
+                    <li><a href="/services">Strategic CFO Partnership</a></li>
+                </ul>
+                </nav>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-                <h4 style="font-size: 13px; color: white; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px;">Company</h4>
-                <a href="/about" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Our Firm</a>
-                <a href="/services" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">What We Do</a>
-                <a href="/insights/" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Insights</a>
-                <a href="/contact" style="color: var(--color-text-secondary); text-decoration: none; font-size: 13px;">Get in Touch</a>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <nav aria-label="Footer company navigation">
+                <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">
+                    <li><a href="/about">Our Firm</a></li>
+                    <li><a href="/about">Our Team</a></li>
+                    <li><a href="/#process">Our Approach</a></li>
+                    <li><a href="/insights/">Insights</a></li>
+                </ul>
+                </nav>
             </div>
             <div class="footer-contact">
                 <h4>Get in Touch</h4>
@@ -401,7 +409,7 @@
                 <a href="tel:+61280051234">+61 2 8005 1234</a>
                 <p class="footer-location">Sydney, Australia</p>
             </div>
-        </div>
+        </section>
         <div class="footer-bottom">
             <p>&copy; 2026 Newport Pembury &amp; Co. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
         </div>
