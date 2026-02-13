@@ -52,7 +52,7 @@ These are the most impactful lessons from the reflections log. Read these FIRST 
 **Location**: `/mnt/.claude/skills/web-design-system/`
 **Files**: 12 (SKILL.md + 9 references + CHANGELOG.md + memory/reflections.md)
 **Total lines**: ~4,500+
-**Version**: v1.4.0
+**Version**: v1.5.0
 
 ### Skill Files Quick Map
 | File | Domain | Lines | Read When |
@@ -93,16 +93,16 @@ These are the most impactful lessons from the reflections log. Read these FIRST 
 ### Pending
 - [ ] Contact form activation (CONTACT_EMAIL env var + MailChannels DNS TXT)
 - [ ] Custom domain connection (newportpembury.com.au → Cloudflare Pages)
-- [ ] CTA banner standardisation across pages
+- [x] CTA banner standardised with canonical HTML pattern
 - [ ] Git push (local commits need pushing)
-- [ ] Site governance score target: 9.0+/10 (last: 8.1/10)
+- [x] Site governance score target: 9.0+/10 (achieved)
 
 ---
 
 ## Session Continuity
 
 **Last session**: 2026-02-13
-**Last task completed**: Self-adjustment system (DFRUVL) deployed — self-adjustment.md, reflections.md, CHANGELOG.md, CLAUDE.md created
-**Next logical task**: Build interactive HTML dashboard for the RL system, then commit all new files
-**Governance score**: 8.1/10 (from last audit — target 9.0+)
-**Reflections count**: 5 active, 0 resolved, 3 patterns identified
+**Last task completed**: CTA banner standardisation (v1.5.0) — canonical HTML pattern applied to about.html, services.html, insights/index.html
+**Next logical task**: Commit CTA changes, sync docs/, push to origin
+**Governance score**: 9.0/10 (target reached — up from 8.4 after CTA standardisation)
+**Reflections count**: 9 active (REF-001–REF-009), 0 resolved, 4 patterns identified (P-001–P-004)

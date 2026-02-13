@@ -135,15 +135,35 @@ Run this checklist after every multi-page build or before deployment. Inconsiste
 - [ ] LinkedIn social icon present with correct href
 - [ ] No extra columns (e.g. "Legal" column) — privacy/terms links live in footer-bottom only
 
-### CTA Banners (contextual but brand-consistent)
-- [ ] Primary CTA text is always "Book My Free Call" (first-person verb)
-- [ ] Secondary CTA is "Email Timothy Directly" where applicable
-- [ ] CTA buttons use `.btn .btn-primary` classes or `.cta-button` class — not inline background/color styles
-- [ ] Subtitle text uses uppercase, small font, gold color (`--color-action-primary`)
-- [ ] Banner styling uses CSS classes not inline styles where possible
-- [ ] Contact page uses contextual CTA ("Not Ready? Email Us") — this is acceptable
-- [ ] Legal pages (privacy, terms) may omit CTA banners — this is acceptable
-- [ ] Article pages may use content-specific CTAs (newsletter signup) — this is acceptable
+### CTA Banners (canonical HTML — all standard pages must match)
+
+**Canonical structure** (only subtitle, headline, and description text vary per page):
+```html
+<section class="cta-banner">
+    <div class="cta-banner-content scroll-reveal">
+        <p class="cta-subtitle">[Subtitle]</p>
+        <h2>[Headline]</h2>
+        <p>[Description]</p>
+        <div class="cta-buttons">
+            <a href="/contact" class="cta-btn-primary">Book My Free Call</a>
+            <a href="mailto:hello@newportpembury.com.au" class="cta-btn-ghost">Email Timothy Directly</a>
+        </div>
+    </div>
+</section>
+```
+
+**Checklist**:
+- [ ] Uses `<section class="cta-banner">` — never inline background/padding styles
+- [ ] Inner wrapper is `<div class="cta-banner-content scroll-reveal">`
+- [ ] Subtitle uses `<p class="cta-subtitle">` — never inline font-size/color/letter-spacing
+- [ ] Button container uses `<div class="cta-buttons">` — never inline flex/gap styles
+- [ ] Primary button uses `.cta-btn-primary` class — no other button class (not `.btn-primary`, `.cta-button`)
+- [ ] Ghost button uses `.cta-btn-ghost` class — no inline border/background overrides
+- [ ] Primary text is "Book My Free Call", secondary is "Email Timothy Directly"
+- [ ] **Zero inline `style=` attributes** anywhere in the CTA banner section
+- [ ] Contact page contextual CTA ("Not Ready? Email Us") is an acceptable variant
+- [ ] Legal pages (privacy, terms) may omit CTA banners
+- [ ] Article pages may use content-specific CTAs (newsletter signup form)
 
 ### Brand Consistency
 - [ ] Logo text "Newport Pembury & Co" rendered identically everywhere (including footer)

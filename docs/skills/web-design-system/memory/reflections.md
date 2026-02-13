@@ -119,12 +119,22 @@
 **Skill Update**: Added var() fallback rule and meta tag exception to design-tokens.md. Added inline style duplication to Common Mistakes in SKILL.md.
 **Status**: Resolved — fallbacks corrected, meta tags fixed, inline duplicates removed
 
+### REF-009 — 2026-02-13 — Major
+**Gap**: CTA banner used 3 different HTML patterns across pages: index.html used `.cta-banner` + `.cta-banner-content` + `.btn .btn-primary`, about.html used `.cta-content` + `.cta-headline` + `.cta-button` with inline overrides, services.html used entirely inline styles with no `.cta-banner` class at all. Additionally, main.css contained 5 different button class systems (`.btn-primary`, `.cta-btn-primary`, `.cta-button`, `.hero-cta-btn`, `.mid-cta-btn`).
+**Root Cause**: Missing — the CTA Banners checklist in SKILL.md said "CTA buttons use `.btn .btn-primary` classes or `.cta-button` class" — offering two alternatives instead of mandating one canonical pattern. No canonical HTML template was documented.
+**Detection Method**: Site governance audit — cross-page consistency dimension.
+**Skill File**: SKILL.md Cross-Page Consistency Checklist → CTA Banners section
+**Generalised Pattern**: When a checklist says "use X or Y", it permits divergence. Shared components need ONE canonical pattern, not alternatives. The checklist must include the exact HTML template, the exact class names, and the rule "zero inline styles". This directly confirms Pattern P-001 (shared components drift without canonical specs) — the CTA banner is the third case after header (REF-003) and footer (REF-004).
+**Prevention Rule**: Canonical CTA banner HTML template added to SKILL.md with exact structure: `<section class="cta-banner">` → `.cta-banner-content scroll-reveal` → `.cta-subtitle` → `h2` → `p` → `.cta-buttons` → `.cta-btn-primary` + `.cta-btn-ghost`. Rule: "Zero inline style= attributes anywhere in the CTA banner section." Button classes consolidated to `.cta-btn-primary` and `.cta-btn-ghost` only.
+**Skill Update**: Replaced CTA Banners checklist in SKILL.md with canonical HTML template + 11 specific checks. Consolidated button class guidance from "use X or Y" to "use .cta-btn-primary only".
+**Status**: Resolved — all standard CTA banners now use canonical pattern
+
 ---
 
 ## Patterns Observed (Updated)
 
 ### Pattern P-001: Shared Components Drift Without Canonical Specs
-**Reflections**: REF-003, REF-004
+**Reflections**: REF-003, REF-004, REF-009
 **Observation**: Header (REF-003) and footer (REF-004) both drifted independently because no canonical HTML pattern was documented. This will apply to any shared component — CTA banners, sidebar widgets, breadcrumbs, meta tags.
 **Implication**: Before building any new shared component, write the canonical spec FIRST. Don't build and then document — document and then build.
 

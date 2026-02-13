@@ -4,6 +4,18 @@ Track every evolution of the web design system skill files. Each entry records w
 
 ---
 
+## v1.5.0 — 2026-02-13
+### CTA Banner Standardisation
+- **Fixed**: 3 different CTA banner HTML patterns → 1 canonical pattern (Major — REF-009)
+- **Changed**: about.html CTA banner — replaced `.cta-content` + `.cta-button` + inline styles with canonical `.cta-banner-content` + `.cta-btn-primary` + `.cta-btn-ghost`
+- **Changed**: services.html CTA banner — replaced entirely inline-styled section with canonical `.cta-banner` structure
+- **Changed**: insights/index.html CTA banner — replaced Tailwind + inline gradient with canonical `.cta-banner` structure
+- **Added**: Canonical CTA banner HTML template to SKILL.md Cross-Page Consistency Checklist (11 checks)
+- **Added**: REF-009 to memory/reflections.md
+- **Updated**: Pattern P-001 now includes CTA banners (third shared component standardised after header and footer)
+- **Trigger**: Second DFRUVL cycle — site governance audit flagged CTA banner inconsistency
+- **Files**: about.html, services.html, insights/index.html, SKILL.md, memory/reflections.md
+
 ## v1.4.0 — 2026-02-13
 ### First DFRUVL Cycle — Accessibility & Token Governance
 - **Fixed**: Hero image empty alt text on index.html (Critical — REF-006)
