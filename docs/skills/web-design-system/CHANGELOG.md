@@ -4,6 +4,17 @@ Track every evolution of the web design system skill files. Each entry records w
 
 ---
 
+## v1.8.0 — 2026-02-13
+### WCAG AA Contrast Fix, Favicon & Inline Style Elimination
+- **Added**: `--color-action-text: #806B3A` semantic token for gold text on light backgrounds (4.53:1 on ivory, passes WCAG AA). Dark mode remaps to original gold (7.52:1 on dark).
+- **Replaced**: 56 `color: var(--color-action-primary)` → `var(--color-action-text)` in component CSS
+- **Added**: SVG favicon (`assets/favicon.svg`) — gold "&" on charcoal, linked from all 8 pages
+- **Stripped**: 74 inline styles — services.html (23), insights/index.html (41), article page (10)
+- **Added**: 65+ CSS utility/semantic classes to replace stripped inline styles
+- **Result**: Inline styles reduced from 91 to 17 site-wide (81% reduction). WCAG AA contrast fully compliant.
+- **Trigger**: Post-migration audit v3 identified remaining gaps: gold contrast failure, missing favicon, 91 inline styles
+- **Files**: main.css, assets/favicon.svg (new), all 8 HTML pages
+
 ## v1.7.0 — 2026-02-13
 ### Full Token Migration — 779 Hardcoded Values Replaced
 - **Migrated**: 278 legacy `--brand-*` references → semantic `--color-*` tokens (--brand-gold→--color-action-primary, --brand-charcoal→--color-text-primary, etc.)

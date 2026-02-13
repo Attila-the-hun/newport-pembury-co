@@ -52,7 +52,7 @@ These are the most impactful lessons from the reflections log. Read these FIRST 
 **Location**: `/mnt/.claude/skills/web-design-system/`
 **Files**: 12 (SKILL.md + 9 references + CHANGELOG.md + memory/reflections.md)
 **Total lines**: ~4,500+
-**Version**: v1.7.0
+**Version**: v1.8.0
 
 ### Skill Files Quick Map
 | File | Domain | Lines | Read When |
@@ -102,7 +102,7 @@ These are the most impactful lessons from the reflections log. Read these FIRST 
 ## Session Continuity
 
 **Last session**: 2026-02-13
-**Last task completed**: Full token migration (v1.7.0) — 779 hardcoded values replaced with semantic tokens (278 legacy --brand-*, 151 font-size, 296 spacing, 54 border-radius). Legacy aliases removed from :root. Token coverage: 100% font-size, 100% spacing, 100% border-radius, 100% semantic colours.
-**Next logical task**: Strip remaining inline styles on services.html (31) and insights/index.html (43), add favicon
-**Governance score**: Projected 9.2-9.4/10 (token governance dimension jumped from 3.9 to ~8.5; needs re-audit to confirm)
+**Last task completed**: WCAG AA contrast fix + favicon + inline style elimination (v1.8.0). Added --color-action-text (#806B3A) for gold text on light backgrounds (4.53:1 AA pass). SVG favicon on all 8 pages. Stripped 74 inline styles (91→17, 81% reduction) with 65+ new CSS classes.
+**Next logical task**: Re-run audit to confirm 9.0+ score, then push. Consider pruning remaining 10 dead tokens and further inline style reduction.
+**Governance score**: Estimated 9.0-9.2/10 (contrast fixed, favicon added, inline styles 91→17)
 **Reflections count**: 10 active (REF-001–REF-010), 0 resolved, 5 patterns identified (P-001–P-005)
