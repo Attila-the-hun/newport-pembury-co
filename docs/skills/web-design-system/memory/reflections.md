@@ -129,6 +129,16 @@
 **Skill Update**: Replaced CTA Banners checklist in SKILL.md with canonical HTML template + 11 specific checks. Consolidated button class guidance from "use X or Y" to "use .cta-btn-primary only".
 **Status**: Resolved — all standard CTA banners now use canonical pattern
 
+### REF-010 — 2026-02-13 — Critical
+**Gap**: Token governance scored 6.8/10 despite 113 tokens defined in :root. Root cause analysis revealed: (a) 70% of tokens (79 of 113) were defined but never referenced in component CSS — dead code giving a false sense of governance. (b) 130 inline `style=` attributes across 8 pages bypassed the token system entirely — footer `<ul>` lists alone accounted for 12 identical inline declarations. (c) No font-size, animation-duration, or article-category colour tokens existed, so developers had no tokens to reference. (d) The SKILL.md testing checklist said "design tokens applied correctly" with no verifiable assertion — no way to count violations.
+**Root Cause**: Incomplete + Ignored — the token architecture was defined top-down (create :root vars) but never applied bottom-up (audit actual code, build classes, wire up usage). Rules said "no hardcoded values" but provided no verification mechanism and no utility classes to use instead.
+**Detection Method**: Deep root cause analysis with 5-question diagnostic framework.
+**Skill File**: SKILL.md, references/design-tokens.md
+**Generalised Pattern**: Confirms and extends P-002 (rules without exact values) and P-005 (new). Tokens without consumers are dead code. Rules without verification are wishes. The fix required three simultaneous actions: (1) add missing token categories, (2) create utility CSS classes, (3) add testable checklist assertions.
+**Prevention Rule**: Added "Token Governance Checklist" to SKILL.md with grep-based verifiable assertions for inline styles (<20 results), hardcoded HEX (0 results), dead tokens (0 defined-but-unused), and coverage thresholds (80%+ for font-size and spacing). Created 25+ utility classes (.footer-list, .label-uppercase, .pricing-amount, etc.) to provide a governed alternative to inline styles.
+**Skill Update**: Added --font-size-*, --duration-*, --color-category-*, --color-*-bg/border/dark tokens to :root. Created utility classes in section 1b. Replaced 14 hardcoded HEX in component CSS. Stripped 32 inline styles from 8 HTML pages. Added Token Governance Checklist with verifiable assertions.
+**Status**: In progress — inline style count reduced from 130 to 94, hardcoded HEX in component CSS reduced from 19 to 0. Further work needed on services.html (31 remaining) and insights/index.html (43 remaining).
+
 ---
 
 ## Patterns Observed (Updated)
@@ -147,6 +157,11 @@
 **Reflections**: REF-001, REF-002, REF-003, REF-004, REF-007
 **Observation**: In 6 out of 8 reflections, the root cause was "missing rule" — the skill files simply didn't cover the scenario. This confirms the skill system is still in its growth phase.
 **Implication**: Prioritise coverage (more rules across more domains) over depth (more nuance in existing rules) during the current phase.
+
+### Pattern P-005: Tokens Without Consumers Are Dead Code
+**Reflections**: REF-010
+**Observation**: 79 of 113 CSS custom properties in :root were defined but never referenced in component CSS or HTML. The token system looked comprehensive on paper but had zero governance impact. Defining a token and using it are two separate acts — defining without using creates maintenance overhead and false confidence. Conversely, CSS classes must exist BEFORE you can tell developers to stop using inline styles.
+**Implication**: After defining any new token, immediately wire it into at least one consumer (CSS rule or utility class). After every batch of token additions, audit for dead tokens and prune or connect them.
 
 ### Pattern P-004: Generic Rules Need Classification Specificity
 **Reflections**: REF-006, REF-008

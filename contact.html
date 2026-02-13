@@ -97,7 +97,7 @@
                 <!-- Left: Consultation Booking Form -->
                 <div>
                     <div class="form-container">
-                        <h2 style="font-size: 1.8rem; margin-bottom: 30px; color: var(--color-text-primary);">Schedule Your Free Consultation</h2>
+                        <h2 class="form-title">Schedule Your Free Consultation</h2>
 
                         <div id="successAlert" class="alert alert-success" role="alert" aria-live="polite">
                             <strong>Success!</strong> Your consultation request has been received. We'll be in touch within 24 hours.
@@ -110,35 +110,35 @@
 
                             <!-- First Name -->
                             <div class="form-group">
-                                <label for="firstName">First Name <span style="color: var(--color-error, #DC3545);">*</span><span class="sr-only">(Required)</span></label>
+                                <label for="firstName">First Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
                                 <input type="text" id="firstName" name="firstName" required aria-required="true" aria-describedby="firstName-error">
                                 <div id="firstName-error" class="input-feedback" role="alert"></div>
                             </div>
 
                             <!-- Last Name -->
                             <div class="form-group">
-                                <label for="lastName">Last Name <span style="color: var(--color-error, #DC3545);">*</span><span class="sr-only">(Required)</span></label>
+                                <label for="lastName">Last Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
                                 <input type="text" id="lastName" name="lastName" required aria-required="true" aria-describedby="lastName-error">
                                 <div id="lastName-error" class="input-feedback" role="alert"></div>
                             </div>
 
                             <!-- Email -->
                             <div class="form-group">
-                                <label for="email">Email <span style="color: var(--color-error, #DC3545);">*</span><span class="sr-only">(Required)</span></label>
+                                <label for="email">Email <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
                                 <input type="email" id="email" name="email" required aria-required="true" aria-describedby="email-error">
                                 <div id="email-error" class="input-feedback" role="alert"></div>
                             </div>
 
                             <!-- Phone -->
                             <div class="form-group">
-                                <label for="phone">Phone <span style="color: var(--color-error, #DC3545);">*</span><span class="sr-only">(Required)</span></label>
+                                <label for="phone">Phone <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
                                 <input type="tel" id="phone" name="phone" required aria-required="true" aria-describedby="phone-error">
                                 <div id="phone-error" class="input-feedback" role="alert"></div>
                             </div>
 
                             <!-- Company Name -->
                             <div class="form-group">
-                                <label for="companyName">Company Name <span style="color: var(--color-error, #DC3545);">*</span><span class="sr-only">(Required)</span></label>
+                                <label for="companyName">Company Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
                                 <input type="text" id="companyName" name="companyName" required aria-required="true" aria-describedby="companyName-error">
                                 <div id="companyName-error" class="input-feedback" role="alert"></div>
                             </div>
@@ -385,7 +385,7 @@
             <div class="footer-links">
                 <h4>Services</h4>
                 <nav aria-label="Footer services navigation">
-                <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">
+                <ul class="footer-list">
                     <li><a href="/services">M&amp;A Advisory</a></li>
                     <li><a href="/services">Cash Flow &amp; Financial Strategy</a></li>
                     <li><a href="/services">Systems &amp; Transformation</a></li>
@@ -396,7 +396,7 @@
             <div class="footer-links">
                 <h4>Company</h4>
                 <nav aria-label="Footer company navigation">
-                <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">
+                <ul class="footer-list">
                     <li><a href="/about">Our Firm</a></li>
                     <li><a href="/about">Our Team</a></li>
                     <li><a href="/#process">Our Approach</a></li>

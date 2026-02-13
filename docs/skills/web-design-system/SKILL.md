@@ -110,6 +110,33 @@ Use this skill when building or redesigning professional business websites. Prov
 - [ ] Heading hierarchy correct
 - [ ] Focus indicators visible
 
+## Token Governance Checklist (run after every CSS/HTML change)
+
+**Verifiable assertions — every check has a command that produces a number.**
+
+### HTML Inline Styles
+- [ ] `grep -r 'style=' *.html` returns **<20 results** across all pages (target: 0 for new pages)
+- [ ] Footer `<ul>` elements use `class="footer-list"` — **zero** inline list styles
+- [ ] CTA buttons use `.cta-btn-primary` / `.cta-btn-ghost` — **zero** `.btn .btn-primary` in CTA banners
+- [ ] Required field indicators use `class="required-indicator"` — **zero** inline `color: var(--color-error)`
+- [ ] No inline `font-family:` on any element (headings inherit from CSS rule on h1-h6)
+
+### CSS Hardcoded Values
+- [ ] `grep '#[0-9a-fA-F]' main.css` outside `:root` / `[data-theme]` returns **0 results**
+- [ ] Form validation uses `var(--color-success)`, `var(--color-error)`, `var(--color-success-bg)`, `var(--color-error-bg)` — **zero** hardcoded feedback colours
+- [ ] Category pills use `var(--color-category-*)` tokens — **zero** hardcoded pill colours
+- [ ] Button dark mode uses `var(--color-text-inverse)` — **zero** hardcoded `#FAFAFA`
+
+### Token Coverage
+- [ ] All `:root` tokens are referenced at least once in component CSS or HTML classes (no dead tokens)
+- [ ] Font sizes use `var(--font-size-*)` tokens — target 80%+ (run: count `font-size:` vs `var(--font-size-`)
+- [ ] Spacing uses `var(--space-*)` tokens — target 80%+ (run: count padding/margin/gap with `var(` vs hardcoded `px`)
+- [ ] Border radius uses `var(--radius-*)` tokens — target 90%+
+
+### New Page/Component Rule
+- [ ] New pages **must** start from a template that uses utility classes (`.footer-list`, `.cta-buttons`, `.label-uppercase`, etc.)
+- [ ] New CSS **must** reference tokens for all colour, spacing, radius, and font-size values — zero hardcoded exceptions without a documented reason
+
 ## Cross-Page Consistency Checklist
 
 Run this checklist after every multi-page build or before deployment. Inconsistencies in shared components (header, footer, CTA) erode brand trust and signal carelessness. Every page must use the **same canonical HTML** for these sections — CSS classes, not inline styles.

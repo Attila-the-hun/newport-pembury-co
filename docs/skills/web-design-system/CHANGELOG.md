@@ -4,6 +4,26 @@ Track every evolution of the web design system skill files. Each entry records w
 
 ---
 
+## v1.6.0 — 2026-02-13
+### Token Governance Overhaul — Bottom-Up Implementation
+- **Fixed**: 70% of :root tokens (79 of 113) were dead code — never referenced in component CSS (Critical — REF-010)
+- **Fixed**: 130 inline `style=` attributes bypassed the token system — reduced to 94 across 8 pages (Critical — REF-010)
+- **Fixed**: 19 hardcoded HEX values in component CSS — reduced to 0 (Major — REF-010)
+- **Fixed**: index.html CTA buttons still used `.btn .btn-primary` — changed to `.cta-btn-primary`/`.cta-btn-ghost`
+- **Fixed**: 4 hardcoded `#FAFAFA` in dark mode btn-outline → `var(--color-text-inverse)`
+- **Added**: 8 new token categories to :root — `--font-size-*` (8 sizes), `--letter-spacing-*` (4), `--color-success-*`/`--color-error-*` (6 feedback states), `--color-category-*` (4 article categories), `--duration-*` (4 animation durations), `--radius-xs`
+- **Added**: 25+ utility CSS classes in new section "1b. UTILITY CLASSES" — `.footer-list`, `.label-uppercase`, `.required-indicator`, `.pricing-amount`, `.section-title-centered`, `.trust-badge-text`, `.hero-gradient`, `.cta-buttons`, `.sr-only`, and more
+- **Changed**: Spacing tokens renamed — `--space-xs` → `--space-2xs`, `--space-sm` → `--space-xs`, new `--space-sm: 0.75rem` inserted
+- **Stripped**: 32 inline styles from 8 HTML pages (footer lists, section headings, form titles, required indicators, trust badges, pricing amounts, service titles, labels)
+- **Replaced**: 14 hardcoded HEX in component CSS with token references (`--color-error`, `--color-category-growth`, `--color-success-bg`, etc.)
+- **Added**: Token Governance Checklist to SKILL.md with grep-based verifiable assertions (4 subsections, 15 checks)
+- **Added**: REF-010 to memory/reflections.md (Critical — token system dead code)
+- **Added**: Pattern P-005 "Tokens Without Consumers Are Dead Code"
+- **Moved**: design-tokens.html, skills-dashboard.html, self-adjustment-dashboard.html → `tools/` directory
+- **Trigger**: Third DFRUVL cycle — deep root cause analysis of token governance score (6.8/10)
+- **Files**: main.css, index.html, about.html, services.html, contact.html, insights/index.html, insights/ma-readiness-checklist/index.html, privacy.html, terms.html, SKILL.md, memory/reflections.md
+- **Remaining**: services.html (31 inline styles), insights/index.html (43 inline styles), 79 dead tokens to prune
+
 ## v1.5.0 — 2026-02-13
 ### CTA Banner Standardisation
 - **Fixed**: 3 different CTA banner HTML patterns → 1 canonical pattern (Major — REF-009)
