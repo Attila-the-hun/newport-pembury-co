@@ -303,7 +303,22 @@ Use `clamp()` for responsive heading sizes. No fixed pixel values for h1-h2.
 | Body Large | 18px | 1.6 | 0 | |
 | Body Small | 14px | 1.5 | 0.02em | |
 | Caption | 12px | 1.4 | 0.02em | |
-| Button | 13px | 1 | 0.08em | text-transform: uppercase |
+| Button | 16px | 1.25 | 0.08em | text-transform: uppercase, 44px min height |
+| Nav Link | 15px | 1.4 | 0.02em | font-weight: 500; active: 600 |
+
+### Navigation Header Spec
+
+| Property | Value | Token | Rationale |
+|---|---|---|---|
+| Nav bar height | 64–72px | — | Premium breathing room |
+| Nav link font | 15px, 500 weight | --font-size-nav | Readable sentence case; below body (16px) to maintain hierarchy |
+| Nav link active | 600 weight + gold underline | --color-action-text | Clear wayfinding |
+| Nav link hover | 200–300ms color shift | --duration-normal | Smooth, not jarring |
+| Nav CTA button | .btn-sm (8px/24px, 13px) | --space-xs/--space-lg | Compact but accessible; ≥44px touch target via line-height |
+| Sticky behaviour | position: sticky; backdrop-filter: blur(10px) | — | Modern premium feel |
+| Skip link | First focusable element, links to #main-content | — | WCAG 2.2 AA required |
+| Semantic markup | `<nav>`, `<ul>/<li>` for links, `<button>` for hamburger | — | Screen reader clarity |
+| ARIA | aria-current="page" on active link, aria-controls on hamburger | — | Accessibility |
 
 ### Font Loading Strategy
 - Load with `font-display: swap`
