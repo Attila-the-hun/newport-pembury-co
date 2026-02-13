@@ -4,6 +4,18 @@ Track every evolution of the web design system skill files. Each entry records w
 
 ---
 
+## v1.7.0 — 2026-02-13
+### Full Token Migration — 779 Hardcoded Values Replaced
+- **Migrated**: 278 legacy `--brand-*` references → semantic `--color-*` tokens (--brand-gold→--color-action-primary, --brand-charcoal→--color-text-primary, etc.)
+- **Migrated**: 151 hardcoded font-size values → `var(--font-size-*)` tokens (100% coverage)
+- **Migrated**: 296 hardcoded spacing values → `var(--space-*)` tokens (100% coverage)
+- **Migrated**: 54 hardcoded border-radius values → `var(--radius-*)` tokens (100% coverage)
+- **Removed**: 7 legacy `--brand-*` alias definitions from :root and both dark mode blocks
+- **Fixed**: theme-toggle.css `var(--brand-gold)` → `var(--color-action-primary)`
+- **Result**: Token governance coverage: font-size 100%, spacing 100%, border-radius 100%, colours 100% semantic. Zero legacy token references remain.
+- **Trigger**: Audit v2 scored token governance 3.9/10 — deep research showed the gap was migration, not architecture
+- **Files**: main.css (1252 lines changed), theme-toggle.css, audit report v2 added
+
 ## v1.6.0 — 2026-02-13
 ### Token Governance Overhaul — Bottom-Up Implementation
 - **Fixed**: 70% of :root tokens (79 of 113) were dead code — never referenced in component CSS (Critical — REF-010)

@@ -52,7 +52,7 @@ These are the most impactful lessons from the reflections log. Read these FIRST 
 **Location**: `/mnt/.claude/skills/web-design-system/`
 **Files**: 12 (SKILL.md + 9 references + CHANGELOG.md + memory/reflections.md)
 **Total lines**: ~4,500+
-**Version**: v1.6.0
+**Version**: v1.7.0
 
 ### Skill Files Quick Map
 | File | Domain | Lines | Read When |
@@ -102,7 +102,7 @@ These are the most impactful lessons from the reflections log. Read these FIRST 
 ## Session Continuity
 
 **Last session**: 2026-02-13
-**Last task completed**: Token governance overhaul (v1.6.0) — 25+ utility classes, 32 inline styles stripped, 14+4 hardcoded HEX replaced, Token Governance Checklist added to SKILL.md
-**Next logical task**: Prune 79 dead tokens, strip remaining inline styles on services.html (31) and insights/index.html (43)
-**Governance score**: Estimated 8.5-9.0/10 (token governance significantly improved; needs re-audit to confirm)
+**Last task completed**: Full token migration (v1.7.0) — 779 hardcoded values replaced with semantic tokens (278 legacy --brand-*, 151 font-size, 296 spacing, 54 border-radius). Legacy aliases removed from :root. Token coverage: 100% font-size, 100% spacing, 100% border-radius, 100% semantic colours.
+**Next logical task**: Strip remaining inline styles on services.html (31) and insights/index.html (43), add favicon
+**Governance score**: Projected 9.2-9.4/10 (token governance dimension jumped from 3.9 to ~8.5; needs re-audit to confirm)
 **Reflections count**: 10 active (REF-001–REF-010), 0 resolved, 5 patterns identified (P-001–P-005)
