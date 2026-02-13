@@ -58,7 +58,7 @@
 
 /* Dark mode adjustments */
 html[data-theme="dark"] .theme-toggle-btn {
-  color: var(--brand-gold, #C5A55A);
+  color: var(--color-action-primary);
 }
 
 html[data-theme="dark"] .theme-toggle-btn:hover {

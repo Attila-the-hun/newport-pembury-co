@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Governance Audit v2 — Newport Pembury & Co</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Brand tokens */
+            --color-charcoal: #1B2838;
+            --color-gold: #C5A55A;
+            --color-dark: #0F1923;
+            --color-ivory: #F5F0E8;
+            --color-slate: #4A5A7A;
+            --color-cream: #F0E8DC;
+
+            /* Status colors */
+            --color-success: #2ECC71;
+            --color-warning: #F39C12;
+            --color-critical: #E74C3C;
+            --color-pass: #27AE60;
+
+            /* Typography */
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            /* Spacing */
+            --space-xs: 8px;
+            --space-sm: 12px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+
+            /* Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        html {
+            font-family: var(--font-body);
+            scroll-behavior: smooth;
+            background-color: var(--color-ivory);
+            color: var(--color-charcoal);
+        }
+
+        body {
+            line-height: 1.6;
+            background: linear-gradient(135deg, var(--color-ivory) 0%, #FAFAF8 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-charcoal) 100%);
+            color: var(--color-ivory);
+            padding: var(--space-2xl) var(--space-xl);
+            text-align: center;
+            border-bottom: 4px solid var(--color-gold);
+            box-shadow: 0 8px 32px rgba(15, 25, 35, 0.15);
+        }
+
+        .header h1 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: var(--space-sm);
+        }
+
+        .audit-meta {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+            margin-top: var(--space-lg);
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+        }
+
+        .audit-meta span {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .audit-meta strong {
+            color: var(--color-gold);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        /* Overall Score Summary */
+        .score-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .score-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(27, 40, 56, 0.08);
+            border-top: 4px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .score-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(27, 40, 56, 0.12);
+        }
+
+        .score-card.success {
+            border-top-color: var(--color-success);
+        }
+
+        .score-card.critical {
+            border-top-color: var(--color-critical);
+        }
+
+        .score-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-slate);
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+        }
+
+        .score-value {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-charcoal);
+            margin-bottom: var(--space-xs);
+        }
+
+        .score-value.success {
+            color: var(--color-success);
+        }
+
+        .score-value.critical {
+            color: var(--color-critical);
+        }
+
+        .score-status {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            display: inline-block;
+            margin-top: var(--space-xs);
+        }
+
+        .score-status.green {
+            background-color: rgba(46, 204, 113, 0.15);
+            color: var(--color-success);
+        }
+
+        .score-status.red {
+            background-color: rgba(231, 76, 60, 0.15);
+            color: var(--color-critical);
+        }
+
+        /* Section */
+        .section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            box-shadow: 0 4px 16px rgba(27, 40, 56, 0.08);
+            border-left: 4px solid var(--color-gold);
+        }
+
+        .section.critical {
+            border-left-color: var(--color-critical);
+        }
+
+        .section h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-charcoal);
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .section-score {
+            display: inline-block;
+            background: var(--color-gold);
+            color: white;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 700;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .section-score.green {
+            background: var(--color-success);
+        }
+
+        .section-score.red {
+            background: var(--color-critical);
+        }
+
+        .section h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--color-charcoal);
+            margin: var(--space-lg) 0 var(--space-md) 0;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin: var(--space-lg) 0;
+        }
+
+        .checklist li {
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid #E8E4DC;
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-icon {
+            font-size: 1.2rem;
+            min-width: 24px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .checklist-icon.pass {
+            color: var(--color-success);
+        }
+
+        .checklist-icon.fail {
+            color: var(--color-critical);
+        }
+
+        .checklist-icon.warning {
+            color: var(--color-warning);
+        }
+
+        .checklist-item {
+            flex: 1;
+        }
+
+        .checklist-title {
+            font-weight: 600;
+            color: var(--color-charcoal);
+            margin-bottom: var(--space-xs);
+        }
+
+        .checklist-desc {
+            font-size: 0.9rem;
+            color: var(--color-slate);
+        }
+
+        /* Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-lg) 0;
+            overflow-x: auto;
+        }
+
+        .data-table thead {
+            background-color: #F5F0E8;
+        }
+
+        .data-table th {
+            padding: var(--space-md);
+            text-align: left;
+            font-weight: 700;
+            color: var(--color-charcoal);
+            border-bottom: 2px solid var(--color-gold);
+        }
+
+        .data-table td {
+            padding: var(--space-md);
+            border-bottom: 1px solid #E8E4DC;
+            color: var(--color-charcoal);
+        }
+
+        .data-table tbody tr:hover {
+            background-color: #FAF8F4;
+        }
+
+        .data-table .metric {
+            font-weight: 600;
+        }
+
+        .data-table .score-cell {
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .score-cell.high {
+            color: var(--color-success);
+        }
+
+        .score-cell.low {
+            color: var(--color-critical);
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-lg) 0;
+        }
+
+        .comparison-table thead {
+            background-color: var(--color-charcoal);
+            color: var(--color-ivory);
+        }
+
+        .comparison-table th {
+            padding: var(--space-md);
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid var(--color-gold);
+        }
+
+        .comparison-table td {
+            padding: var(--space-md);
+            border-bottom: 1px solid #E8E4DC;
+        }
+
+        .comparison-table tbody tr:nth-child(odd) {
+            background-color: #FAF8F4;
+        }
+
+        .comparison-table .highlight {
+            background-color: rgba(197, 165, 90, 0.1);
+            font-weight: 600;
+            color: var(--color-charcoal);
+        }
+
+        /* Action Plan */
+        .action-plan {
+            list-style: none;
+            counter-reset: action-counter;
+            margin: var(--space-lg) 0;
+        }
+
+        .action-plan li {
+            counter-increment: action-counter;
+            margin-bottom: var(--space-lg);
+            padding-left: var(--space-xl);
+            position: relative;
+            border-left: 3px solid var(--color-gold);
+            padding-top: var(--space-sm);
+            padding-bottom: var(--space-sm);
+            padding-right: var(--space-md);
+        }
+
+        .action-plan li::before {
+            content: counter(action-counter);
+            position: absolute;
+            left: -16px;
+            top: 0;
+            background: var(--color-gold);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .action-plan li.critical::before {
+            background: var(--color-critical);
+        }
+
+        .action-plan li.major {
+            border-left-color: var(--color-warning);
+        }
+
+        .action-plan li.major::before {
+            background: var(--color-warning);
+        }
+
+        .action-plan li.minor {
+            border-left-color: var(--color-slate);
+        }
+
+        .action-plan li.minor::before {
+            background: var(--color-slate);
+        }
+
+        .action-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--color-charcoal);
+            margin-bottom: var(--space-xs);
+        }
+
+        .action-priority {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            margin-right: var(--space-sm);
+        }
+
+        .action-priority.critical {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--color-critical);
+        }
+
+        .action-priority.major {
+            background: rgba(243, 156, 18, 0.15);
+            color: var(--color-warning);
+        }
+
+        .action-priority.minor {
+            background: rgba(74, 90, 122, 0.15);
+            color: var(--color-slate);
+        }
+
+        .action-desc {
+            font-size: 0.95rem;
+            color: var(--color-slate);
+            line-height: 1.6;
+            margin-bottom: var(--space-sm);
+        }
+
+        .action-detail {
+            font-size: 0.9rem;
+            color: #666;
+            padding-left: var(--space-lg);
+            border-left: 1px solid #DDD;
+            margin-left: 0;
+            margin-top: var(--space-sm);
+        }
+
+        .action-detail li {
+            list-style-type: none;
+            padding: var(--space-xs) 0;
+            border-left: none;
+            padding-left: 0;
+        }
+
+        .action-detail li::before {
+            content: "→";
+            margin-right: var(--space-sm);
+            color: var(--color-gold);
+            font-weight: bold;
+        }
+
+        /* Projection */
+        .projection {
+            background: linear-gradient(135deg, var(--color-ivory) 0%, #FAFAF8 100%);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .projection-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid #E8E4DC;
+        }
+
+        .projection-item:last-child {
+            border-bottom: none;
+        }
+
+        .projection-label {
+            font-weight: 600;
+            color: var(--color-charcoal);
+            flex: 1;
+        }
+
+        .projection-score {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .projection-arrow {
+            color: var(--color-success);
+            font-weight: bold;
+            margin: 0 var(--space-md);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 8px;
+            background-color: #E8E4DC;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            margin-top: var(--space-sm);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-charcoal) 100%);
+            transition: width 0.4s ease;
+        }
+
+        .progress-fill.success {
+            background: linear-gradient(90deg, var(--color-success) 0%, #27AE60 100%);
+        }
+
+        .progress-fill.critical {
+            background: linear-gradient(90deg, var(--color-critical) 0%, #C0392B 100%);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-dark);
+            color: var(--color-ivory);
+            padding: var(--space-xl);
+            text-align: center;
+            margin-top: var(--space-2xl);
+            border-top: 2px solid var(--color-gold);
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .score-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section h2 {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .audit-meta {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+
+            .data-table {
+                font-size: 0.9rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: var(--space-sm);
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .section,
+            .score-card {
+                box-shadow: none;
+                border: 1px solid #DDD;
+                page-break-inside: avoid;
+            }
+
+            .header {
+                background: var(--color-dark);
+                color: var(--color-ivory);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Site Governance Audit v2</h1>
+        <p>Newport Pembury & Co — Strategic Financial Leadership</p>
+        <div class="audit-meta">
+            <span><strong>Date:</strong> 13 February 2026</span>
+            <span><strong>Overall Score:</strong> <strong style="color: #E74C3C;">8.0/10</strong></span>
+            <span><strong>Status:</strong> Borderline</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Score Summary Cards -->
+        <div class="score-summary">
+            <!-- Accessibility -->
+            <div class="score-card success">
+                <div class="score-label">Accessibility</div>
+                <div class="score-value success">9.5</div>
+                <div style="font-size: 0.9rem; color: var(--color-slate);">out of 10</div>
+                <div class="score-status green">PASS</div>
+            </div>
+
+            <!-- Technical SEO -->
+            <div class="score-card success">
+                <div class="score-label">Technical SEO</div>
+                <div class="score-value success">9.2</div>
+                <div style="font-size: 0.9rem; color: var(--color-slate);">out of 10</div>
+                <div class="score-status green">PASS</div>
+            </div>
+
+            <!-- Cross-Page Consistency -->
+            <div class="score-card success">
+                <div class="score-label">Cross-Page Consistency</div>
+                <div class="score-value success">9.5</div>
+                <div style="font-size: 0.9rem; color: var(--color-slate);">out of 10</div>
+                <div class="score-status green">PASS</div>
+            </div>
+
+            <!-- Token Governance -->
+            <div class="score-card critical">
+                <div class="score-label">Token Governance</div>
+                <div class="score-value critical">3.9</div>
+                <div style="font-size: 0.9rem; color: var(--color-slate);">out of 10</div>
+                <div class="score-status red">CRITICAL</div>
+            </div>
+        </div>
+
+        <!-- Accessibility Section -->
+        <section class="section">
+            <h2>
+                <span class="section-score green">9.5/10</span>
+                Dimension 1: Accessibility
+            </h2>
+            <p style="color: var(--color-slate); margin-bottom: var(--space-lg);">All critical accessibility standards met. WCAG 2.2 AA compliance achieved across all 8 pages.</p>
+
+            <div class="progress-bar">
+                <div class="progress-fill success" style="width: 95%;"></div>
+            </div>
+
+            <ul class="checklist">
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Heading Hierarchy</div>
+                        <div class="checklist-desc">1 H1 per page, no skipped levels</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Alt Text</div>
+                        <div class="checklist-desc">All images have descriptive alt text</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">ARIA & Landmarks</div>
+                        <div class="checklist-desc">Nav aria-labels, main element, skip link, breadcrumbs implemented</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Focus & Keyboard Navigation</div>
+                        <div class="checklist-desc">:focus-visible styles, full keyboard nav, 48px+ touch targets</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Motion & Animations</div>
+                        <div class="checklist-desc">prefers-reduced-motion fully implemented site-wide</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Form Accessibility</div>
+                        <div class="checklist-desc">Proper labels, aria-required, aria-describedby, role="alert" on errors</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Colour Contrast</div>
+                        <div class="checklist-desc">WCAG AA compliant (Gold on Dark = 4.8:1 ratio)</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Meta Configuration</div>
+                        <div class="checklist-desc">html lang="en", viewport correct, zoom not disabled</div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Technical SEO Section -->
+        <section class="section">
+            <h2>
+                <span class="section-score green">9.2/10</span>
+                Dimension 2: Technical SEO
+            </h2>
+            <p style="color: var(--color-slate); margin-bottom: var(--space-lg);">18 of 21 items passed. 3 minor gaps identified; all critical elements in place.</p>
+
+            <div class="progress-bar">
+                <div class="progress-fill success" style="width: 92%;"></div>
+            </div>
+
+            <h3>Items Failing (3)</h3>
+            <ul class="checklist">
+                <li>
+                    <span class="checklist-icon fail">✗</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Favicon Files & Link Tags</div>
+                        <div class="checklist-desc">No favicon.ico, apple-touch-icon, or favicon link tags on any page</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon warning">⚠</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Font Preload</div>
+                        <div class="checklist-desc">preconnect present; explicit font preload not implemented</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon warning">⚠</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Tailwind CDN Script</div>
+                        <div class="checklist-desc">Script not deferred; may block DOM parsing for class processing</div>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Items Passing (18)</h3>
+            <ul class="checklist">
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Unique Page Titles</div>
+                        <div class="checklist-desc">All titles &lt;60 characters</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Unique Meta Descriptions</div>
+                        <div class="checklist-desc">All descriptions &lt;155 characters</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Self-Referencing Canonicals</div>
+                        <div class="checklist-desc">All 8 pages have correct canonical tags</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Open Graph Tags</div>
+                        <div class="checklist-desc">Complete OG metadata on all pages (title, description, image, type, url)</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">JSON-LD Schema</div>
+                        <div class="checklist-desc">ProfessionalService, FAQPage, Article, BreadcrumbList, Person schemas</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Sitemap & Robots</div>
+                        <div class="checklist-desc">sitemap.xml (8 pages) + robots.txt with AI crawler governance</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Theme Colour Meta</div>
+                        <div class="checklist-desc">Browser theme-color set on all pages</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Internal Link Integrity</div>
+                        <div class="checklist-desc">Zero broken internal links across all pages</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Image Optimisation</div>
+                        <div class="checklist-desc">srcset, width/height, loading="lazy", fetchpriority attributes</div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Cross-Page Consistency Section -->
+        <section class="section">
+            <h2>
+                <span class="section-score green">9.5/10</span>
+                Dimension 3: Cross-Page Consistency
+            </h2>
+            <p style="color: var(--color-slate); margin-bottom: var(--space-lg);">All critical consistency items passed. Navigation, footer, and CTA elements standardised across 8 pages.</p>
+
+            <div class="progress-bar">
+                <div class="progress-fill success" style="width: 95%;"></div>
+            </div>
+
+            <ul class="checklist">
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Navigation Consistency</div>
+                        <div class="checklist-desc">Identical nav element across all 8 pages with semantic ul/li structure</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Footer Standardisation</div>
+                        <div class="checklist-desc">Identical footer element across all 8 pages with all sections aligned</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">CTA Banner Canonical Pattern</div>
+                        <div class="checklist-desc">All CTA banners use single canonical HTML structure</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Font Loading Consistency</div>
+                        <div class="checklist-desc">Cormorant Garamond (headings) + DM Sans (body) on all pages</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">CSS & JS References</div>
+                        <div class="checklist-desc">All references consistent; no duplicate or conflicting imports</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Logo & Branding</div>
+                        <div class="checklist-desc">Logo text "Newport Pembury & Co" identical on all pages</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Tagline Consistency</div>
+                        <div class="checklist-desc">"Strategic Financial Leadership" consistently applied</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="checklist-icon pass">✓</span>
+                    <div class="checklist-item">
+                        <div class="checklist-title">Image Optimisation Parity</div>
+                        <div class="checklist-desc">srcset, width/height, loading, fetchpriority applied consistently</div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Token Governance Section -->
+        <section class="section critical">
+            <h2>
+                <span class="section-score red">3.9/10</span>
+                Dimension 4: Token Governance (CRITICAL FAILURE)
+            </h2>
+            <p style="color: var(--color-slate); margin-bottom: var(--space-lg);">Heavy reliance on inline styles and hardcoded values. Token coverage critically low across key properties. Immediate migration required.</p>
+
+            <div class="progress-bar">
+                <div class="progress-fill critical" style="width: 39%;"></div>
+            </div>
+
+            <h3>Governance Metrics</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Target</th>
+                        <th>Actual</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="metric">HTML inline styles</td>
+                        <td>&lt;20</td>
+                        <td><strong>95*</strong></td>
+                        <td class="score-cell low">3/10</td>
+                    </tr>
+                    <tr>
+                        <td class="metric">CSS hardcoded HEX outside :root</td>
+                        <td>0</td>
+                        <td><strong>0</strong></td>
+                        <td class="score-cell high">10/10</td>
+                    </tr>
+                    <tr>
+                        <td class="metric">Form validation tokens</td>
+                        <td>100%</td>
+                        <td><strong>100%</strong></td>
+                        <td class="score-cell high">10/10</td>
+                    </tr>
+                    <tr>
+                        <td class="metric">Category pill tokens</td>
+                        <td>100%</td>
+                        <td><strong>100%</strong></td>
+                        <td class="score-cell high">10/10</td>
+                    </tr>
+                    <tr style="background-color: rgba(231, 76, 60, 0.08);">
+                        <td class="metric">Font-size token coverage</td>
+                        <td>80%+</td>
+                        <td><strong>15.9%</strong></td>
+                        <td class="score-cell low">1/10</td>
+                    </tr>
+                    <tr style="background-color: rgba(231, 76, 60, 0.08);">
+                        <td class="metric">Spacing token coverage</td>
+                        <td>80%+</td>
+                        <td><strong>23.0%</strong></td>
+                        <td class="score-cell low">1/10</td>
+                    </tr>
+                    <tr style="background-color: rgba(231, 76, 60, 0.08);">
+                        <td class="metric">Border-radius token coverage</td>
+                        <td>90%+</td>
+                        <td><strong>24.1%</strong></td>
+                        <td class="score-cell low">2/10</td>
+                    </tr>
+                    <tr>
+                        <td class="metric">Dead token rate</td>
+                        <td>&lt;5%</td>
+                        <td><strong>10.7%</strong></td>
+                        <td class="score-cell low">5/10</td>
+                    </tr>
+                    <tr style="background-color: rgba(231, 76, 60, 0.08);">
+                        <td class="metric">Legacy --brand-* migration</td>
+                        <td>&lt;10%</td>
+                        <td><strong>73.4%</strong></td>
+                        <td class="score-cell low">2/10</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size: 0.9rem; color: #666; margin-top: var(--space-md);">*95 inline styles on site pages; 195 total including tools/ directory (not counted toward score)</p>
+
+            <h3>Root Causes</h3>
+            <ul style="margin: var(--space-lg) 0; list-style-position: inside; color: var(--color-slate);">
+                <li>Legacy --brand-* variables created before semantic naming introduced</li>
+                <li>Token scale exists (--font-size-base, --space-xs) but unused in markup</li>
+                <li>95 inline styles on core pages; manual refactoring needed</li>
+                <li>No automated linting (stylelint) to prevent new hardcoded values</li>
+                <li>Token coverage measured at code review; no CI/CD enforcement</li>
+            </ul>
+        </section>
+
+        <!-- Industry Comparison Section -->
+        <section class="section">
+            <h2>
+                <span style="font-family: var(--font-heading); background: var(--color-gold); color: white; padding: 6px 12px; border-radius: 4px; font-size: 1rem;">RESEARCH</span>
+                What Leading Systems Do Differently
+            </h2>
+            <p style="color: var(--color-slate); margin-bottom: var(--space-lg);">Comparison with industry standards from Atlassian, Shopify, and Adobe design systems.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Practice</th>
+                        <th>Atlassian / Shopify / Adobe</th>
+                        <th>Newport Pembury (Current)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Token Enforcement</strong></td>
+                        <td>stylelint + CI/CD blocks commits on violations</td>
+                        <td class="highlight">Manual grep checklist</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Legacy Migration</strong></td>
+                        <td>Dual-system aliases + automated codemods</td>
+                        <td class="highlight">Aliases exist but never migrated</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hardcoded Prevention</strong></td>
+                        <td>stylelint-declaration-strict-value plugin</td>
+                        <td class="highlight">No automated linting</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Token Coverage Target</strong></td>
+                        <td>85-92% achieved in production</td>
+                        <td class="highlight">15-24% on key properties</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Font-Size Tokenisation</strong></td>
+                        <td>95%+ via scale + exception tokens</td>
+                        <td class="highlight">15.9% — scale exists but unused</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Spacing Tokenisation</strong></td>
+                        <td>95%+ via 8px grid scale</td>
+                        <td class="highlight">23% — scale exists but unused</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dead Token Management</strong></td>
+                        <td>Automated pruning in CI/CD pipeline</td>
+                        <td class="highlight">Manual audits, 10.7% dead</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Action Plan Section -->
+        <section class="section">
+            <h2>
+                <span style="font-family: var(--font-heading); background: var(--color-critical); color: white; padding: 6px 12px; border-radius: 4px; font-size: 1rem;">ACTION PLAN</span>
+                Priority Fixes (Roadmap)
+            </h2>
+            <p style="color: var(--color-slate); margin-bottom: var(--space-lg);">Ranked by impact on governance score. Fixes listed below will raise overall score from 8.0 to 9.4/10.</p>
+
+            <ol class="action-plan">
+                <li class="critical">
+                    <span class="action-priority critical">CRITICAL</span>
+                    <div class="action-title">Migrate 226 legacy --brand-* to semantic tokens</div>
+                    <div class="action-desc">
+                        Single biggest impact — estimated score gain: <strong>+2.0 points</strong>. The --brand-* prefix is outdated and blocks semantic understanding. Migrate all references to new token names.
+                    </div>
+                    <ul class="action-detail">
+                        <li><code>--brand-gold</code> → <code>--color-action-primary</code> (92 refs)</li>
+                        <li><code>--brand-charcoal</code> → <code>--color-text-primary</code> (60 refs)</li>
+                        <li><code>--brand-dark</code> → <code>--color-bg-inverse</code> (25 refs)</li>
+                        <li><code>--brand-ivory</code> → <code>--color-text-inverse</code> (12 refs)</li>
+                        <li><code>--brand-slate</code> → <code>--color-text-secondary</code> (33 refs)</li>
+                        <li><code>--brand-cream</code> → <code>--color-bg-secondary</code> (8 refs)</li>
+                        <li><code>--brand-gold-light</code> → <code>--color-action-hover</code> (15 refs)</li>
+                    </ul>
+                </li>
+
+                <li class="critical">
+                    <span class="action-priority critical">CRITICAL</span>
+                    <div class="action-title">Replace 127 hardcoded font-size values with var(--font-size-*)</div>
+                    <div class="action-desc">
+                        Font-size coverage is only 15.9%. Scale tokens exist but are unused. Estimated score gain: <strong>+1.0 point</strong>.
+                    </div>
+                    <ul class="action-detail">
+                        <li>Map common sizes: 1rem → --font-size-base, 0.875rem → --font-size-sm, 1.125rem → --font-size-md</li>
+                        <li>Create exception tokens for outliers (e.g., 1.75rem, 0.6875rem)</li>
+                        <li>Apply consistently across all page types</li>
+                    </ul>
+                </li>
+
+                <li class="major">
+                    <span class="action-priority major">MAJOR</span>
+                    <div class="action-title">Replace 294 hardcoded spacing with var(--space-*)</div>
+                    <div class="action-desc">
+                        Spacing coverage at 23%. Establish 8px grid enforcement. Estimated score gain: <strong>+1.0 point</strong>.
+                    </div>
+                    <ul class="action-detail">
+                        <li>Map to grid: 4px → --space-2xs, 8px → --space-xs, 12px → --space-sm, 16px → --space-md, 24px → --space-lg</li>
+                        <li>32px → --space-xl, 48px → --space-2xl</li>
+                        <li>Apply to all padding, margin, gap properties</li>
+                    </ul>
+                </li>
+
+                <li class="major">
+                    <span class="action-priority major">MAJOR</span>
+                    <div class="action-title">Replace 44 hardcoded border-radius with var(--radius-*)</div>
+                    <div class="action-desc">
+                        Border-radius coverage at 24.1%. Estimated score gain: <strong>+0.5 points</strong>.
+                    </div>
+                    <ul class="action-detail">
+                        <li>Define scale: 2px → --radius-xs, 4px → --radius-sm, 8px → --radius-md, 12px → --radius-lg</li>
+                        <li>Review existing rounded elements and normalize</li>
+                    </ul>
+                </li>
+
+                <li class="major">
+                    <span class="action-priority major">MAJOR</span>
+                    <div class="action-title">Strip remaining 95 inline styles from core pages</div>
+                    <div class="action-desc">
+                        Move all inline style attributes to CSS classes or var() references. Target pages: services.html (31 styles), insights/index.html (43), insights/ma-readiness-checklist (10), core pages (11). Estimated score gain: <strong>+0.4 points</strong>.
+                    </div>
+                    <ul class="action-detail">
+                        <li>Batch refactor by property type (color, spacing, sizing)</li>
+                        <li>Create CSS utility classes for reusable patterns</li>
+                        <li>Validate visual consistency after each batch</li>
+                    </ul>
+                </li>
+
+                <li class="minor">
+                    <span class="action-priority minor">MINOR</span>
+                    <div class="action-title">Add favicon files and link tags</div>
+                    <div class="action-desc">
+                        Generate favicon in Charcoal (#1B2838) with gold accent. Add link tags to all 8 pages. Estimated score gain: <strong>+0.2 points</strong>.
+                    </div>
+                    <ul class="action-detail">
+                        <li>favicon.ico (16x16, 32x32, 48x48)</li>
+                        <li>apple-touch-icon-180x180.png</li>
+                        <li>Link tags in &lt;head&gt; section</li>
+                    </ul>
+                </li>
+
+                <li class="minor">
+                    <span class="action-priority minor">MINOR</span>
+                    <div class="action-title">Prune 79 dead tokens from design-tokens.json</div>
+                    <div class="action-desc">
+                        Dead token rate is 10.7%. Run audit to identify unused tokens and remove. Estimated score gain: <strong>+0.1 points</strong>.
+                    </div>
+                    <ul class="action-detail">
+                        <li>Grep codebase for each token reference</li>
+                        <li>Document removed tokens in CHANGELOG.md</li>
+                        <li>Reduce overall token file by ~15%</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Score Projection Section -->
+        <section class="section">
+            <h2>
+                <span style="font-family: var(--font-heading); background: var(--color-gold); color: white; padding: 6px 12px; border-radius: 4px; font-size: 1rem;">FORECAST</span>
+                Score Projection After Fixes
+            </h2>
+            <p style="color: var(--color-slate); margin-bottom: var(--space-lg);">Estimated overall score improvement from 8.0 to 9.4/10 when all action items completed.</p>
+
+            <div class="projection">
+                <div class="projection-item">
+                    <div class="projection-label">Overall Score (Current)</div>
+                    <div class="projection-score">8.0/10</div>
+                </div>
+                <div class="projection-item">
+                    <div class="projection-label">After legacy --brand-* migration (#1)</div>
+                    <div class="projection-score">8.5/10</div>
+                    <div class="projection-arrow">↑</div>
+                </div>
+                <div class="projection-item">
+                    <div class="projection-label">After font-size + spacing + radius tokenisation (#2-4)</div>
+                    <div class="projection-score">9.2/10</div>
+                    <div class="projection-arrow">↑</div>
+                </div>
+                <div class="projection-item">
+                    <div class="projection-label">After inline style cleanup (#5)</div>
+                    <div class="projection-score">9.4/10</div>
+                    <div class="projection-arrow">↑</div>
+                </div>
+            </div>
+
+            <h3>Token Governance Dimension Projection</h3>
+            <div class="projection">
+                <div class="projection-item">
+                    <div class="projection-label">Token Governance Score (Current)</div>
+                    <div class="projection-score" style="color: var(--color-critical);">3.9/10</div>
+                </div>
+                <div class="projection-item">
+                    <div class="projection-label">Token Governance Score (After All Fixes)</div>
+                    <div class="projection-score" style="color: var(--color-success);">8.5/10</div>
+                    <div class="projection-arrow">↑ +4.6</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section class="section">
+            <h2>Summary</h2>
+            <div style="background: #FAF8F4; border-radius: 8px; padding: var(--space-lg); border-left: 4px solid var(--color-gold);">
+                <h3 style="margin-bottom: var(--space-md);">Key Takeaways</h3>
+                <ul style="list-style-position: inside; color: var(--color-slate);">
+                    <li><strong>3 dimensions excellent:</strong> Accessibility (9.5), Technical SEO (9.2), Cross-page consistency (9.5)</li>
+                    <li><strong>1 dimension critical:</strong> Token governance (3.9) — the primary drag on overall score</li>
+                    <li><strong>Root issue:</strong> 95 inline styles and 226 legacy --brand-* variables remain. Semantic tokens defined but unused.</li>
+                    <li><strong>Quick wins:</strong> Legacy migration (#1) will raise score by 2.0 points immediately</li>
+                    <li><strong>Outlook:</strong> With action plan completion, site can reach 9.4/10 governance (from 8.0) in 1-2 sessions</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Generated by DFRUVL Protocol v1.6.0 | Newport Pembury & Co Site Governance Audit</p>
+        <p style="margin-top: var(--space-sm); font-size: 0.85rem; opacity: 0.7;">13 February 2026 — v2</p>
+    </footer>
+</body>
+</html>
