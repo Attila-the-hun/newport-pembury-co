@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coastal Brewing Co — Cash Flow Intelligence Report</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+        :root {
+            --charcoal: #1B2838;
+            --gold: #C5A55A;
+            --dark: #0F1923;
+            --ivory: #F5F0E8;
+            --gold-light: #D4BC7C;
+            --gold-dark: #806B3A;
+            --success: #2E7D4F;
+            --warning: #C17D24;
+            --danger: #9E3030;
+            --blue: #3A6B8C;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--charcoal);
+            background: #fff;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 50px;
+        }
+
+        /* --- HEADER --- */
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .report-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--charcoal);
+            letter-spacing: -0.02em;
+        }
+
+        .report-header .subtitle {
+            font-size: 14px;
+            color: var(--gold-dark);
+            margin-top: 4px;
+        }
+
+        .report-meta {
+            text-align: right;
+            font-size: 12px;
+            color: var(--gold-dark);
+            line-height: 1.8;
+        }
+
+        .report-meta .label {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        /* --- SCENARIO BADGE --- */
+        .scenario-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .scenario-badge.base { background: var(--gold); color: var(--dark); }
+        .scenario-badge.bull { background: var(--success); color: #fff; }
+        .scenario-badge.bear { background: var(--danger); color: #fff; }
+
+        /* --- EXECUTIVE SUMMARY --- */
+        .exec-summary {
+            background: var(--ivory);
+            border-left: 4px solid var(--gold);
+            padding: 24px 28px;
+            margin-bottom: 36px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .exec-summary h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .kpi-card {
+            text-align: center;
+            padding: 12px;
+        }
+
+        .kpi-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--charcoal);
+        }
+
+        .kpi-value.positive { color: var(--success); }
+        .kpi-value.negative { color: var(--danger); }
+        .kpi-value.warning { color: var(--warning); }
+
+        .kpi-label {
+            font-size: 11px;
+            color: var(--gold-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-top: 4px;
+        }
+
+        /* --- SECTIONS --- */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--charcoal);
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--gold-light);
+            margin-bottom: 20px;
+        }
+
+        /* --- CHARTS --- */
+        .chart-container {
+            width: 100%;
+            height: 360px;
+            margin: 20px 0;
+            border: 1px solid #e8e4dc;
+            border-radius: 8px;
+            padding: 16px;
+            background: #fff;
+        }
+
+        /* --- TABLES --- */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin: 16px 0;
+        }
+
+        .data-table th {
+            background: var(--charcoal);
+            color: var(--ivory);
+            padding: 10px 12px;
+            text-align: right;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .data-table th:first-child { text-align: left; border-radius: 6px 0 0 0; }
+        .data-table th:last-child { border-radius: 0 6px 0 0; }
+
+        .data-table td {
+            padding: 8px 12px;
+            text-align: right;
+            border-bottom: 1px solid #e8e4dc;
+        }
+
+        .data-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .data-table tr:nth-child(even) { background: #faf8f4; }
+
+        .data-table tr.total-row {
+            font-weight: 700;
+            background: var(--ivory);
+            border-top: 2px solid var(--gold);
+        }
+
+        .data-table td.negative { color: var(--danger); }
+        .data-table td.positive { color: var(--success); }
+
+        /* --- ASSUMPTION REGISTER --- */
+        .assumption-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin: 16px 0;
+        }
+
+        .assumption-table th {
+            background: var(--ivory);
+            color: var(--charcoal);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .assumption-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e8e4dc;
+            vertical-align: top;
+        }
+
+        .confidence-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .confidence-badge.high { background: #e6f4ec; color: var(--success); }
+        .confidence-badge.medium { background: #fef3e2; color: var(--warning); }
+        .confidence-badge.low { background: #fce8e8; color: var(--danger); }
+
+        /* --- VALIDATION RECEIPT --- */
+        .validation-receipt {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 20px 0;
+            font-size: 12px;
+        }
+
+        .validation-receipt h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: var(--charcoal);
+        }
+
+        .check-row {
+            display: flex;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .check-status {
+            width: 60px;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .check-status.pass { color: var(--success); }
+        .check-status.fail { color: var(--danger); }
+        .check-status.warning { color: var(--warning); }
+
+        .check-name { width: 200px; font-weight: 600; }
+        .check-detail { flex: 1; color: #666; }
+
+        /* --- SIGN-OFF --- */
+        .sign-off {
+            border: 2px solid var(--charcoal);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .sign-off h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .sign-off-line {
+            border-bottom: 1px solid var(--charcoal);
+            margin: 24px 0 8px;
+            width: 60%;
+        }
+
+        .sign-off-label {
+            font-size: 11px;
+            color: var(--gold-dark);
+        }
+
+        /* --- FOOTER --- */
+        .report-footer {
+            border-top: 1px solid var(--gold-light);
+            padding-top: 16px;
+            margin-top: 40px;
+            font-size: 10px;
+            color: #888;
+            line-height: 1.7;
+        }
+
+        .pss-disclaimer {
+            font-weight: 600;
+            color: var(--charcoal);
+            font-size: 11px;
+            margin-top: 8px;
+        }
+
+        /* --- PRINT / PDF --- */
+        @media print {
+            body { background: #fff; }
+            .page { padding: 20px 30px; max-width: 100%; }
+            .chart-container { break-inside: avoid; }
+            .section { break-inside: avoid; }
+            .sign-off { break-inside: avoid; }
+            /* Hide interactive charts, show static SVG charts in PDF */
+            .chart-interactive { display: none !important; }
+            .chart-static { display: block !important; height: auto !important; }
+        }
+
+        /* Hide static charts on screen, show interactive charts */
+        .chart-static { display: none; }
+        .chart-interactive { display: block; }
+
+        @page {
+            size: A4;
+            margin: 15mm 12mm;
+            @bottom-right {
+                content: "Page " counter(page) " of " counter(pages);
+                font-family: 'DM Sans', sans-serif;
+                font-size: 9px;
+                color: #888;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- ===== HEADER ===== -->
+    <div class="report-header">
+        <div>
+            <h1>Coastal Brewing Co</h1>
+            <div class="subtitle">Cash Flow Intelligence Report</div>
+        </div>
+        <div class="report-meta">
+            <div><span class="label">Prepared by:</span> Newport Pembury & Co</div>
+            <div><span class="label">Date:</span> 14 February 2026</div>
+            <div><span class="label">Scenario:</span> <span class="scenario-badge base">Base</span></div>
+            <div><span class="label">Period:</span> 13 weeks from 2026-02</div>
+        </div>
+    </div>
+
+    <!-- ===== EXECUTIVE SUMMARY ===== -->
+    <div class="exec-summary">
+        <h2>Executive Summary</h2>
+        <p>Under the base case, Coastal Brewing Co's cash position is projected to decrease from $184,900 to $64,105 over the 13-week forecast period, a net movement of $-120,795. The minimum cash position of $64,105 occurs in Week 13, which warrants attention. </p>
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-value positive">$184,900</div>
+                <div class="kpi-label">Opening Cash</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value positive">$64,105</div>
+                <div class="kpi-label">Week 13 Cash</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value negative">$-120,795</div>
+                <div class="kpi-label">Net Movement</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value positive">$64,105</div>
+                <div class="kpi-label">Minimum Cash</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CASH FLOW WATERFALL ===== -->
+    <div class="section">
+        <h2>1. Cash Flow Forecast</h2>
+        <!-- Interactive chart for screen viewing (HTML) -->
+        <div class="chart-container chart-interactive" id="chart-waterfall"></div>
+        <!-- Static SVG chart for PDF printing -->
+        
+        <div class="chart-container chart-static" style="background: white; padding: 0;">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI0MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxzdHlsZT50ZXh0IHsgZm9udC1mYW1pbHk6IERNIFNhbnM7IGZvbnQtc2l6ZTogMTJweDsgfSAudGl0bGUgeyBmb250LXNpemU6IDE2cHg7IGZvbnQtd2VpZ2h0OiBib2xkOyB9PC9zdHlsZT4KPHJlY3Qgd2lkdGg9IjEwMDAiIGhlaWdodD0iNDAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSI1MDAuMCIgeT0iMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGNsYXNzPSJ0aXRsZSIgZmlsbD0iIzFCMjgzOCI+MTMtV2VlayBDYXNoIEZsb3cgRm9yZWNhc3Q8L3RleHQ+CjxsaW5lIHgxPSI4MCIgeTE9IjYwIiB4Mj0iODAiIHkyPSIzNDAiIHN0cm9rZT0iIzFCMjgzOCIgc3Ryb2tlLXdpZHRoPSIxIi8+CjxsaW5lIHgxPSI4MCIgeTE9IjM0MCIgeDI9Ijk1MCIgeTI9IjM0MCIgc3Ryb2tlPSIjMUIyODM4IiBzdHJva2Utd2lkdGg9IjEiLz4KPHJlY3QgeD0iOTMuMzg0NjE1Mzg0NjE1MzkiIHk9IjM0MCIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9Ijk3MDUuMjk0MTE3NjQ3MDYiIGZpbGw9IiM5RTMwMzAiIHJ4PSIzIi8+Cjx0ZXh0IHg9IjExMy40NjE1Mzg0NjE1Mzg0NyIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XMTwvdGV4dD4KPHRleHQgeD0iMTEzLjQ2MTUzODQ2MTUzODQ3IiB5PSIzMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiMxQjI4MzgiPiQtOWs8L3RleHQ+CjxyZWN0IHg9IjE2MC4zMDc2OTIzMDc2OTIzIiB5PSIzNDAiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSI5NjgyLjY0NzA1ODgyMzUyOCIgZmlsbD0iIzlFMzAzMCIgcng9IjMiLz4KPHRleHQgeD0iMTgwLjM4NDYxNTM4NDYxNTM2IiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlcyPC90ZXh0Pgo8dGV4dCB4PSIxODAuMzg0NjE1Mzg0NjE1MzYiIHk9IjMzNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzFCMjgzOCI+JC05azwvdGV4dD4KPHJlY3QgeD0iMjI3LjIzMDc2OTIzMDc2OTIzIiB5PSIzNDAiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSI5NjU4Ljk3MDU4ODIzNTI5NiIgZmlsbD0iIzlFMzAzMCIgcng9IjMiLz4KPHRleHQgeD0iMjQ3LjMwNzY5MjMwNzY5MjMiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzM8L3RleHQ+Cjx0ZXh0IHg9IjI0Ny4zMDc2OTIzMDc2OTIzIiB5PSIzMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiMxQjI4MzgiPiQtOWs8L3RleHQ+CjxyZWN0IHg9IjI5NC4xNTM4NDYxNTM4NDYxMyIgeT0iMzQwIiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iOTYzNS4yOTQxMTc2NDcwNiIgZmlsbD0iIzlFMzAzMCIgcng9IjMiLz4KPHRleHQgeD0iMzE0LjIzMDc2OTIzMDc2OTIiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzQ8L3RleHQ+Cjx0ZXh0IHg9IjMxNC4yMzA3NjkyMzA3NjkyIiB5PSIzMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiMxQjI4MzgiPiQtOWs8L3RleHQ+CjxyZWN0IHg9IjM2MS4wNzY5MjMwNzY5MjMwNCIgeT0iMzQwIiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iOTYxMS42MTc2NDcwNTg4MjMiIGZpbGw9IiM5RTMwMzAiIHJ4PSIzIi8+Cjx0ZXh0IHg9IjM4MS4xNTM4NDYxNTM4NDYxMyIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XNTwvdGV4dD4KPHRleHQgeD0iMzgxLjE1Mzg0NjE1Mzg0NjEzIiB5PSIzMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiMxQjI4MzgiPiQtOWs8L3RleHQ+CjxyZWN0IHg9IjQyNy45OTk5OTk5OTk5OTk5NCIgeT0iMzQwIiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iOTU4OC45NzA1ODgyMzUyOTYiIGZpbGw9IiM5RTMwMzAiIHJ4PSIzIi8+Cjx0ZXh0IHg9IjQ0OC4wNzY5MjMwNzY5MjMwNCIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XNjwvdGV4dD4KPHRleHQgeD0iNDQ4LjA3NjkyMzA3NjkyMzA0IiB5PSIzMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiMxQjI4MzgiPiQtOWs8L3RleHQ+CjxyZWN0IHg9IjQ5NC45MjMwNzY5MjMwNzY5IiB5PSIzNDAiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSI5NTY1LjI5NDExNzY0NzA2IiBmaWxsPSIjOUUzMDMwIiByeD0iMyIvPgo8dGV4dCB4PSI1MTUuMCIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XNzwvdGV4dD4KPHRleHQgeD0iNTE1LjAiIHk9IjMzNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzFCMjgzOCI+JC05azwvdGV4dD4KPHJlY3QgeD0iNTYxLjg0NjE1Mzg0NjE1MzgiIHk9IjM0MCIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9Ijk1NDEuNjE3NjQ3MDU4ODIzIiBmaWxsPSIjOUUzMDMwIiByeD0iMyIvPgo8dGV4dCB4PSI1ODEuOTIzMDc2OTIzMDc2OSIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XODwvdGV4dD4KPHRleHQgeD0iNTgxLjkyMzA3NjkyMzA3NjkiIHk9IjMzNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzFCMjgzOCI+JC05azwvdGV4dD4KPHJlY3QgeD0iNjI4Ljc2OTIzMDc2OTIzMDciIHk9IjM0MCIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9Ijk1MTguOTcwNTg4MjM1Mjk2IiBmaWxsPSIjOUUzMDMwIiByeD0iMyIvPgo8dGV4dCB4PSI2NDguODQ2MTUzODQ2MTUzOCIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XOTwvdGV4dD4KPHRleHQgeD0iNjQ4Ljg0NjE1Mzg0NjE1MzgiIHk9IjMzNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzFCMjgzOCI+JC05azwvdGV4dD4KPHJlY3QgeD0iNjk1LjY5MjMwNzY5MjMwNzYiIHk9IjM0MCIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9Ijk0OTUuMjk0MTE3NjQ3MDYiIGZpbGw9IiM5RTMwMzAiIHJ4PSIzIi8+Cjx0ZXh0IHg9IjcxNS43NjkyMzA3NjkyMzA3IiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlcxMDwvdGV4dD4KPHRleHQgeD0iNzE1Ljc2OTIzMDc2OTIzMDciIHk9IjMzNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzFCMjgzOCI+JC05azwvdGV4dD4KPHJlY3QgeD0iNzYyLjYxNTM4NDYxNTM4NDUiIHk9IjM0MCIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9Ijk0NzEuNjE3NjQ3MDU4ODIzIiBmaWxsPSIjOUUzMDMwIiByeD0iMyIvPgo8dGV4dCB4PSI3ODIuNjkyMzA3NjkyMzA3NiIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XMTE8L3RleHQ+Cjx0ZXh0IHg9Ijc4Mi42OTIzMDc2OTIzMDc2IiB5PSIzMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiMxQjI4MzgiPiQtOWs8L3RleHQ+CjxyZWN0IHg9IjgyOS41Mzg0NjE1Mzg0NjE0IiB5PSIzNDAiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSI5NDQ3Ljk0MTE3NjQ3MDU4NyIgZmlsbD0iIzlFMzAzMCIgcng9IjMiLz4KPHRleHQgeD0iODQ5LjYxNTM4NDYxNTM4NDUiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzEyPC90ZXh0Pgo8dGV4dCB4PSI4NDkuNjE1Mzg0NjE1Mzg0NSIgeT0iMzM1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjMUIyODM4Ij4kLTlrPC90ZXh0Pgo8cmVjdCB4PSI4OTYuNDYxNTM4NDYxNTM4NSIgeT0iMzQwIiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iOTQyNS4yOTQxMTc2NDcwNiIgZmlsbD0iIzlFMzAzMCIgcng9IjMiLz4KPHRleHQgeD0iOTE2LjUzODQ2MTUzODQ2MTUiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzEzPC90ZXh0Pgo8dGV4dCB4PSI5MTYuNTM4NDYxNTM4NDYxNSIgeT0iMzM1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjMUIyODM4Ij4kLTlrPC90ZXh0Pgo8L3N2Zz4=" style="width: 100%; height: auto;" alt="Cash Flow Waterfall Chart"/>
+        </div>
+        
+    </div>
+
+    <!-- ===== SCENARIO COMPARISON ===== -->
+    
+    <div class="section">
+        <h2>2. Scenario Comparison</h2>
+        <!-- Interactive chart for screen viewing (HTML) -->
+        <div class="chart-container chart-interactive" id="chart-scenarios"></div>
+        <!-- Static SVG chart for PDF printing -->
+        
+        <div class="chart-container chart-static" style="background: white; padding: 0;">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI0MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxzdHlsZT50ZXh0IHsgZm9udC1mYW1pbHk6IERNIFNhbnM7IGZvbnQtc2l6ZTogMTJweDsgfSAudGl0bGUgeyBmb250LXNpemU6IDE2cHg7IGZvbnQtd2VpZ2h0OiBib2xkOyB9PC9zdHlsZT4KPHJlY3Qgd2lkdGg9IjEwMDAiIGhlaWdodD0iNDAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSI1MDAuMCIgeT0iMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGNsYXNzPSJ0aXRsZSIgZmlsbD0iIzFCMjgzOCI+Q2FzaCBQb3NpdGlvbiDigJQgU2NlbmFyaW8gQ29tcGFyaXNvbjwvdGV4dD4KPGxpbmUgeDE9IjgwIiB5MT0iNjAiIHgyPSI4MCIgeTI9IjM0MCIgc3Ryb2tlPSIjMUIyODM4IiBzdHJva2Utd2lkdGg9IjEiLz4KPGxpbmUgeDE9IjgwIiB5MT0iMzQwIiB4Mj0iOTUwIiB5Mj0iMzQwIiBzdHJva2U9IiMxQjI4MzgiIHN0cm9rZS13aWR0aD0iMSIvPgo8cGF0aCBkPSJNIDgwLjAgNjAuMCBMIDE1Mi41IDgwLjA2NDI5ODg4MzE0OTcyIEwgMjI1LjAgMTAwLjA3OTUzNTU4NTMxNzkgTCAyOTcuNSAxMjAuMDQ1NzEwMTA2NTA0NTQgTCAzNzAuMCAxMzkuOTYyODIyNDQ2NzA5NjUgTCA0NDIuNSAxNTkuODMzMDA1NzQ0MjM2NzQgTCA1MTUuMCAxNzkuNjU0MTI2ODYwNzgyMjQgTCA1ODcuNSAxOTkuNDI2MTg1Nzk2MzQ2MjYgTCA2NjAuMCAyMTkuMTQ5MTgyNTUwOTI4NjkgTCA3MzIuNSAyMzguODI1MjUwMjYyODMzMSBMIDgwNS4wIDI1OC40NTIyNTU3OTM3NTU5NyBMIDg3Ny41IDI3OC4wMzIzMzIyODIwMDA5IEwgOTUwLjAgMjk3LjU2MTIxMzQ1MDk2MDciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0M1QTU1QSIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxjaXJjbGUgY3g9IjgwLjAiIGN5PSI2MC4wIiByPSIzIiBmaWxsPSIjQzVBNTVBIi8+CjxjaXJjbGUgY3g9IjE1Mi41IiBjeT0iODAuMDY0Mjk4ODgzMTQ5NzIiIHI9IjMiIGZpbGw9IiNDNUE1NUEiLz4KPGNpcmNsZSBjeD0iMjI1LjAiIGN5PSIxMDAuMDc5NTM1NTg1MzE3OSIgcj0iMyIgZmlsbD0iI0M1QTU1QSIvPgo8Y2lyY2xlIGN4PSIyOTcuNSIgY3k9IjEyMC4wNDU3MTAxMDY1MDQ1NCIgcj0iMyIgZmlsbD0iI0M1QTU1QSIvPgo8Y2lyY2xlIGN4PSIzNzAuMCIgY3k9IjEzOS45NjI4MjI0NDY3MDk2NSIgcj0iMyIgZmlsbD0iI0M1QTU1QSIvPgo8Y2lyY2xlIGN4PSI0NDIuNSIgY3k9IjE1OS44MzMwMDU3NDQyMzY3NCIgcj0iMyIgZmlsbD0iI0M1QTU1QSIvPgo8Y2lyY2xlIGN4PSI1MTUuMCIgY3k9IjE3OS42NTQxMjY4NjA3ODIyNCIgcj0iMyIgZmlsbD0iI0M1QTU1QSIvPgo8Y2lyY2xlIGN4PSI1ODcuNSIgY3k9IjE5OS40MjYxODU3OTYzNDYyNiIgcj0iMyIgZmlsbD0iI0M1QTU1QSIvPgo8Y2lyY2xlIGN4PSI2NjAuMCIgY3k9IjIxOS4xNDkxODI1NTA5Mjg2OSIgcj0iMyIgZmlsbD0iI0M1QTU1QSIvPgo8Y2lyY2xlIGN4PSI3MzIuNSIgY3k9IjIzOC44MjUyNTAyNjI4MzMxIiByPSIzIiBmaWxsPSIjQzVBNTVBIi8+CjxjaXJjbGUgY3g9IjgwNS4wIiBjeT0iMjU4LjQ1MjI1NTc5Mzc1NTk3IiByPSIzIiBmaWxsPSIjQzVBNTVBIi8+CjxjaXJjbGUgY3g9Ijg3Ny41IiBjeT0iMjc4LjAzMjMzMjI4MjAwMDkiIHI9IjMiIGZpbGw9IiNDNUE1NUEiLz4KPGNpcmNsZSBjeD0iOTUwLjAiIGN5PSIyOTcuNTYxMjEzNDUwOTYwNyIgcj0iMyIgZmlsbD0iI0M1QTU1QSIvPgo8cGF0aCBkPSJNIDgwLjAgNjAuNjA1ODExMjc4MjA2OTQgTCAxNTIuNSA4MS4yMzk2NTgwODg0MDMzNiBMIDIyNS4wIDEwMS43OTAzMTI1MDQ3NjE0NiBMIDI5Ny41IDEyMi4yNTU2NDEzODg5Nzc3OCBMIDM3MC4wIDE0Mi42Mzk5MTEwMTc2NTkzMyBMIDQ0Mi41IDE2Mi45Mzg4NTUxMTQxOTkxIEwgNTE1LjAgMTgzLjE1NjczOTk1NTIwNDEgTCA1ODcuNSAyMDMuMjg5Mjk5MjY0MDY3MjcgTCA2NjAuMCAyMjMuMzM4NjY2MTc5MDkyMiBMIDczMi41IDI0My4zMDQ4NDA3MDAyNzg4NSBMIDgwNS4wIDI2My4xODU2ODk2ODkzMjM2IEwgODc3LjUgMjgyLjk4NTQ3OTQyMjgzMzcgTCA5NTAuMCAzMDIuNzAyMDc2NzYyNTA1NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMkU3RDRGIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iODAuMCIgY3k9IjYwLjYwNTgxMTI3ODIwNjk0IiByPSIzIiBmaWxsPSIjMkU3RDRGIi8+CjxjaXJjbGUgY3g9IjE1Mi41IiBjeT0iODEuMjM5NjU4MDg4NDAzMzYiIHI9IjMiIGZpbGw9IiMyRTdENEYiLz4KPGNpcmNsZSBjeD0iMjI1LjAiIGN5PSIxMDEuNzkwMzEyNTA0NzYxNDYiIHI9IjMiIGZpbGw9IiMyRTdENEYiLz4KPGNpcmNsZSBjeD0iMjk3LjUiIGN5PSIxMjIuMjU1NjQxMzg4OTc3NzgiIHI9IjMiIGZpbGw9IiMyRTdENEYiLz4KPGNpcmNsZSBjeD0iMzcwLjAiIGN5PSIxNDIuNjM5OTExMDE3NjU5MzMiIHI9IjMiIGZpbGw9IiMyRTdENEYiLz4KPGNpcmNsZSBjeD0iNDQyLjUiIGN5PSIxNjIuOTM4ODU1MTE0MTk5MSIgcj0iMyIgZmlsbD0iIzJFN0Q0RiIvPgo8Y2lyY2xlIGN4PSI1MTUuMCIgY3k9IjE4My4xNTY3Mzk5NTUyMDQxIiByPSIzIiBmaWxsPSIjMkU3RDRGIi8+CjxjaXJjbGUgY3g9IjU4Ny41IiBjeT0iMjAzLjI4OTI5OTI2NDA2NzI3IiByPSIzIiBmaWxsPSIjMkU3RDRGIi8+CjxjaXJjbGUgY3g9IjY2MC4wIiBjeT0iMjIzLjMzODY2NjE3OTA5MjIiIHI9IjMiIGZpbGw9IiMyRTdENEYiLz4KPGNpcmNsZSBjeD0iNzMyLjUiIGN5PSIyNDMuMzA0ODQwNzAwMjc4ODUiIHI9IjMiIGZpbGw9IiMyRTdENEYiLz4KPGNpcmNsZSBjeD0iODA1LjAiIGN5PSIyNjMuMTg1Njg5Njg5MzIzNiIgcj0iMyIgZmlsbD0iIzJFN0Q0RiIvPgo8Y2lyY2xlIGN4PSI4NzcuNSIgY3k9IjI4Mi45ODU0Nzk0MjI4MzM3IiByPSIzIiBmaWxsPSIjMkU3RDRGIi8+CjxjaXJjbGUgY3g9Ijk1MC4wIiBjeT0iMzAyLjcwMjA3Njc2MjUwNTUiIHI9IjMiIGZpbGw9IiMyRTdENEYiLz4KPHBhdGggZD0iTSA4MC4wIDYyLjk5Mjc5MzAzOTg3NDQ3IEwgMTUyLjUgODYuMDkyNTQ3NzI4OTY5NTUgTCAyMjUuMCAxMDkuMTkwMTY5Mjc5NzYxMDggTCAyOTcuNSAxMzIuMjgzNTI0NTUzOTQ1NTQgTCAzNzAuMCAxNTUuMzc0NzQ2Njg5ODI2NDUgTCA0NDIuNSAxNzguNDYzODM1Njg3NDAzODIgTCA1MTUuMCAyMDEuNTQ4NjU4NDA4Mzc0MDggTCA1ODcuNSAyMjQuNjMxMzQ3OTkxMDQwODMgTCA2NjAuMCAyNDcuNzExOTA0NDM1NDA0IEwgNzMyLjUgMjcwLjc4ODE5NDYwMzE2MDEgTCA4MDUuMCAyOTMuODYwMjE4NDk0MzA5MSBMIDg3Ny41IDMxNi45MzIyNDIzODU0NTgxIEwgOTUwLjAgMzQwLjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzlFMzAzMCIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxjaXJjbGUgY3g9IjgwLjAiIGN5PSI2Mi45OTI3OTMwMzk4NzQ0NyIgcj0iMyIgZmlsbD0iIzlFMzAzMCIvPgo8Y2lyY2xlIGN4PSIxNTIuNSIgY3k9Ijg2LjA5MjU0NzcyODk2OTU1IiByPSIzIiBmaWxsPSIjOUUzMDMwIi8+CjxjaXJjbGUgY3g9IjIyNS4wIiBjeT0iMTA5LjE5MDE2OTI3OTc2MTA4IiByPSIzIiBmaWxsPSIjOUUzMDMwIi8+CjxjaXJjbGUgY3g9IjI5Ny41IiBjeT0iMTMyLjI4MzUyNDU1Mzk0NTU0IiByPSIzIiBmaWxsPSIjOUUzMDMwIi8+CjxjaXJjbGUgY3g9IjM3MC4wIiBjeT0iMTU1LjM3NDc0NjY4OTgyNjQ1IiByPSIzIiBmaWxsPSIjOUUzMDMwIi8+CjxjaXJjbGUgY3g9IjQ0Mi41IiBjeT0iMTc4LjQ2MzgzNTY4NzQwMzgyIiByPSIzIiBmaWxsPSIjOUUzMDMwIi8+CjxjaXJjbGUgY3g9IjUxNS4wIiBjeT0iMjAxLjU0ODY1ODQwODM3NDA4IiByPSIzIiBmaWxsPSIjOUUzMDMwIi8+CjxjaXJjbGUgY3g9IjU4Ny41IiBjeT0iMjI0LjYzMTM0Nzk5MTA0MDgzIiByPSIzIiBmaWxsPSIjOUUzMDMwIi8+CjxjaXJjbGUgY3g9IjY2MC4wIiBjeT0iMjQ3LjcxMTkwNDQzNTQwNCIgcj0iMyIgZmlsbD0iIzlFMzAzMCIvPgo8Y2lyY2xlIGN4PSI3MzIuNSIgY3k9IjI3MC43ODgxOTQ2MDMxNjAxIiByPSIzIiBmaWxsPSIjOUUzMDMwIi8+CjxjaXJjbGUgY3g9IjgwNS4wIiBjeT0iMjkzLjg2MDIxODQ5NDMwOTEiIHI9IjMiIGZpbGw9IiM5RTMwMzAiLz4KPGNpcmNsZSBjeD0iODc3LjUiIGN5PSIzMTYuOTMyMjQyMzg1NDU4MSIgcj0iMyIgZmlsbD0iIzlFMzAzMCIvPgo8Y2lyY2xlIGN4PSI5NTAuMCIgY3k9IjM0MC4wIiByPSIzIiBmaWxsPSIjOUUzMDMwIi8+Cjx0ZXh0IHg9IjgwLjAiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzE8L3RleHQ+Cjx0ZXh0IHg9IjE1Mi41IiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlcyPC90ZXh0Pgo8dGV4dCB4PSIyMjUuMCIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XMzwvdGV4dD4KPHRleHQgeD0iMjk3LjUiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzQ8L3RleHQ+Cjx0ZXh0IHg9IjM3MC4wIiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlc1PC90ZXh0Pgo8dGV4dCB4PSI0NDIuNSIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XNjwvdGV4dD4KPHRleHQgeD0iNTE1LjAiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+Vzc8L3RleHQ+Cjx0ZXh0IHg9IjU4Ny41IiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlc4PC90ZXh0Pgo8dGV4dCB4PSI2NjAuMCIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XOTwvdGV4dD4KPHRleHQgeD0iNzMyLjUiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzEwPC90ZXh0Pgo8dGV4dCB4PSI4MDUuMCIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XMTE8L3RleHQ+Cjx0ZXh0IHg9Ijg3Ny41IiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlcxMjwvdGV4dD4KPHRleHQgeD0iOTUwLjAiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzEzPC90ZXh0Pgo8L3N2Zz4=" style="width: 100%; height: auto;" alt="Scenario Comparison Chart"/>
+        </div>
+        
+    </div>
+    
+
+    <!-- ===== RECEIPTS BREAKDOWN ===== -->
+    <div class="section">
+        <h2>3. Receipts Breakdown</h2>
+        <!-- Interactive chart for screen viewing (HTML) -->
+        <div class="chart-container chart-interactive" id="chart-receipts"></div>
+        <!-- Static SVG chart for PDF printing -->
+        
+        <div class="chart-container chart-static" style="background: white; padding: 0;">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI0MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxzdHlsZT50ZXh0IHsgZm9udC1mYW1pbHk6IERNIFNhbnM7IGZvbnQtc2l6ZTogMTJweDsgfSAudGl0bGUgeyBmb250LXNpemU6IDE2cHg7IGZvbnQtd2VpZ2h0OiBib2xkOyB9PC9zdHlsZT4KPHJlY3Qgd2lkdGg9IjEwMDAiIGhlaWdodD0iNDAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSI1MDAuMCIgeT0iMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGNsYXNzPSJ0aXRsZSIgZmlsbD0iIzFCMjgzOCI+V2Vla2x5IFJlY2VpcHRzIEJyZWFrZG93bjwvdGV4dD4KPGxpbmUgeDE9IjgwIiB5MT0iNjAiIHgyPSI4MCIgeTI9IjM0MCIgc3Ryb2tlPSIjMUIyODM4IiBzdHJva2Utd2lkdGg9IjEiLz4KPGxpbmUgeDE9IjgwIiB5MT0iMzQwIiB4Mj0iOTUwIiB5Mj0iMzQwIiBzdHJva2U9IiMxQjI4MzgiIHN0cm9rZS13aWR0aD0iMSIvPgo8cmVjdCB4PSI5My4zODQ2MTUzODQ2MTUzOSIgeT0iNjMuODMzMzA4MjU5MzY1MTQiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSIyNzYuMTY2NjkxNzQwNjM0ODYiIGZpbGw9IiMxQjI4MzgiIHJ4PSIyIi8+CjxyZWN0IHg9IjkzLjM4NDYxNTM4NDYxNTM5IiB5PSItMTYuMjY1OTg0NjU0NzMxNDQiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSI4MC4wOTkyOTI5MTQwOTY1OCIgZmlsbD0iI0M1QTU1QSIgcng9IjIiLz4KPHJlY3QgeD0iOTMuMzg0NjE1Mzg0NjE1MzkiIHk9Ii0yNy4yMzkzNTYxMDA0OTY0MyIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjEwLjk3MzM3MTQ0NTc2NTAwNiIgZmlsbD0iIzNBNkI4QyIgcng9IjIiLz4KPHRleHQgeD0iMTEzLjQ2MTUzODQ2MTUzODQ3IiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlcxPC90ZXh0Pgo8cmVjdCB4PSIxNjAuMzA3NjkyMzA3NjkyMyIgeT0iNjMuNTE3Mzc2MjU5OTY2OTEiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSIyNzYuNDgyNjIzNzQwMDMzMSIgZmlsbD0iIzFCMjgzOCIgcng9IjIiLz4KPHJlY3QgeD0iMTYwLjMwNzY5MjMwNzY5MjMiIHk9Ii0xNi43MjkzNTE1ODcxODIxOTQiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSI4MC4yNDY3Mjc4NDcxNDkxIiBmaWxsPSIjQzVBNTVBIiByeD0iMiIvPgo8cmVjdCB4PSIxNjAuMzA3NjkyMzA3NjkyMyIgeT0iLTI3LjcyMzc4NTE2NjI0MDQwNCIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjEwLjk5NDQzMzU3OTA1ODIyMyIgZmlsbD0iIzNBNkI4QyIgcng9IjIiLz4KPHRleHQgeD0iMTgwLjM4NDYxNTM4NDYxNTM2IiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlcyPC90ZXh0Pgo8cmVjdCB4PSIyMjcuMjMwNzY5MjMwNzY5MjMiIHk9IjYzLjE4MDM4MjEyNzI3NTQ5IiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iMjc2LjgxOTYxNzg3MjcyNDUiIGZpbGw9IiMxQjI4MzgiIHJ4PSIyIi8+CjxyZWN0IHg9IjIyNy4yMzA3NjkyMzA3NjkyMyIgeT0iLTE3LjIxMzc4MDY1MjkyNjEwNCIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjgwLjM5NDE2Mjc4MDIwMTYiIGZpbGw9IiNDNUE1NUEiIHJ4PSIyIi8+CjxyZWN0IHg9IjIyNy4yMzA3NjkyMzA3NjkyMyIgeT0iLTI4LjIwODIxNDIzMTk4NDM0MyIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjEwLjk5NDQzMzU3OTA1ODIyMyIgZmlsbD0iIzNBNkI4QyIgcng9IjIiLz4KPHRleHQgeD0iMjQ3LjMwNzY5MjMwNzY5MjMiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzM8L3RleHQ+CjxyZWN0IHg9IjI5NC4xNTM4NDYxNTM4NDYxMyIgeT0iNjIuODY0NDUwMTI3ODc3MjA1IiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iMjc3LjEzNTU0OTg3MjEyMjgiIGZpbGw9IiMxQjI4MzgiIHJ4PSIyIi8+CjxyZWN0IHg9IjI5NC4xNTM4NDYxNTM4NDYxMyIgeT0iLTE3LjY3NzE0NzU4NTM3NjkiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSI4MC41NDE1OTc3MTMyNTQxIiBmaWxsPSIjQzVBNTVBIiByeD0iMiIvPgo8cmVjdCB4PSIyOTQuMTUzODQ2MTUzODQ2MTMiIHk9Ii0yOC42NzE1ODExNjQ0MzUxNTMiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSIxMC45OTQ0MzM1NzkwNTgyMjMiIGZpbGw9IiMzQTZCOEMiIHJ4PSIyIi8+Cjx0ZXh0IHg9IjMxNC4yMzA3NjkyMzA3NjkyIiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlc0PC90ZXh0Pgo8cmVjdCB4PSIzNjEuMDc2OTIzMDc2OTIzMDQiIHk9IjYyLjU0ODUxODEyODQ3OTAzIiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iMjc3LjQ1MTQ4MTg3MTUyMDk3IiBmaWxsPSIjMUIyODM4IiByeD0iMiIvPgo8cmVjdCB4PSIzNjEuMDc2OTIzMDc2OTIzMDQiIHk9Ii0xOC4xNjE1NzY2NTExMjA3OTciIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSI4MC43MTAwOTQ3Nzk1OTk4MyIgZmlsbD0iI0M1QTU1QSIgcng9IjIiLz4KPHJlY3QgeD0iMzYxLjA3NjkyMzA3NjkyMzA0IiB5PSItMjkuMTU2MDEwMjMwMTc5MDM1IiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iMTAuOTk0NDMzNTc5MDU4MjIzIiBmaWxsPSIjM0E2QjhDIiByeD0iMiIvPgo8dGV4dCB4PSIzODEuMTUzODQ2MTUzODQ2MTMiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzU8L3RleHQ+CjxyZWN0IHg9IjQyNy45OTk5OTk5OTk5OTk5NCIgeT0iNjIuMjMyNTg2MTI5MDgwOCIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjI3Ny43Njc0MTM4NzA5MTkyIiBmaWxsPSIjMUIyODM4IiByeD0iMiIvPgo8cmVjdCB4PSI0MjcuOTk5OTk5OTk5OTk5OTQiIHk9Ii0xOC42MjQ5NDM1ODM1NzE1MjIiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSI4MC44NTc1Mjk3MTI2NTIzMiIgZmlsbD0iI0M1QTU1QSIgcng9IjIiLz4KPHJlY3QgeD0iNDI3Ljk5OTk5OTk5OTk5OTk0IiB5PSItMjkuNjQwNDM5Mjk1OTIyOTQ1IiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iMTEuMDE1NDk1NzEyMzUxNDM4IiBmaWxsPSIjM0E2QjhDIiByeD0iMiIvPgo8dGV4dCB4PSI0NDguMDc2OTIzMDc2OTIzMDQiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzY8L3RleHQ+CjxyZWN0IHg9IjQ5NC45MjMwNzY5MjMwNzY5IiB5PSI2MS45MTY2NTQxMjk2ODI1NyIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjI3OC4wODMzNDU4NzAzMTc0MyIgZmlsbD0iIzFCMjgzOCIgcng9IjIiLz4KPHJlY3QgeD0iNDk0LjkyMzA3NjkyMzA3NjkiIHk9Ii0xOS4wODgzMTA1MTYwMjIyNiIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjgxLjAwNDk2NDY0NTcwNDgzIiBmaWxsPSIjQzVBNTVBIiByeD0iMiIvPgo8cmVjdCB4PSI0OTQuOTIzMDc2OTIzMDc2OSIgeT0iLTMwLjEwMzgwNjIyODM3MzciIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSIxMS4wMTU0OTU3MTIzNTE0MzgiIGZpbGw9IiMzQTZCOEMiIHJ4PSIyIi8+Cjx0ZXh0IHg9IjUxNS4wIiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlc3PC90ZXh0Pgo8cmVjdCB4PSI1NjEuODQ2MTUzODQ2MTUzOCIgeT0iNjEuNjAwNzIyMTMwMjg0MzQiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSIyNzguMzk5Mjc3ODY5NzE1NjYiIGZpbGw9IiMxQjI4MzgiIHJ4PSIyIi8+CjxyZWN0IHg9IjU2MS44NDYxNTM4NDYxNTM4IiB5PSItMTkuNTcyNzM5NTgxNzY2MiIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjgxLjE3MzQ2MTcxMjA1MDU0IiBmaWxsPSIjQzVBNTVBIiByeD0iMiIvPgo8cmVjdCB4PSI1NjEuODQ2MTUzODQ2MTUzOCIgeT0iLTMwLjU4ODIzNTI5NDExNzYzOCIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjExLjAxNTQ5NTcxMjM1MTQzOCIgZmlsbD0iIzNBNkI4QyIgcng9IjIiLz4KPHRleHQgeD0iNTgxLjkyMzA3NjkyMzA3NjkiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+Vzg8L3RleHQ+CjxyZWN0IHg9IjYyOC43NjkyMzA3NjkyMzA3IiB5PSI2MS4yODQ3OTAxMzA4ODYxMSIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjI3OC43MTUyMDk4NjkxMTM5IiBmaWxsPSIjMUIyODM4IiByeD0iMiIvPgo8cmVjdCB4PSI2MjguNzY5MjMwNzY5MjMwNyIgeT0iLTIwLjAzNjEwNjUxNDIxNjk0IiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iODEuMzIwODk2NjQ1MTAzMDUiIGZpbGw9IiNDNUE1NUEiIHJ4PSIyIi8+CjxyZWN0IHg9IjYyOC43NjkyMzA3NjkyMzA3IiB5PSItMzEuMDcyNjY0MzU5ODYxNjA1IiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iMTEuMDM2NTU3ODQ1NjQ0NjUxIiBmaWxsPSIjM0E2QjhDIiByeD0iMiIvPgo8dGV4dCB4PSI2NDguODQ2MTUzODQ2MTUzOCIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XOTwvdGV4dD4KPHJlY3QgeD0iNjk1LjY5MjMwNzY5MjMwNzYiIHk9IjYwLjk2ODg1ODEzMTQ4Nzg4IiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iMjc5LjAzMTE0MTg2ODUxMjEiIGZpbGw9IiMxQjI4MzgiIHJ4PSIyIi8+CjxyZWN0IHg9IjY5NS42OTIzMDc2OTIzMDc2IiB5PSItMjAuNDk5NDczNDQ2NjY3NjgiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSI4MS40NjgzMzE1NzgxNTU1NiIgZmlsbD0iI0M1QTU1QSIgcng9IjIiLz4KPHJlY3QgeD0iNjk1LjY5MjMwNzY5MjMwNzYiIHk9Ii0zMS41MzYwMzEyOTIzMTIzNiIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjExLjAzNjU1Nzg0NTY0NDY1MSIgZmlsbD0iIzNBNkI4QyIgcng9IjIiLz4KPHRleHQgeD0iNzE1Ljc2OTIzMDc2OTIzMDciIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzEwPC90ZXh0Pgo8cmVjdCB4PSI3NjIuNjE1Mzg0NjE1Mzg0NSIgeT0iNjAuNjUyOTI2MTMyMDg5NjUiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSIyNzkuMzQ3MDczODY3OTEwMzUiIGZpbGw9IiMxQjI4MzgiIHJ4PSIyIi8+CjxyZWN0IHg9Ijc2Mi42MTUzODQ2MTUzODQ1IiB5PSItMjAuOTgzOTAyNTEyNDExNjMyIiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iODEuNjM2ODI4NjQ0NTAxMjgiIGZpbGw9IiNDNUE1NUEiIHJ4PSIyIi8+CjxyZWN0IHg9Ijc2Mi42MTUzODQ2MTUzODQ1IiB5PSItMzIuMDIwNDYwMzU4MDU2MyIgd2lkdGg9IjQwLjE1Mzg0NjE1Mzg0NjE1IiBoZWlnaHQ9IjExLjAzNjU1Nzg0NTY0NDY1MSIgZmlsbD0iIzNBNkI4QyIgcng9IjIiLz4KPHRleHQgeD0iNzgyLjY5MjMwNzY5MjMwNzYiIHk9IjM2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VzExPC90ZXh0Pgo8cmVjdCB4PSI4MjkuNTM4NDYxNTM4NDYxNCIgeT0iNjAuMzE1OTMxOTk5Mzk4MjMiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSIyNzkuNjg0MDY4MDAwNjAxNzciIGZpbGw9IiMxQjI4MzgiIHJ4PSIyIi8+CjxyZWN0IHg9IjgyOS41Mzg0NjE1Mzg0NjE0IiB5PSItMjEuNDY4MzMxNTc4MTU1NTU2IiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iODEuNzg0MjYzNTc3NTUzNzkiIGZpbGw9IiNDNUE1NUEiIHJ4PSIyIi8+CjxyZWN0IHg9IjgyOS41Mzg0NjE1Mzg0NjE0IiB5PSItMzIuNTI1OTUxNTU3MDkzNDUiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSIxMS4wNTc2MTk5Nzg5Mzc4NjciIGZpbGw9IiMzQTZCOEMiIHJ4PSIyIi8+Cjx0ZXh0IHg9Ijg0OS42MTUzODQ2MTUzODQ1IiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlcxMjwvdGV4dD4KPHJlY3QgeD0iODk2LjQ2MTUzODQ2MTUzODUiIHk9IjYwLjAiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSIyODAuMCIgZmlsbD0iIzFCMjgzOCIgcng9IjIiLz4KPHJlY3QgeD0iODk2LjQ2MTUzODQ2MTUzODUiIHk9Ii0yMS45MzE2OTg1MTA2MDYyOTYiIHdpZHRoPSI0MC4xNTM4NDYxNTM4NDYxNSIgaGVpZ2h0PSI4MS45MzE2OTg1MTA2MDYzIiBmaWxsPSIjQzVBNTVBIiByeD0iMiIvPgo8cmVjdCB4PSI4OTYuNDYxNTM4NDYxNTM4NSIgeT0iLTMyLjk4OTMxODQ4OTU0NDE1IiB3aWR0aD0iNDAuMTUzODQ2MTUzODQ2MTUiIGhlaWdodD0iMTEuMDU3NjE5OTc4OTM3ODY3IiBmaWxsPSIjM0E2QjhDIiByeD0iMiIvPgo8dGV4dCB4PSI5MTYuNTM4NDYxNTM4NDYxNSIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5XMTM8L3RleHQ+Cjwvc3ZnPg==" style="width: 100%; height: auto;" alt="Receipts Breakdown Chart"/>
+        </div>
+        
+    </div>
+
+    <!-- ===== SENSITIVITY ANALYSIS ===== -->
+    
+    <div class="section">
+        <h2>4. Sensitivity Analysis</h2>
+        <p style="font-size:13px;color:var(--gold-dark);margin-bottom:12px;">
+            Which single assumption, if wrong by 10%, would have the greatest impact on your Week 13 cash position?
+        </p>
+        <!-- Interactive chart for screen viewing (HTML) -->
+        <div class="chart-container chart-interactive" id="chart-sensitivity"></div>
+        <!-- Static SVG chart for PDF printing -->
+        
+        <div class="chart-container chart-static" style="background: white; padding: 0;">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI1MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxzdHlsZT50ZXh0IHsgZm9udC1mYW1pbHk6IERNIFNhbnM7IGZvbnQtc2l6ZTogMTJweDsgfSAudGl0bGUgeyBmb250LXNpemU6IDE2cHg7IGZvbnQtd2VpZ2h0OiBib2xkOyB9PC9zdHlsZT4KPHJlY3Qgd2lkdGg9IjEwMDAiIGhlaWdodD0iNTAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSI1MDAuMCIgeT0iMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGNsYXNzPSJ0aXRsZSIgZmlsbD0iIzFCMjgzOCI+U2Vuc2l0aXZpdHkgQW5hbHlzaXMg4oCUIEltcGFjdCBvbiBXZWVrIDEzIENhc2g8L3RleHQ+CjxsaW5lIHgxPSI1NjUuMCIgeTE9IjgwIiB4Mj0iNTY1LjAiIHkyPSI0NjAiIHN0cm9rZT0iIzFCMjgzOCIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtZGFzaGFycmF5PSIyLDIiLz4KPHJlY3QgeD0iMTgwLjAiIHk9Ijg5LjUiIHdpZHRoPSIzODUuMCIgaGVpZ2h0PSI0NC4zMzMzMzMzMzMzMzMzMzYiIGZpbGw9IiMyRTdENEYiIHJ4PSIyIi8+CjxyZWN0IHg9IjU2NS4wIiB5PSI4OS41IiB3aWR0aD0iMzg1LjAiIGhlaWdodD0iNDQuMzMzMzMzMzMzMzMzMzM2IiBmaWxsPSIjOUUzMDMwIiByeD0iMiIvPgo8dGV4dCB4PSIxNzAiIHk9IjExNS42NjY2NjY2NjY2NjY2NyIgdGV4dC1hbmNob3I9ImVuZCIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+RGVidG9yIERheXM8L3RleHQ+CjxyZWN0IHg9IjIwNS41NjY4ODM1MjkwMzgzNiIgeT0iMTUyLjgzMzMzMzMzMzMzMzM0IiB3aWR0aD0iMzU5LjQzMzExNjQ3MDk2MTY0IiBoZWlnaHQ9IjQ0LjMzMzMzMzMzMzMzMzMzNiIgZmlsbD0iIzJFN0Q0RiIgcng9IjIiLz4KPHJlY3QgeD0iNTY1LjAiIHk9IjE1Mi44MzMzMzMzMzMzMzMzNCIgd2lkdGg9IjM1OS40NjM2NjIzMjk0MTkyNiIgaGVpZ2h0PSI0NC4zMzMzMzMzMzMzMzMzMzYiIGZpbGw9IiM5RTMwMzAiIHJ4PSIyIi8+Cjx0ZXh0IHg9IjE3MCIgeT0iMTc5LjAiIHRleHQtYW5jaG9yPSJlbmQiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiMxQjI4MzgiPlJhdyBNYXRlcmlhbHMgJTwvdGV4dD4KPHJlY3QgeD0iMzc1LjgyOTQ5ODU3MTg4MTkiIHk9IjIxNi4xNjY2NjY2NjY2NjY2OSIgd2lkdGg9IjE4OS4xNzA1MDE0MjgxMTgwNiIgaGVpZ2h0PSI0NC4zMzMzMzMzMzMzMzMzMzYiIGZpbGw9IiMyRTdENEYiIHJ4PSIyIi8+CjxyZWN0IHg9IjU2NS4wIiB5PSIyMTYuMTY2NjY2NjY2NjY2NjkiIHdpZHRoPSIxODkuMTcwNTAxNDI4MTE4MDYiIGhlaWdodD0iNDQuMzMzMzMzMzMzMzMzMzM2IiBmaWxsPSIjOUUzMDMwIiByeD0iMiIvPgo8dGV4dCB4PSIxNzAiIHk9IjI0Mi4zMzMzMzMzMzMzMzMzNCIgdGV4dC1hbmNob3I9ImVuZCIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+RGlyZWN0IExhYm91cjwvdGV4dD4KPHJlY3QgeD0iNTY1LjAiIHk9IjI3OS41IiB3aWR0aD0iMTE2Ljc0NjI3MTAyNTA3MTQxIiBoZWlnaHQ9IjQ0LjMzMzMzMzMzMzMzMzMzNiIgZmlsbD0iIzJFN0Q0RiIgcng9IjIiLz4KPHJlY3QgeD0iNDQ4LjI1MzcyODk3NDkyODYiIHk9IjI3OS41IiB3aWR0aD0iMTE2Ljc0NjI3MTAyNTA3MTQxIiBoZWlnaHQ9IjQ0LjMzMzMzMzMzMzMzMzMzNiIgZmlsbD0iIzlFMzAzMCIgcng9IjIiLz4KPHRleHQgeD0iMTcwIiB5PSIzMDUuNjY2NjY2NjY2NjY2NyIgdGV4dC1hbmNob3I9ImVuZCIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+V2hvbGVzYWxlIFJldmVudWU8L3RleHQ+CjxyZWN0IHg9IjQ1NC45NDMyNzE5NzcxNTAxIiB5PSIzNDIuODMzMzMzMzMzMzMzMzciIHdpZHRoPSIxMTAuMDU2NzI4MDIyODQ5OSIgaGVpZ2h0PSI0NC4zMzMzMzMzMzMzMzMzMzYiIGZpbGw9IiMyRTdENEYiIHJ4PSIyIi8+CjxyZWN0IHg9IjU2NS4wIiB5PSIzNDIuODMzMzMzMzMzMzMzMzciIHdpZHRoPSIxMTAuMDU2NzI4MDIyODQ5OSIgaGVpZ2h0PSI0NC4zMzMzMzMzMzMzMzMzMzYiIGZpbGw9IiM5RTMwMzAiIHJ4PSIyIi8+Cjx0ZXh0IHg9IjE3MCIgeT0iMzY5LjAwMDAwMDAwMDAwMDA2IiB0ZXh0LWFuY2hvcj0iZW5kIiBmb250LXNpemU9IjExIiBmaWxsPSIjMUIyODM4Ij5SZW50PC90ZXh0Pgo8cmVjdCB4PSI1NjUuMCIgeT0iNDA2LjE2NjY2NjY2NjY2NjciIHdpZHRoPSIzNC42MzkwMDM0OTA5NTUyNTQiIGhlaWdodD0iNDQuMzMzMzMzMzMzMzMzMzM2IiBmaWxsPSIjMkU3RDRGIiByeD0iMiIvPgo8cmVjdCB4PSI1MzAuMzYwOTk2NTA5MDQ0OCIgeT0iNDA2LjE2NjY2NjY2NjY2NjciIHdpZHRoPSIzNC42MzkwMDM0OTA5NTUyNTQiIGhlaWdodD0iNDQuMzMzMzMzMzMzMzMzMzM2IiBmaWxsPSIjOUUzMDMwIiByeD0iMiIvPgo8dGV4dCB4PSIxNzAiIHk9IjQzMi4zMzMzMzMzMzMzMzMzNyIgdGV4dC1hbmNob3I9ImVuZCIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzFCMjgzOCI+VGFwcm9vbSBSZXZlbnVlPC90ZXh0Pgo8L3N2Zz4=" style="width: 100%; height: auto;" alt="Sensitivity Tornado Chart"/>
+        </div>
+        
+    </div>
+    
+
+    <!-- ===== 13-WEEK DATA TABLE ===== -->
+    <div class="section">
+        <h2>5. Detailed 13-Week Forecast</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <th>Ending</th>
+                    <th>Receipts</th>
+                    <th>Payments</th>
+                    <th>Net</th>
+                    <th>Closing Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+                <tr>
+                    <td>W1</td>
+                    <td>22 Feb</td>
+                    <td>$17,436</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,428</td>
+                    <td class="positive">$175,472</td>
+                </tr>
+            
+                <tr>
+                    <td>W2</td>
+                    <td>01 Mar</td>
+                    <td>$17,459</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,406</td>
+                    <td class="positive">$166,066</td>
+                </tr>
+            
+                <tr>
+                    <td>W3</td>
+                    <td>08 Mar</td>
+                    <td>$17,482</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,383</td>
+                    <td class="positive">$156,683</td>
+                </tr>
+            
+                <tr>
+                    <td>W4</td>
+                    <td>15 Mar</td>
+                    <td>$17,504</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,360</td>
+                    <td class="positive">$147,323</td>
+                </tr>
+            
+                <tr>
+                    <td>W5</td>
+                    <td>22 Mar</td>
+                    <td>$17,527</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,337</td>
+                    <td class="positive">$137,986</td>
+                </tr>
+            
+                <tr>
+                    <td>W6</td>
+                    <td>29 Mar</td>
+                    <td>$17,550</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,315</td>
+                    <td class="positive">$128,671</td>
+                </tr>
+            
+                <tr>
+                    <td>W7</td>
+                    <td>05 Apr</td>
+                    <td>$17,572</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,292</td>
+                    <td class="positive">$119,379</td>
+                </tr>
+            
+                <tr>
+                    <td>W8</td>
+                    <td>12 Apr</td>
+                    <td>$17,595</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,269</td>
+                    <td class="positive">$110,110</td>
+                </tr>
+            
+                <tr>
+                    <td>W9</td>
+                    <td>19 Apr</td>
+                    <td>$17,618</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,247</td>
+                    <td class="positive">$100,864</td>
+                </tr>
+            
+                <tr>
+                    <td>W10</td>
+                    <td>26 Apr</td>
+                    <td>$17,641</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,224</td>
+                    <td class="positive">$91,640</td>
+                </tr>
+            
+                <tr>
+                    <td>W11</td>
+                    <td>03 May</td>
+                    <td>$17,663</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,201</td>
+                    <td class="positive">$82,439</td>
+                </tr>
+            
+                <tr>
+                    <td>W12</td>
+                    <td>10 May</td>
+                    <td>$17,686</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,178</td>
+                    <td class="positive">$73,260</td>
+                </tr>
+            
+                <tr>
+                    <td>W13</td>
+                    <td>17 May</td>
+                    <td>$17,709</td>
+                    <td>$26,864</td>
+                    <td class="negative">$-9,156</td>
+                    <td class="positive">$64,105</td>
+                </tr>
+            
+                <tr class="total-row">
+                    <td colspan="2">Total / Final</td>
+                    <td>$228,441</td>
+                    <td>$349,236</td>
+                    <td class="negative">$-120,795</td>
+                    <td>$64,105</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ===== ASSUMPTION REGISTER ===== -->
+    <div class="section">
+        <h2>6. Transparent Assumption Register</h2>
+        <p style="font-size:13px;color:var(--gold-dark);margin-bottom:12px;">
+            Every number in this forecast is traceable to a documented assumption with source attribution and confidence level.
+        </p>
+        <table class="assumption-table">
+            <thead>
+                <tr>
+                    <th>Assumption</th>
+                    <th>Value</th>
+                    <th>Range</th>
+                    <th>Confidence</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+                <tr>
+                    <td>Wholesale Revenue — Growth Rate</td>
+                    <td>6.0% p.a.</td>
+                    <td>0.04–0.08</td>
+                    <td><span class="confidence-badge high">high</span></td>
+                    <td>3 signed wholesale contracts with 6% annual escalation (Liquor Legends, Dan Murphy's local, BWS Cronulla)</td>
+                </tr>
+            
+                <tr>
+                    <td>Wholesale Revenue — Monthly Base</td>
+                    <td>$88,000</td>
+                    <td>N/A</td>
+                    <td><span class="confidence-badge high">high</span></td>
+                    <td>Based on trailing 7-month average</td>
+                </tr>
+            
+                <tr>
+                    <td>Taproom Revenue — Growth Rate</td>
+                    <td>10.0% p.a.</td>
+                    <td>0.05–0.18</td>
+                    <td><span class="confidence-badge medium">medium</span></td>
+                    <td>New taproom menu launched Nov-2025. Growth assumption based on 3-month trend post-launch.</td>
+                </tr>
+            
+                <tr>
+                    <td>Taproom Revenue — Monthly Base</td>
+                    <td>$25,500</td>
+                    <td>N/A</td>
+                    <td><span class="confidence-badge medium">medium</span></td>
+                    <td>Based on trailing 7-month average</td>
+                </tr>
+            
+                <tr>
+                    <td>Merchandise Revenue — Growth Rate</td>
+                    <td>3.0% p.a.</td>
+                    <td>N/A</td>
+                    <td><span class="confidence-badge low">low</span></td>
+                    <td>Historical average. No specific growth initiatives planned.</td>
+                </tr>
+            
+                <tr>
+                    <td>Merchandise Revenue — Monthly Base</td>
+                    <td>$3,500</td>
+                    <td>N/A</td>
+                    <td><span class="confidence-badge low">low</span></td>
+                    <td>Based on trailing 7-month average</td>
+                </tr>
+            
+                <tr>
+                    <td>Raw Materials (% of Revenue)</td>
+                    <td>33.5%</td>
+                    <td>N/A</td>
+                    <td><span class="confidence-badge high">high</span></td>
+                    <td>Supplier contracts + historical average</td>
+                </tr>
+            
+                <tr>
+                    <td>Direct Labour (Monthly)</td>
+                    <td>$18,500</td>
+                    <td>N/A</td>
+                    <td><span class="confidence-badge high">high</span></td>
+                    <td>Current payroll register — 4 FTE brewery staff</td>
+                </tr>
+            
+                <tr>
+                    <td>Debtor Days</td>
+                    <td>32 days</td>
+                    <td>N/A</td>
+                    <td><span class="confidence-badge high">high</span></td>
+                    <td>Aged receivables report — weighted average</td>
+                </tr>
+            
+                <tr>
+                    <td>Creditor Days</td>
+                    <td>28 days</td>
+                    <td>N/A</td>
+                    <td><span class="confidence-badge high">high</span></td>
+                    <td>Aged payables report — weighted average</td>
+                </tr>
+            
+                <tr>
+                    <td>Bank Loan Repayment</td>
+                    <td>$3,210/month</td>
+                    <td>N/A</td>
+                    <td><span class="confidence-badge high">high</span></td>
+                    <td>Loan agreement — 6.8% p.a.</td>
+                </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ===== APES 320 VALIDATION RECEIPT ===== -->
+    <div class="section">
+        <div class="validation-receipt">
+            <h3>APES 320 Quality Control — Validation Receipt</h3>
+            <div style="font-size:11px;color:#666;margin-bottom:12px;">
+                Run: 2026-02-14T21:30:43.851323 | Overall: <strong style="color:var(--success)">PASS</strong>
+            </div>
+            
+            <div class="check-row">
+                <div class="check-status pass">PASS</div>
+                <div class="check-name">Pandera Schema Validation</div>
+                <div class="check-detail">All 13 rows pass schema checks. Cross-column balances verified.</div>
+            </div>
+            
+            <div class="check-row">
+                <div class="check-status pass">PASS</div>
+                <div class="check-name">Cash Balance Continuity</div>
+                <div class="check-detail">Week-to-week opening balance equals prior closing balance</div>
+            </div>
+            
+            <div class="check-row">
+                <div class="check-status pass">PASS</div>
+                <div class="check-name">Negative Cash Balance</div>
+                <div class="check-detail">No negative closing balances across 13 weeks. Minimum: $64,105</div>
+            </div>
+            
+            <div class="check-row">
+                <div class="check-status pass">PASS</div>
+                <div class="check-name">Receipts Reasonableness</div>
+                <div class="check-detail">All weeks show positive receipts</div>
+            </div>
+            
+            <div class="check-row">
+                <div class="check-status pass">PASS</div>
+                <div class="check-name">Forecast Period</div>
+                <div class="check-detail">Forecast covers 13 weeks (expected 13)</div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- ===== SIGN-OFF ===== -->
+    <div class="sign-off">
+        <h3>Reviewed & Approved</h3>
+        <p style="font-size:12px;color:#666;">
+            I confirm that I have reviewed the assumptions and forecast for Coastal Brewing Co
+            for the period 13 weeks from 2026-02 and approve this report for delivery to the client.
+        </p>
+        <div class="sign-off-line"></div>
+        <div class="sign-off-label">Signature / Date</div>
+        <div class="sign-off-line" style="margin-top:16px;"></div>
+        <div class="sign-off-label">Name / Title</div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="report-footer">
+        <p>
+            This report has been prepared by Newport Pembury &amp; Co for the exclusive use of Coastal Brewing Co.
+            It contains forward-looking projections based on assumptions that may not eventuate.
+            Newport Pembury &amp; Co accepts no liability for decisions made by third parties based on this report.
+        </p>
+        <p class="pss-disclaimer">
+            Liability limited by a scheme approved under Professional Standards Legislation.
+        </p>
+    </div>
+
+</div>
+
+<!-- ===== ECHART RENDERING ===== -->
+<script>
+    // Parse function-string formatters in ECharts configs
+    function reviveFunctions(obj) {
+        for (var key in obj) {
+            if (typeof obj[key] === 'string' && obj[key].indexOf('function') === 0) {
+                try { obj[key] = eval('(' + obj[key] + ')'); } catch(e) {}
+            } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+                reviveFunctions(obj[key]);
+            }
+        }
+        return obj;
+    }
+
+    function renderChart(elementId, config) {
+        var el = document.getElementById(elementId);
+        if (!el) return;
+        var chart = echarts.init(el);
+        chart.setOption(reviveFunctions(config));
+        window.addEventListener('resize', function() { chart.resize(); });
+    }
+
+    
+    renderChart('chart-waterfall', {"title": {"text": "13-Week Cash Flow Forecast", "textStyle": {"color": "#1B2838", "fontFamily": "DM Sans", "fontSize": 16}, "left": "center"}, "tooltip": {"trigger": "axis", "formatter": "function(params){var v=params[1]?params[1].value:0;return params[0].axisValue+'<br/>Net: $'+(v>=0?'+':'')+v.toLocaleString();}"}, "grid": {"left": "12%", "right": "5%", "bottom": "12%", "top": "15%"}, "xAxis": {"type": "category", "data": ["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10", "W11", "W12", "W13"], "axisLabel": {"fontFamily": "DM Sans", "color": "#1B2838"}}, "yAxis": {"type": "value", "axisLabel": {"fontFamily": "DM Sans", "color": "#1B2838", "formatter": "function(v){return '$'+v.toLocaleString();}"}}, "series": [{"name": "Invisible", "type": "bar", "stack": "waterfall", "itemStyle": {"borderColor": "transparent", "color": "transparent"}, "emphasis": {"itemStyle": {"borderColor": "transparent", "color": "transparent"}}, "data": [0, -9428.0, -18834.0, -28217.0, -37577.0, -46914.0, -56229.0, -65521.0, -74790.0, -84036.0, -93260.0, -102461.0, -111640.0]}, {"name": "Net Cash Flow", "type": "bar", "stack": "waterfall", "data": [{"value": -9428.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9406.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9383.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9360.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9337.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9315.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9292.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9269.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9247.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9224.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9201.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9178.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}, {"value": -9156.0, "itemStyle": {"color": "#9E3030", "borderRadius": [0, 0, 3, 3]}}], "label": {"show": true, "position": "top", "fontFamily": "DM Sans", "fontSize": 10, "formatter": "function(p){return (p.value>=0?'+':'')+Math.round(p.value/1000)+'k';}"}}]});
+    
+
+    
+    renderChart('chart-scenarios', {"title": {"text": "Cash Position \u2014 Scenario Comparison", "textStyle": {"color": "#1B2838", "fontFamily": "DM Sans", "fontSize": 16}, "left": "center"}, "tooltip": {"trigger": "axis", "formatter": "function(params){var s=params[0].axisValue;params.forEach(function(p){s+='<br/>'+p.marker+p.seriesName+': $'+p.value.toLocaleString();});return s;}"}, "legend": {"bottom": 0, "textStyle": {"fontFamily": "DM Sans", "color": "#1B2838"}}, "grid": {"left": "12%", "right": "5%", "bottom": "15%", "top": "15%"}, "xAxis": {"type": "category", "data": ["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10", "W11", "W12", "W13"], "axisLabel": {"fontFamily": "DM Sans", "color": "#1B2838"}}, "yAxis": {"type": "value", "axisLabel": {"fontFamily": "DM Sans", "color": "#1B2838", "formatter": "function(v){return '$'+(v/1000)+'k';}"}}, "series": [{"name": "Base", "type": "line", "smooth": true, "data": [175472.0, 166066.0, 156683.0, 147323.0, 137986.0, 128671.0, 119379.0, 110110.0, 100864.0, 91640.0, 82439.0, 73260.0, 64105.0], "lineStyle": {"width": 3}, "itemStyle": {"color": "#C5A55A"}, "areaStyle": {"opacity": 0.08}}, {"name": "Bull", "type": "line", "smooth": true, "data": [175188.0, 165515.0, 155881.0, 146287.0, 136731.0, 127215.0, 117737.0, 108299.0, 98900.0, 89540.0, 80220.0, 70938.0, 61695.0], "lineStyle": {"width": 2}, "itemStyle": {"color": "#2E7D4F"}, "areaStyle": null}, {"name": "Bear", "type": "line", "smooth": true, "data": [174069.0, 163240.0, 152412.0, 141586.0, 130761.0, 119937.0, 109115.0, 98294.0, 87474.0, 76656.0, 65840.0, 55024.0, 44210.0], "lineStyle": {"width": 2}, "itemStyle": {"color": "#9E3030"}, "areaStyle": null}]});
+    
+
+    
+    renderChart('chart-receipts', {"title": {"text": "Weekly Receipts Breakdown", "textStyle": {"color": "#1B2838", "fontFamily": "DM Sans", "fontSize": 16}, "left": "center"}, "tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow"}}, "legend": {"bottom": 0, "textStyle": {"fontFamily": "DM Sans"}}, "grid": {"left": "12%", "right": "5%", "bottom": "15%", "top": "15%"}, "xAxis": {"type": "category", "data": ["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10", "W11", "W12", "W13"], "axisLabel": {"fontFamily": "DM Sans"}}, "yAxis": {"type": "value", "axisLabel": {"fontFamily": "DM Sans", "formatter": "function(v){return '$'+(v/1000)+'k';}"}}, "series": [{"name": "Wholesale", "type": "bar", "stack": "receipts", "data": [13112.0, 13127.0, 13143.0, 13158.0, 13173.0, 13188.0, 13203.0, 13218.0, 13233.0, 13248.0, 13263.0, 13279.0, 13294.0], "itemStyle": {"color": "#1B2838"}}, {"name": "Taproom", "type": "bar", "stack": "receipts", "data": [3803.0, 3810.0, 3817.0, 3824.0, 3832.0, 3839.0, 3846.0, 3854.0, 3861.0, 3868.0, 3876.0, 3883.0, 3890.0], "itemStyle": {"color": "#C5A55A"}}, {"name": "Other", "type": "bar", "stack": "receipts", "data": [521.0, 522.0, 522.0, 522.0, 522.0, 523.0, 523.0, 523.0, 524.0, 524.0, 524.0, 525.0, 525.0], "itemStyle": {"color": "#3A6B8C"}}]});
+    
+
+    
+    renderChart('chart-sensitivity', {"title": {"text": "Sensitivity Analysis \u2014 Impact on Week 13 Cash", "subtext": "Effect of +/-10% change in each assumption on closing cash", "textStyle": {"color": "#1B2838", "fontFamily": "DM Sans", "fontSize": 16}, "subtextStyle": {"color": "#806B3A", "fontFamily": "DM Sans", "fontSize": 11}, "left": "center"}, "tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow"}, "formatter": "function(p){return p[0].name+'<br/>'+p.map(function(i){return i.marker+i.seriesName+': $'+(i.value>=0?'+':'')+i.value.toLocaleString();}).join('<br/>');}"}, "grid": {"left": "25%", "right": "10%", "bottom": "8%", "top": "18%"}, "xAxis": {"type": "value", "axisLabel": {"fontFamily": "DM Sans", "formatter": "function(v){return (v>=0?'+':'')+Math.round(v/1000)+'k';}"}}, "yAxis": {"type": "category", "data": ["Debtor Days", "Raw Materials %", "Direct Labour", "Wholesale Revenue", "Rent", "Taproom Revenue"], "axisLabel": {"fontFamily": "DM Sans", "color": "#1B2838"}}, "series": [{"name": "+10%", "type": "bar", "data": [-12604.0, -11767.0, -6193.0, 3822.0, -3603.0, 1134.0], "itemStyle": {"color": "#2E7D4F", "borderRadius": [0, 3, 3, 0]}}, {"name": "-10%", "type": "bar", "data": [12604.0, 11768.0, 6193.0, -3822.0, 3603.0, -1134.0], "itemStyle": {"color": "#9E3030", "borderRadius": [3, 0, 0, 3]}}]});
+    
+</script>
+
+</body>
+</html>
