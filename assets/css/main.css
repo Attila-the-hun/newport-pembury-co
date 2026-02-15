@@ -3826,6 +3826,93 @@ footer > section {
   margin-right: auto;
 }
 
+/* --- Mid-article report preview (compact, dark bg) --- */
+.mid-cta-report-preview {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(197, 165, 90, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin: 0 auto var(--space-xl);
+  max-width: 420px;
+  text-align: left;
+}
+
+.mid-cta-preview-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.mid-cta-preview-badge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 2px 8px;
+  background: var(--color-action-primary);
+  color: var(--color-text-primary);
+  border-radius: 3px;
+}
+
+.mid-cta-preview-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.mid-cta-preview-chart {
+  margin-bottom: var(--space-md);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.mid-cta-mini-waterfall {
+  display: block;
+  width: 100%;
+  height: 52px;
+}
+
+.mid-cta-preview-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  text-align: center;
+}
+
+.mid-cta-kpi-value {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text-inverse);
+}
+
+.mid-cta-kpi-negative {
+  color: #e05555;
+}
+
+.mid-cta-kpi-label {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: 'DM Sans', sans-serif;
+  margin-top: 2px;
+}
+
+@media (max-width: 480px) {
+  .mid-cta-report-preview {
+    max-width: 100%;
+    padding: var(--space-md);
+  }
+  .mid-cta-kpi-value {
+    font-size: var(--font-size-sm);
+  }
+}
+
 /* --- Key takeaways box --- */
 .key-takeaways {
   background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-bg-inverse) 100%);
