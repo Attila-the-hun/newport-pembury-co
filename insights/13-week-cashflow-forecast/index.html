@@ -10,7 +10,7 @@
     <meta property="og:url" content="https://newportpembury.com.au/insights/13-week-cashflow-forecast/">
     <meta property="og:title" content="The 13-Week Cash Flow Forecast: A Founder's Safety Net">
     <meta property="og:description" content="Why rolling cash flow visibility is the single most important financial discipline for businesses in the $5M–$50M range.">
-    <meta property="og:image" content="https://newportpembury.com.au/og-image.jpg">
+    <meta property="og:image" content="https://newportpembury.com.au/assets/images/og-13-week-cashflow.png">
     <meta property="og:locale" content="en_AU">
     <meta property="og:site_name" content="Newport Pembury & Co">
     <meta property="article:published_time" content="2026-02-15">
@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="The 13-Week Cash Flow Forecast: A Founder's Safety Net">
     <meta name="twitter:description" content="Why rolling cash flow visibility is the single most important financial discipline for businesses in the $5M–$50M range.">
-    <meta name="twitter:image" content="https://newportpembury.com.au/og-image.jpg">
+    <meta name="twitter:image" content="https://newportpembury.com.au/assets/images/og-13-week-cashflow.png">
     <link rel="canonical" href="https://newportpembury.com.au/insights/13-week-cashflow-forecast/">
     <meta name="theme-color" content="#1B2838">
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -50,41 +50,39 @@
         "wordCount": 2400
     }
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://newportpembury.com.au/" },
+            { "@type": "ListItem", "position": 2, "name": "Insights", "item": "https://newportpembury.com.au/insights/" },
+            { "@type": "ListItem", "position": 3, "name": "13-Week Cash Flow Forecast" }
+        ]
+    }
+    </script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" as="style">
 
     <!-- Shared design-system stylesheet -->
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="../../assets/css/theme-toggle.css">
 
-    <!-- Tailwind CSS CDN with custom config -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind utility subset (replaces 150KB CDN with <1KB inline) -->
+    <style>
+        .max-w-7xl { max-width: 80rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+    </style>
     <script src="../../assets/js/theme-toggle.js"></script>
-    <script>
-        tailwind.config = {
-            corePlugins: { preflight: false },
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-charcoal': 'var(--color-text-primary)',
-                        'brand-gold': 'var(--color-action-primary)',
-                        'brand-gold-light': '#D4C085',
-                        'brand-ivory': '#F5F0E8',
-                        'brand-slate': 'var(--color-text-secondary)',
-                        'brand-dark': 'var(--color-bg-inverse)',
-                        'brand-cream': '#FAF8F4',
-                    },
-                    fontFamily: {
-                        'display': ['Cormorant Garamond', 'serif'],
-                        'body': ['DM Sans', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
 </head>
 <body>
     <a href="#article-content" class="skip-link">Skip to article</a>
@@ -129,6 +127,15 @@
     <!-- Main content -->
     <main id="article-content">
 
+        <!-- Breadcrumbs -->
+        <nav class="article-breadcrumbs" aria-label="Breadcrumb">
+            <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/insights/">Insights</a></li>
+                <li aria-current="page">13-Week Cash Flow Forecast</li>
+            </ol>
+        </nav>
+
         <!-- Article Hero -->
         <section class="article-hero">
             <div class="article-hero-inner">
@@ -136,6 +143,56 @@
                     <span class="article-category">Cash Flow Strategy</span>
                     <span class="article-hero-readtime">7 min read</span>
                 </div>
+                <!-- Hero Animated SVG — 13-week cash flow line chart -->
+                <div class="hero-chart" aria-hidden="true">
+                    <svg viewBox="0 0 600 160" preserveAspectRatio="xMidYMid meet" class="hero-svg-chart">
+                        <!-- Grid lines -->
+                        <line x1="40" y1="20" x2="580" y2="20" stroke="rgba(197,165,90,0.08)" stroke-width="0.5"/>
+                        <line x1="40" y1="50" x2="580" y2="50" stroke="rgba(197,165,90,0.08)" stroke-width="0.5"/>
+                        <line x1="40" y1="80" x2="580" y2="80" stroke="rgba(197,165,90,0.08)" stroke-width="0.5"/>
+                        <line x1="40" y1="110" x2="580" y2="110" stroke="rgba(197,165,90,0.08)" stroke-width="0.5"/>
+                        <line x1="40" y1="140" x2="580" y2="140" stroke="rgba(197,165,90,0.06)" stroke-width="0.5"/>
+                        <!-- Y-axis labels -->
+                        <text x="35" y="24" text-anchor="end" fill="rgba(255,255,255,0.25)" font-size="8" font-family="DM Sans, sans-serif">$200k</text>
+                        <text x="35" y="54" text-anchor="end" fill="rgba(255,255,255,0.25)" font-size="8" font-family="DM Sans, sans-serif">$150k</text>
+                        <text x="35" y="84" text-anchor="end" fill="rgba(255,255,255,0.25)" font-size="8" font-family="DM Sans, sans-serif">$100k</text>
+                        <text x="35" y="114" text-anchor="end" fill="rgba(255,255,255,0.25)" font-size="8" font-family="DM Sans, sans-serif">$50k</text>
+                        <text x="35" y="144" text-anchor="end" fill="rgba(255,255,255,0.25)" font-size="8" font-family="DM Sans, sans-serif">$0</text>
+                        <!-- Week labels -->
+                        <text x="72" y="155" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="DM Sans, sans-serif">W1</text>
+                        <text x="196" y="155" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="DM Sans, sans-serif">W5</text>
+                        <text x="362" y="155" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="DM Sans, sans-serif">W9</text>
+                        <text x="548" y="155" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="DM Sans, sans-serif">W13</text>
+                        <!-- Gradient fill under line -->
+                        <defs>
+                            <linearGradient id="heroChartGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="rgba(197,165,90,0.2)"/>
+                                <stop offset="100%" stop-color="rgba(197,165,90,0)"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Area fill path (same points as line, closed at bottom) -->
+                        <path class="hero-chart-area" d="M72,28 L113,32 L155,38 L196,52 L237,60 L279,48 L320,72 L362,90 L403,82 L444,98 L486,108 L527,94 L548,116 L548,140 L72,140 Z"
+                            fill="url(#heroChartGrad)" opacity="0"/>
+                        <!-- Main gold line — the cash flow trajectory -->
+                        <polyline class="hero-chart-line"
+                            points="72,28 113,32 155,38 196,52 237,60 279,48 320,72 362,90 403,82 444,98 486,108 527,94 548,116"
+                            fill="none" stroke="var(--color-action-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-dasharray="900" stroke-dashoffset="900"/>
+                        <!-- Minimum balance danger zone (week 11-12 area) -->
+                        <rect class="hero-chart-danger" x="444" y="108" width="42" height="32" rx="3" fill="rgba(230,57,70,0.08)" opacity="0"/>
+                        <!-- Data points (dots) -->
+                        <g class="hero-chart-dots" opacity="0">
+                            <circle cx="72" cy="28" r="3" fill="var(--color-action-primary)"/>
+                            <circle cx="548" cy="116" r="3" fill="var(--color-action-primary)"/>
+                            <circle cx="486" cy="108" r="3.5" fill="#E63946" stroke="rgba(230,57,70,0.3)" stroke-width="4"/>
+                        </g>
+                        <!-- Min balance label -->
+                        <g class="hero-chart-label" opacity="0">
+                            <text x="486" y="125" text-anchor="middle" fill="#E63946" font-size="7.5" font-family="DM Sans, sans-serif" font-weight="600">Min: $34,200</text>
+                        </g>
+                    </svg>
+                </div>
+
                 <h1>The 13-Week Cash Flow Forecast: A Founder's <span class="gold-emphasis">Safety Net</span></h1>
                 <div class="article-hero-author">
                     <div class="author-monogram"><span>TM</span></div>
@@ -145,6 +202,15 @@
                         <span>Director &amp; Fractional CFO</span>
                         <span class="meta-divider">&middot;</span>
                         <span>15 February 2026</span>
+                    </div>
+                </div>
+                <!-- Social Proof Strip -->
+                <div class="social-proof-strip">
+                    <span class="social-proof-label">Trusted by</span>
+                    <div class="social-proof-logos">
+                        <span class="social-proof-logo">Coastal Brewing Co</span>
+                        <span class="social-proof-logo">Meridian Property Group</span>
+                        <span class="social-proof-logo">Alder & Finch</span>
                     </div>
                 </div>
             </div>
@@ -206,12 +272,12 @@
                 <p>This is the gap that kills growing businesses. Not insolvency in the dramatic sense, but the quiet friction of operating without visibility into where your cash will be three, eight, or thirteen weeks from now. The 13-week cash flow forecast is the tool that closes this gap — and in our experience advising businesses from $5M to $50M in revenue, it is the single most impactful financial discipline a founder can adopt.</p>
 
                 <!-- Diamond Divider -->
-                <div class="diamond-divider">
+                <div class="diamond-divider scroll-reveal">
                     <span class="diamond">&#9670;</span>
                 </div>
 
                 <!-- Section I -->
-                <div class="section-marker" id="section-1">
+                <div class="section-marker scroll-reveal" id="section-1">
                     <span class="numeral">I.</span>
                     <h2>The Monthly P&L Blind Spot</h2>
                 </div>
@@ -221,7 +287,7 @@
                 <p>The balance sheet offers a snapshot of a single day. It tells you how much cash you had on the 30th, but nothing about how that number moved throughout the month or where it's heading.</p>
 
                 <!-- Pull Quote -->
-                <blockquote class="pull-quote" role="doc-pullquote">
+                <blockquote class="pull-quote scroll-reveal" role="doc-pullquote">
                     <p>A profitable business can run out of cash. An unprofitable business with good cash visibility can survive for years. The difference is the forecast.</p>
                 </blockquote>
 
@@ -249,13 +315,25 @@
                     </div>
                 </div>
 
+                <!-- Key Takeaways Box — positioned early for serial position anchoring -->
+                <div class="key-takeaways" id="bottom-line">
+                    <p class="takeaway-label">The Bottom Line</p>
+                    <ul>
+                        <li>Monthly P&L reports are retrospective and miss working capital dynamics. A 13-week rolling forecast provides forward-looking cash visibility that monthly accounts cannot.</li>
+                        <li>The 13-week horizon aligns with quarterly cycles and sits in the sweet spot between actionable and meaningful — long enough to see patterns, short enough that assumptions stay grounded.</li>
+                        <li>Three scenarios (base, bull, bear) transform a forecast from an opinion into a decision framework. Sensitivity analysis identifies which assumptions carry the most risk.</li>
+                        <li>The minimum balance — the lowest point during the 13 weeks — matters more than the ending balance. It defines your true risk window.</li>
+                        <li>Systematising the forecast (documented assumptions, automated validation, board-ready output) is what separates a resilient financial practice from a fragile spreadsheet.</li>
+                    </ul>
+                </div>
+
                 <!-- Diamond Divider -->
-                <div class="diamond-divider">
+                <div class="diamond-divider scroll-reveal">
                     <span class="diamond">&#9670;</span>
                 </div>
 
                 <!-- Section II -->
-                <div class="section-marker" id="section-2">
+                <div class="section-marker scroll-reveal" id="section-2">
                     <span class="numeral">II.</span>
                     <h2>Why 13 Weeks</h2>
                 </div>
@@ -266,15 +344,39 @@
 
                 <p>Thirteen weeks sits in the sweet spot where every line item is grounded in something knowable — a signed contract, a confirmed order, a scheduled payment — while still providing enough runway to act. If the forecast shows a cash pinch in week 10, you have nine weeks to pull a lever: accelerate receivables, negotiate payment terms, draw on a facility, or defer a discretionary commitment.</p>
 
+                <!-- Section II Diagram: Forecast Horizon Timeline -->
+                <div class="article-diagram scroll-reveal" aria-label="Forecast horizon comparison showing 4-week, 13-week, and 26-week ranges">
+                    <svg viewBox="0 0 600 100" class="diagram-svg">
+                        <!-- Axis line -->
+                        <line x1="40" y1="60" x2="560" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                        <!-- 4-week range (too short) -->
+                        <rect x="40" y="40" width="100" height="20" rx="4" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+                        <text x="90" y="54" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="9" font-family="DM Sans, sans-serif">4 weeks</text>
+                        <text x="90" y="80" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="7.5" font-family="DM Sans, sans-serif">Too short</text>
+                        <!-- 13-week range (sweet spot) -->
+                        <rect x="40" y="38" width="280" height="24" rx="4" fill="rgba(197,165,90,0.15)" stroke="var(--color-action-primary)" stroke-width="1.5"/>
+                        <text x="180" y="54" text-anchor="middle" fill="var(--color-action-primary)" font-size="10" font-weight="600" font-family="DM Sans, sans-serif">13 weeks — the sweet spot</text>
+                        <text x="180" y="80" text-anchor="middle" fill="rgba(197,165,90,0.6)" font-size="7.5" font-family="DM Sans, sans-serif">Actionable + meaningful</text>
+                        <!-- 26-week range (too long) -->
+                        <rect x="40" y="42" width="520" height="16" rx="4" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" stroke-dasharray="4,4"/>
+                        <text x="430" y="54" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-size="9" font-family="DM Sans, sans-serif">26 weeks</text>
+                        <text x="430" y="80" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7.5" font-family="DM Sans, sans-serif">Too uncertain</text>
+                        <!-- Week markers -->
+                        <text x="40" y="94" text-anchor="start" fill="rgba(255,255,255,0.2)" font-size="7" font-family="DM Sans, sans-serif">Today</text>
+                        <text x="320" y="94" text-anchor="middle" fill="rgba(197,165,90,0.4)" font-size="7" font-family="DM Sans, sans-serif">Q1 end</text>
+                        <text x="560" y="94" text-anchor="end" fill="rgba(255,255,255,0.15)" font-size="7" font-family="DM Sans, sans-serif">6 months</text>
+                    </svg>
+                </div>
+
                 <p>The discipline is in the rolling mechanism. Every week, the oldest week drops off and a new week 13 is added. The forecast is never static. It learns from what actually happened last week and recalibrates forward. It's the financial equivalent of a GPS recalculating — not a printed map.</p>
 
                 <!-- Diamond Divider -->
-                <div class="diamond-divider">
+                <div class="diamond-divider scroll-reveal">
                     <span class="diamond">&#9670;</span>
                 </div>
 
                 <!-- Section III -->
-                <div class="section-marker" id="section-3">
+                <div class="section-marker scroll-reveal" id="section-3">
                     <span class="numeral">III.</span>
                     <h2>Anatomy of a Rolling Forecast</h2>
                 </div>
@@ -290,6 +392,42 @@
                 <p><strong>Layer 4 — Net Cash Flow.</strong> The weekly delta — receipts minus payments. A single negative week is usually fine. Three consecutive negative weeks is a signal. Five is a pattern that requires action.</p>
 
                 <p><strong>Layer 5 — Minimum Balance Analysis.</strong> The most important number in the entire forecast isn't the week 13 closing balance — it's the lowest point along the journey. A forecast that starts at $185,000 and ends at $64,000 might look like a gradual decline. But if it dips to $12,000 in week 8 before recovering, the business faces a very different risk profile.</p>
+
+                <!-- Section III Diagram: 5-Layer Geological Cross-Section -->
+                <div class="article-diagram scroll-reveal" aria-label="Five layers of a rolling cash flow forecast shown as stacked bands">
+                    <svg viewBox="0 0 600 220" class="diagram-svg">
+                        <!-- Layer backgrounds (stacked bands, bottom to top) -->
+                        <rect x="40" y="10" width="520" height="36" rx="4" fill="rgba(197,165,90,0.18)"/>
+                        <rect x="40" y="50" width="520" height="36" rx="4" fill="rgba(197,165,90,0.14)"/>
+                        <rect x="40" y="90" width="520" height="36" rx="4" fill="rgba(197,165,90,0.10)"/>
+                        <rect x="40" y="130" width="520" height="36" rx="4" fill="rgba(197,165,90,0.07)"/>
+                        <rect x="40" y="170" width="520" height="36" rx="4" fill="rgba(230,57,70,0.08)" stroke="rgba(230,57,70,0.2)" stroke-width="0.5"/>
+                        <!-- Layer labels -->
+                        <text x="50" y="22" fill="rgba(197,165,90,0.5)" font-size="7.5" font-family="DM Sans, sans-serif" font-weight="600" text-transform="uppercase" letter-spacing="0.1em">LAYER 1</text>
+                        <text x="50" y="34" fill="rgba(255,255,255,0.7)" font-size="10" font-family="DM Sans, sans-serif" font-weight="500">Opening & Closing Balances</text>
+                        <text x="430" y="34" fill="rgba(255,255,255,0.3)" font-size="8" font-family="DM Sans, sans-serif">Anchor — chain of trust</text>
+
+                        <text x="50" y="62" fill="rgba(197,165,90,0.5)" font-size="7.5" font-family="DM Sans, sans-serif" font-weight="600">LAYER 2</text>
+                        <text x="50" y="74" fill="rgba(255,255,255,0.7)" font-size="10" font-family="DM Sans, sans-serif" font-weight="500">Receipts by Stream</text>
+                        <text x="430" y="74" fill="rgba(255,255,255,0.3)" font-size="8" font-family="DM Sans, sans-serif">Wholesale · Retail · Export</text>
+
+                        <text x="50" y="102" fill="rgba(197,165,90,0.5)" font-size="7.5" font-family="DM Sans, sans-serif" font-weight="600">LAYER 3</text>
+                        <text x="50" y="114" fill="rgba(255,255,255,0.7)" font-size="10" font-family="DM Sans, sans-serif" font-weight="500">Payments by Obligation</text>
+                        <text x="430" y="114" fill="rgba(255,255,255,0.3)" font-size="8" font-family="DM Sans, sans-serif">Payroll · Suppliers · Tax · Finance</text>
+
+                        <text x="50" y="142" fill="rgba(197,165,90,0.5)" font-size="7.5" font-family="DM Sans, sans-serif" font-weight="600">LAYER 4</text>
+                        <text x="50" y="154" fill="rgba(255,255,255,0.7)" font-size="10" font-family="DM Sans, sans-serif" font-weight="500">Net Cash Flow</text>
+                        <text x="430" y="154" fill="rgba(255,255,255,0.3)" font-size="8" font-family="DM Sans, sans-serif">Weekly delta — the signal</text>
+
+                        <text x="50" y="182" fill="rgba(230,57,70,0.5)" font-size="7.5" font-family="DM Sans, sans-serif" font-weight="600">LAYER 5</text>
+                        <text x="50" y="194" fill="rgba(255,255,255,0.7)" font-size="10" font-family="DM Sans, sans-serif" font-weight="500">Minimum Balance Analysis</text>
+                        <text x="430" y="194" fill="#E63946" font-size="8" font-family="DM Sans, sans-serif" font-weight="600">The number that matters most</text>
+
+                        <!-- Connecting arrow on right -->
+                        <line x1="570" y1="28" x2="570" y2="188" stroke="rgba(197,165,90,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
+                        <polygon points="567,188 570,196 573,188" fill="rgba(197,165,90,0.3)"/>
+                    </svg>
+                </div>
 
                 <!-- Mid-Article CTA -->
                 <div class="mid-article-cta">
@@ -341,12 +479,12 @@
                 </div>
 
                 <!-- Diamond Divider -->
-                <div class="diamond-divider">
+                <div class="diamond-divider scroll-reveal">
                     <span class="diamond">&#9670;</span>
                 </div>
 
                 <!-- Section IV -->
-                <div class="section-marker" id="section-4">
+                <div class="section-marker scroll-reveal" id="section-4">
                     <span class="numeral">IV.</span>
                     <h2>Scenarios: The Discipline of Stress-Testing</h2>
                 </div>
@@ -355,24 +493,56 @@
 
                 <p>The base case represents the most likely outcome — current contracts, confirmed orders, known obligations. The bull case asks: what if the Woolworths contract lands, taproom foot traffic increases 15%, and we get the DA for outdoor seating? The bear case asks: what if our main supplier raises prices 10%, wholesale growth flatlines, and debtor days blow out to 50?</p>
 
+                <!-- Section IV Diagram: 3-Scenario Divergence -->
+                <div class="article-diagram scroll-reveal" aria-label="Three scenario lines diverging from a common starting point: bull case rising, base case flat, bear case declining">
+                    <svg viewBox="0 0 600 140" class="diagram-svg">
+                        <!-- Grid -->
+                        <line x1="60" y1="20" x2="560" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+                        <line x1="60" y1="70" x2="560" y2="70" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+                        <line x1="60" y1="120" x2="560" y2="120" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+                        <!-- Common origin point -->
+                        <circle cx="80" cy="70" r="4" fill="var(--color-action-primary)"/>
+                        <!-- Bull case (green-ish gold) -->
+                        <polyline points="80,70 140,65 200,55 260,48 320,40 380,32 440,25 500,18 540,14"
+                            fill="none" stroke="rgba(120,200,120,0.6)" stroke-width="2" stroke-linecap="round" stroke-dasharray="4,3"/>
+                        <text x="545" y="14" fill="rgba(120,200,120,0.7)" font-size="8" font-family="DM Sans, sans-serif" font-weight="600">Bull</text>
+                        <!-- Base case (gold) -->
+                        <polyline points="80,70 140,72 200,75 260,80 320,78 380,84 440,88 500,92 540,95"
+                            fill="none" stroke="var(--color-action-primary)" stroke-width="2.5" stroke-linecap="round"/>
+                        <text x="545" y="95" fill="var(--color-action-primary)" font-size="8" font-family="DM Sans, sans-serif" font-weight="600">Base</text>
+                        <!-- Bear case (red) -->
+                        <polyline points="80,70 140,78 200,88 260,96 320,108 380,116 440,120 500,124 540,126"
+                            fill="none" stroke="rgba(230,57,70,0.6)" stroke-width="2" stroke-linecap="round" stroke-dasharray="4,3"/>
+                        <text x="545" y="126" fill="rgba(230,57,70,0.7)" font-size="8" font-family="DM Sans, sans-serif" font-weight="600">Bear</text>
+                        <!-- Spread annotation -->
+                        <line x1="530" y1="14" x2="530" y2="126" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+                        <text x="524" y="74" text-anchor="end" fill="rgba(255,255,255,0.3)" font-size="7.5" font-family="DM Sans, sans-serif">Decision</text>
+                        <text x="524" y="83" text-anchor="end" fill="rgba(255,255,255,0.3)" font-size="7.5" font-family="DM Sans, sans-serif">range</text>
+                        <!-- X axis labels -->
+                        <text x="80" y="136" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="DM Sans, sans-serif">Today</text>
+                        <text x="310" y="136" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="DM Sans, sans-serif">Week 7</text>
+                        <text x="540" y="136" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="7" font-family="DM Sans, sans-serif">Week 13</text>
+                    </svg>
+                </div>
+
                 <p>None of these scenarios need to be probable. They need to be plausible. The value isn't in predicting which scenario will materialise — it's in understanding the range of outcomes and identifying which assumptions carry the most weight.</p>
 
                 <p>This is where sensitivity analysis becomes powerful. By testing each assumption independently — growth rates, input costs, debtor days, labour expenses — you can build a tornado chart that shows exactly which lever moves the needle most. For a craft brewery, it might be wholesale revenue growth. For a professional services firm, it's utilisation rates. For a seasonal tourism business, it's the shoulder-season booking conversion.</p>
 
                 <!-- Pull Quote -->
-                <blockquote class="pull-quote" role="doc-pullquote">
+                <blockquote class="pull-quote scroll-reveal" role="doc-pullquote">
                     <p>The value of scenario analysis isn't prediction — it's preparation. When you've already stress-tested the downside, you don't panic when it arrives.</p>
                 </blockquote>
 
                 <p>The discipline matters more than the precision. A forecast that's directionally right and updated weekly is infinitely more valuable than a model that's theoretically precise but reviewed quarterly. We've seen businesses survive genuine crises — supply chain disruptions, key customer losses, regulatory changes — because they had 10 weeks of warning instead of 10 days.</p>
 
                 <!-- Diamond Divider -->
-                <div class="diamond-divider">
+                <div class="diamond-divider scroll-reveal">
                     <span class="diamond">&#9670;</span>
                 </div>
 
                 <!-- Section V -->
-                <div class="section-marker" id="section-5">
+                <div class="section-marker scroll-reveal" id="section-5">
                     <span class="numeral">V.</span>
                     <h2>From Spreadsheet to System</h2>
                 </div>
@@ -383,15 +553,68 @@
 
                 <p>At Newport Pembury & Co, we build this systematically for every client engagement. Our assumption engine connects directly to your Xero or accounting data, validates every number against documented assumptions (with confidence levels and source references), runs three scenarios automatically, and produces a board pack with interactive charts — all auditable, all APES 320 compliant.</p>
 
+                <!-- Section V Diagram: Spreadsheet → System -->
+                <div class="article-diagram scroll-reveal" aria-label="Before and after comparison: fragile spreadsheet versus systematised forecast">
+                    <svg viewBox="0 0 600 110" class="diagram-svg">
+                        <!-- Before (left) -->
+                        <rect x="40" y="10" width="240" height="90" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+                        <text x="160" y="28" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="8" font-family="DM Sans, sans-serif" letter-spacing="0.12em">BEFORE</text>
+                        <!-- Messy spreadsheet grid -->
+                        <g opacity="0.25">
+                            <line x1="60" y1="40" x2="260" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+                            <line x1="60" y1="52" x2="260" y2="52" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+                            <line x1="60" y1="64" x2="260" y2="64" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+                            <line x1="60" y1="76" x2="260" y2="76" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+                            <line x1="60" y1="88" x2="260" y2="88" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+                            <line x1="100" y1="36" x2="100" y2="92" stroke="rgba(255,255,255,0.2)" stroke-width="0.3"/>
+                            <line x1="150" y1="36" x2="150" y2="92" stroke="rgba(255,255,255,0.2)" stroke-width="0.3"/>
+                            <line x1="200" y1="36" x2="200" y2="92" stroke="rgba(255,255,255,0.2)" stroke-width="0.3"/>
+                        </g>
+                        <!-- Red error indicators -->
+                        <text x="130" y="61" fill="rgba(230,57,70,0.5)" font-size="6" font-family="DM Sans, sans-serif">#REF!</text>
+                        <text x="215" y="85" fill="rgba(230,57,70,0.5)" font-size="6" font-family="DM Sans, sans-serif">#ERR</text>
+                        <text x="70" y="73" fill="rgba(255,255,255,0.2)" font-size="6" font-family="DM Sans, sans-serif">???</text>
+
+                        <!-- Arrow -->
+                        <polygon points="296,55 316,48 316,62" fill="var(--color-action-primary)" opacity="0.5"/>
+
+                        <!-- After (right) -->
+                        <rect x="330" y="10" width="240" height="90" rx="6" fill="rgba(197,165,90,0.06)" stroke="var(--color-action-primary)" stroke-width="0.8"/>
+                        <text x="450" y="28" text-anchor="middle" fill="var(--color-action-primary)" font-size="8" font-family="DM Sans, sans-serif" letter-spacing="0.12em">AFTER</text>
+                        <!-- Clean system output -->
+                        <rect x="345" y="36" width="60" height="28" rx="3" fill="rgba(197,165,90,0.1)"/>
+                        <text x="375" y="48" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="6" font-family="DM Sans, sans-serif">Assumptions</text>
+                        <text x="375" y="58" text-anchor="middle" fill="var(--color-action-primary)" font-size="7" font-family="DM Sans, sans-serif" font-weight="600">YAML</text>
+
+                        <rect x="415" y="36" width="60" height="28" rx="3" fill="rgba(197,165,90,0.1)"/>
+                        <text x="445" y="48" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="6" font-family="DM Sans, sans-serif">Validation</text>
+                        <text x="445" y="58" text-anchor="middle" fill="rgba(120,200,120,0.7)" font-size="7" font-family="DM Sans, sans-serif" font-weight="600">5/5 PASS</text>
+
+                        <rect x="485" y="36" width="72" height="28" rx="3" fill="rgba(197,165,90,0.1)"/>
+                        <text x="521" y="48" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="6" font-family="DM Sans, sans-serif">Output</text>
+                        <text x="521" y="58" text-anchor="middle" fill="var(--color-action-primary)" font-size="7" font-family="DM Sans, sans-serif" font-weight="600">Board Pack</text>
+
+                        <!-- Flow arrows -->
+                        <line x1="405" y1="50" x2="413" y2="50" stroke="rgba(197,165,90,0.3)" stroke-width="0.5"/>
+                        <line x1="475" y1="50" x2="483" y2="50" stroke="rgba(197,165,90,0.3)" stroke-width="0.5"/>
+
+                        <!-- Bottom labels -->
+                        <text x="345" y="80" fill="rgba(255,255,255,0.3)" font-size="7" font-family="DM Sans, sans-serif">Git-versioned</text>
+                        <text x="345" y="90" fill="rgba(255,255,255,0.3)" font-size="7" font-family="DM Sans, sans-serif">APES 320 compliant</text>
+                        <text x="485" y="80" fill="rgba(255,255,255,0.3)" font-size="7" font-family="DM Sans, sans-serif">Interactive charts</text>
+                        <text x="485" y="90" fill="rgba(255,255,255,0.3)" font-size="7" font-family="DM Sans, sans-serif">PDF + HTML</text>
+                    </svg>
+                </div>
+
                 <p>The human overlay is where the real value lives. An AI-powered system can compute the forecast, flag anomalies, and generate the report. But interpreting what the numbers mean for <em>your</em> business, recommending which lever to pull, and presenting the story to your board or investors — that requires a CFO who already knows your numbers before every conversation.</p>
 
                 <!-- Diamond Divider -->
-                <div class="diamond-divider">
+                <div class="diamond-divider scroll-reveal">
                     <span class="diamond">&#9670;</span>
                 </div>
 
                 <!-- Live Demo Section -->
-                <div class="section-marker" id="live-demo">
+                <div class="section-marker scroll-reveal" id="live-demo">
                     <span class="numeral">VI.</span>
                     <h2>See It in Action</h2>
                 </div>
@@ -431,17 +654,7 @@
 
                 <p>The report includes a waterfall chart showing weekly cash movements, a scenario comparison overlaying base, bull, and bear cases, a sensitivity tornado identifying which assumptions carry the most weight, and a transparent assumption register documenting every input with its source and confidence level.</p>
 
-                <!-- Key Takeaways Box -->
-                <div class="key-takeaways" id="bottom-line">
-                    <p class="takeaway-label">The Bottom Line</p>
-                    <ul>
-                        <li>Monthly P&L reports are retrospective and miss working capital dynamics. A 13-week rolling forecast provides forward-looking cash visibility that monthly accounts cannot.</li>
-                        <li>The 13-week horizon aligns with quarterly cycles and sits in the sweet spot between actionable and meaningful — long enough to see patterns, short enough that assumptions stay grounded.</li>
-                        <li>Three scenarios (base, bull, bear) transform a forecast from an opinion into a decision framework. Sensitivity analysis identifies which assumptions carry the most risk.</li>
-                        <li>The minimum balance — the lowest point during the 13 weeks — matters more than the ending balance. It defines your true risk window.</li>
-                        <li>Systematising the forecast (documented assumptions, automated validation, board-ready output) is what separates a resilient financial practice from a fragile spreadsheet.</li>
-                    </ul>
-                </div>
+                <!-- Key Takeaways moved to after Section I for early anchoring (Gemini recommendation) -->
 
             </article>
         </div>
@@ -479,17 +692,17 @@
                         <p>Why founders need financial infrastructure 18–24 months before a transaction, and how to build it.</p>
                         <span class="read-time">8 min read</span>
                     </a>
-                    <a href="/insights/" class="related-card">
+                    <a href="/insights/" class="related-card related-card-upcoming">
                         <p class="related-category">Cash Flow Strategy</p>
                         <h4>Surviving Seasonality: Cash Flow Lessons from a Tourism Business</h4>
                         <p>When your revenue drops 80% for three months of the year, you learn cash flow management the hard way.</p>
-                        <span class="read-time">6 min read</span>
+                        <span class="read-time">Coming soon</span>
                     </a>
-                    <a href="/insights/" class="related-card">
+                    <a href="/insights/" class="related-card related-card-upcoming">
                         <p class="related-category">Strategy</p>
                         <h4>Financial Models That Actually Get Funded</h4>
                         <p>After preparing pitch deck models for multiple capital raises, there's a clear gap between models that get funded and ones that don't.</p>
-                        <span class="read-time">5 min read</span>
+                        <span class="read-time">Coming soon</span>
                     </a>
                 </div>
             </div>
