@@ -1,8 +1,89 @@
 # AI Image Generation Strategy
 
-Framework for generating professional website imagery using AI tools. Covers tool selection, prompt engineering, per-site image needs, and quality standards.
+Framework for generating professional website imagery using a three-model workflow. Claude builds SVG illustrations first (instant, brand-perfect, zero cost), then Gemini and ChatGPT generate photorealistic and conceptual images to layer on top.
 
-## Tool Comparison
+## Three-Model Image Workflow (Mandatory Order)
+
+**CRITICAL**: Always follow this sequence. Claude SVGs ship immediately and establish the visual baseline. External model images are an enhancement layer, not a dependency.
+
+### Phase 1: Claude — SVG Illustrations (Do This First)
+- **What**: Hand-coded SVG geometric illustrations, icons, patterns, section dividers, animated charts
+- **Why first**: Zero cost, instant delivery, pixel-perfect brand consistency, no API/browser dependency
+- **Strengths**: Abstract geometric art, data visualisations, icon sets, hero patterns, animated donut/bar charts, decorative elements
+- **Limitations**: Cannot do photorealism, complex scenes, or editorial photography
+- **Output**: `.svg` files in article/image directories, inline SVG in HTML
+- **Quality bar**: viewBox standardised (600×340 for cards, 40×40 for icons), brand palette only (#1B2838, #C5A55A, #0F1923, #F5F0E8), under 10KB per file
+
+**SVG spec per use case**:
+| Use Case | viewBox | Style | Palette |
+|----------|---------|-------|---------|
+| Article card thumbnail | 600×340 | Abstract geometric, conceptual | Charcoal gradient bg, gold accents, white elements at 5-30% opacity |
+| Feature/benefit icon | 40×40 | Line art in gold circle | Gold stroke (#C5A55A), 15% opacity gold fill circle |
+| Hero background pattern | 600×340+ | Repeating geometric grid/network | White/gold at 3-8% opacity |
+| Data chart (static) | 800×420 | Matplotlib-generated | Charcoal bg, gold data, white labels |
+| Section divider | 600×40 | Thin decorative line/diamond | Gold at 30-50% opacity |
+
+**Claude SVG checklist** (run for every SVG created):
+- [ ] Uses brand palette only — zero non-brand colours
+- [ ] viewBox matches use case from table above
+- [ ] File size under 10KB
+- [ ] No embedded text (text belongs in HTML, not SVG)
+- [ ] No inline `style` attributes — use SVG attributes (`fill`, `stroke`, `opacity`)
+- [ ] Tested on both light and dark backgrounds
+- [ ] `loading="lazy"` on `<img>` tag when integrated
+- [ ] Descriptive `alt` text on `<img>` tag (15-125 chars)
+
+### Phase 2: Gemini (Imagen) — Photorealistic Images
+- **What**: Editorial photography, atmospheric backgrounds, lifestyle imagery
+- **Why Gemini**: Best photorealism for professional/editorial contexts, style-consistent batches
+- **Strengths**: Cinematic lighting, atmospheric depth, environmental shots, textural detail
+- **Use cases**: Article hero backgrounds, service section atmosphere, editorial section-break imagery
+- **Access**: Gemini chat with Imagen ("nano banana") — send prompts via browser
+- **Limitations**: Less control over exact composition, may need multiple generations for brand alignment
+
+### Phase 3: ChatGPT (DALL-E 3) — Conceptual & Editorial Art
+- **What**: Conceptual illustrations, editorial art, stylised compositions
+- **Why ChatGPT**: Best for metaphorical/conceptual visuals, text-in-image, editorial style
+- **Strengths**: Abstract concepts rendered as visual metaphors, infographic-style compositions, OG social images
+- **Use cases**: Featured article hero art, OG sharing images, conceptual diagrams that need more than pure geometry
+- **Access**: ChatGPT chat with DALL-E 3 — send prompts via browser
+- **Limitations**: Less photorealistic than Gemini, 1024×1024 default (need to specify landscape)
+
+### Phase 4: Integration & Optimisation
+- Collect generated images from Gemini/ChatGPT
+- Convert to WebP, generate responsive sizes (640w, 1024w, 1536w)
+- Apply CSS treatments (border-radius, overlay gradients, dark mode adjustments)
+- Replace SVG placeholders with raster images where photorealism adds value — **keep SVGs where abstract works better**
+- Run quality check (no AI artifacts, brand-consistent colour temperature)
+
+### Prompt File Convention
+
+When generating images for a page or section, create an `IMAGE-PROMPTS.md` file in the relevant directory. Structure:
+
+```markdown
+# Image Prompts — [Page/Section Name]
+
+## Gemini (Imagen) — Photorealistic
+### [Image Name]
+- **Use**: [Where it appears]
+- **Size**: [Dimensions]
+- **Prompt**: [Exact prompt text]
+
+## ChatGPT (DALL-E 3) — Conceptual
+### [Image Name]
+- **Use**: [Where it appears]
+- **Size**: [Dimensions]
+- **Prompt**: [Exact prompt text]
+
+## Claude SVG — Already Built
+### [Image Name]
+- **File**: [path]
+- **Status**: Integrated / Pending
+```
+
+---
+
+## Additional Tool Comparison (for specialised needs)
 
 ### FLUX Pro (via Replicate API)
 - **Best for**: Photorealistic product-adjacent imagery, textures, environments
