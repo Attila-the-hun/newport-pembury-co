@@ -524,11 +524,15 @@ img {
 .stat-label-text {
   text-align: left;
   margin: 0 0 8px;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* Stat source text positioning */
 .stat-source-text {
   margin: 0;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+  font-size: var(--font-size-sm);
 }
 
 /* ==========================================================================
@@ -3987,9 +3991,9 @@ footer > section {
 .article-diagram {
   margin: var(--space-xl) 0;
   padding: var(--space-lg);
-  background: rgba(15, 25, 35, 0.4);
+  background: var(--color-bg-inverse, #0F1923);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(197, 165, 90, 0.08);
+  border: 1px solid rgba(197, 165, 90, 0.12);
 }
 
 .diagram-svg {
@@ -3999,6 +4003,7 @@ footer > section {
 
 /* Stat module upgrade (Phase 3) */
 .stat-highlight {
+  background: var(--color-bg-inverse, #0F1923);
   border: 1px solid rgba(197, 165, 90, 0.12);
   border-radius: var(--radius-lg);
 }
