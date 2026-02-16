@@ -87,8 +87,8 @@
     <main id="main-content">
     <!-- Hero Section -->
     <section class="hero-section" style="background: linear-gradient(135deg, var(--color-bg-inverse) 0%, var(--primitive-charcoal) 100%);">
-        <h1>Start the Conversation</h1>
-        <p>Every engagement begins with understanding. Schedule your confidential 30-minute consultation to discuss your business needs.</p>
+        <h1>Get Your Free Financial Diagnostic</h1>
+        <p>In 30 minutes, we'll identify the single highest-impact financial lever in your business. No pitch deck. No obligation. Just clarity.</p>
     </section>
 
     <!-- Main Content -->
@@ -98,7 +98,7 @@
                 <!-- Left: Consultation Booking Form -->
                 <div>
                     <div class="form-container">
-                        <h2 class="form-title">Schedule Your Free Consultation</h2>
+                        <h2 class="form-title">Your Free Financial Diagnostic</h2>
 
                         <div id="successAlert" class="alert alert-success" role="alert" aria-live="polite">
                             <strong>Success!</strong> Your consultation request has been received. We'll be in touch within 24 hours.
@@ -109,107 +109,131 @@
                             <!-- Honeypot field for spam protection -->
                             <input type="text" name="_gotcha" class="honeypot" aria-hidden="true" tabindex="-1">
 
-                            <!-- First Name -->
-                            <div class="form-group">
-                                <label for="firstName">First Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
-                                <input type="text" id="firstName" name="firstName" required aria-required="true" aria-describedby="firstName-error">
-                                <div id="firstName-error" class="input-feedback" role="alert"></div>
+                            <!-- Progress Indicator -->
+                            <div class="form-steps-indicator">
+                                <div class="form-step-dot active" id="stepDot1">1</div>
+                                <div class="form-step-line" id="stepLine"></div>
+                                <div class="form-step-dot" id="stepDot2">2</div>
                             </div>
 
-                            <!-- Last Name -->
-                            <div class="form-group">
-                                <label for="lastName">Last Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
-                                <input type="text" id="lastName" name="lastName" required aria-required="true" aria-describedby="lastName-error">
-                                <div id="lastName-error" class="input-feedback" role="alert"></div>
-                            </div>
+                            <!-- STEP 1: Quick essentials -->
+                            <div class="form-step-group active" id="formStep1">
+                                <p class="form-step-label">Step 1 of 2 — The essentials</p>
 
-                            <!-- Email -->
-                            <div class="form-group">
-                                <label for="email">Email <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
-                                <input type="email" id="email" name="email" required aria-required="true" aria-describedby="email-error">
-                                <div id="email-error" class="input-feedback" role="alert"></div>
-                            </div>
+                                <!-- First Name -->
+                                <div class="form-group">
+                                    <label for="firstName">First Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
+                                    <input type="text" id="firstName" name="firstName" required aria-required="true" aria-describedby="firstName-error">
+                                    <div id="firstName-error" class="input-feedback" role="alert"></div>
+                                </div>
 
-                            <!-- Phone -->
-                            <div class="form-group">
-                                <label for="phone">Phone <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
-                                <input type="tel" id="phone" name="phone" required aria-required="true" aria-describedby="phone-error">
-                                <div id="phone-error" class="input-feedback" role="alert"></div>
-                            </div>
+                                <!-- Email -->
+                                <div class="form-group">
+                                    <label for="email">Email <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
+                                    <input type="email" id="email" name="email" required aria-required="true" aria-describedby="email-error">
+                                    <div id="email-error" class="input-feedback" role="alert"></div>
+                                </div>
 
-                            <!-- Company Name -->
-                            <div class="form-group">
-                                <label for="companyName">Company Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
-                                <input type="text" id="companyName" name="companyName" required aria-required="true" aria-describedby="companyName-error">
-                                <div id="companyName-error" class="input-feedback" role="alert"></div>
-                            </div>
+                                <!-- Company Revenue -->
+                                <div class="form-group">
+                                    <label for="companyRevenue">Company Revenue</label>
+                                    <select id="companyRevenue" name="companyRevenue">
+                                        <option value="">Select revenue range</option>
+                                        <option value="Under $1M">Under $1M</option>
+                                        <option value="$1M-$5M">$1M - $5M</option>
+                                        <option value="$5M-$20M">$5M - $20M</option>
+                                        <option value="$20M-$50M">$20M - $50M</option>
+                                        <option value="$50M+">$50M+</option>
+                                    </select>
+                                </div>
 
-                            <!-- Company Revenue -->
-                            <div class="form-group">
-                                <label for="companyRevenue">Company Revenue</label>
-                                <select id="companyRevenue" name="companyRevenue">
-                                    <option value="">Select revenue range</option>
-                                    <option value="Under $1M">Under $1M</option>
-                                    <option value="$1M-$5M">$1M - $5M</option>
-                                    <option value="$5M-$20M">$5M - $20M</option>
-                                    <option value="$20M-$50M">$20M - $50M</option>
-                                    <option value="$50M+">$50M+</option>
-                                </select>
-                            </div>
-
-                            <!-- Industry -->
-                            <div class="form-group">
-                                <label for="industry">Industry</label>
-                                <select id="industry" name="industry">
-                                    <option value="">Select industry</option>
-                                    <option value="Technology">Technology</option>
-                                    <option value="Manufacturing">Manufacturing</option>
-                                    <option value="Professional Services">Professional Services</option>
-                                    <option value="Tourism & Hospitality">Tourism & Hospitality</option>
-                                    <option value="E-Commerce">E-Commerce</option>
-                                    <option value="Healthcare">Healthcare</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-
-                            <!-- What are you looking for -->
-                            <div class="form-group">
-                                <label style="margin-bottom: 12px;">What are you looking for?</label>
-                                <div class="checkboxes-group">
-                                    <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="mAndA" name="services" value="M&A Advisory">
-                                        <label for="mAndA">M&A Advisory</label>
-                                    </div>
-                                    <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="cashflow" name="services" value="AI-Powered Cash Flow Intelligence">
-                                        <label for="cashflow">AI-Powered Cash Flow Intelligence</label>
-                                    </div>
-                                    <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="systems" name="services" value="AI & Finance Transformation">
-                                        <label for="systems">AI &amp; Finance Transformation</label>
-                                    </div>
-                                    <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="partnership" name="services" value="Strategic CFO Partnership">
-                                        <label for="partnership">Strategic CFO Partnership</label>
-                                    </div>
-                                    <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="guidance" name="services" value="Not sure yet — I need guidance">
-                                        <label for="guidance">Not sure yet — I need guidance</label>
-                                    </div>
+                                <div class="form-nav-buttons">
+                                    <button type="button" class="btn btn-primary btn-next" id="btnNext" onclick="goToStep(2)">Continue — Tell Us More</button>
                                 </div>
                             </div>
 
-                            <!-- Additional Notes -->
-                            <div class="form-group">
-                                <label for="notes">Additional Notes</label>
-                                <textarea id="notes" name="notes" rows="4" placeholder="Tell us a bit about your situation..."></textarea>
+                            <!-- STEP 2: Additional details -->
+                            <div class="form-step-group" id="formStep2">
+                                <p class="form-step-label">Step 2 of 2 — Help us prepare for your call</p>
+
+                                <!-- Last Name -->
+                                <div class="form-group">
+                                    <label for="lastName">Last Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
+                                    <input type="text" id="lastName" name="lastName" required aria-required="true" aria-describedby="lastName-error">
+                                    <div id="lastName-error" class="input-feedback" role="alert"></div>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="form-group">
+                                    <label for="phone">Phone <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
+                                    <input type="tel" id="phone" name="phone" required aria-required="true" aria-describedby="phone-error">
+                                    <div id="phone-error" class="input-feedback" role="alert"></div>
+                                </div>
+
+                                <!-- Company Name -->
+                                <div class="form-group">
+                                    <label for="companyName">Company Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
+                                    <input type="text" id="companyName" name="companyName" required aria-required="true" aria-describedby="companyName-error">
+                                    <div id="companyName-error" class="input-feedback" role="alert"></div>
+                                </div>
+
+                                <!-- Industry -->
+                                <div class="form-group">
+                                    <label for="industry">Industry</label>
+                                    <select id="industry" name="industry">
+                                        <option value="">Select industry</option>
+                                        <option value="Technology">Technology</option>
+                                        <option value="Manufacturing">Manufacturing</option>
+                                        <option value="Professional Services">Professional Services</option>
+                                        <option value="Tourism & Hospitality">Tourism & Hospitality</option>
+                                        <option value="E-Commerce">E-Commerce</option>
+                                        <option value="Healthcare">Healthcare</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <!-- What are you looking for -->
+                                <div class="form-group">
+                                    <label style="margin-bottom: 12px;">What keeps you up at night?</label>
+                                    <div class="checkboxes-group">
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="mAndA" name="services" value="M&A Advisory">
+                                            <label for="mAndA">Buying or selling a business</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="cashflow" name="services" value="AI-Powered Cash Flow Intelligence">
+                                            <label for="cashflow">Cash flow uncertainty</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="systems" name="services" value="AI & Finance Transformation">
+                                            <label for="systems">Manual finance processes slowing us down</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="partnership" name="services" value="Strategic CFO Partnership">
+                                            <label for="partnership">Need senior financial leadership</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="guidance" name="services" value="Not sure yet — I need guidance">
+                                            <label for="guidance">Not sure yet — I need guidance</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Additional Notes -->
+                                <div class="form-group">
+                                    <label for="notes">What would make this call valuable for you?</label>
+                                    <textarea id="notes" name="notes" rows="3" placeholder="E.g., 'I want to understand our cash runway before approaching investors...'"></textarea>
+                                </div>
+
+                                <!-- Navigation & Submit -->
+                                <div class="form-nav-buttons">
+                                    <button type="button" class="btn-back" onclick="goToStep(1)">&#8592; Back</button>
+                                    <button type="submit" id="submitBtn" class="btn btn-primary btn-next">Get My Free Diagnostic</button>
+                                </div>
+
+                                <!-- Form Note -->
+                                <p class="form-note">Your information is strictly confidential. We'll respond within 24 hours.</p>
                             </div>
-
-                            <!-- Submit Button -->
-                            <button type="submit" id="submitBtn">Schedule My Consultation</button>
-
-                            <!-- Form Note -->
-                            <p class="form-note">Your information is strictly confidential. We'll respond within 24 hours.</p>
                         </form>
                     </div>
                 </div>
@@ -356,9 +380,9 @@
     <section class="section-padding">
         <div class="container">
             <div class="cta-banner reveal" style="background: linear-gradient(135deg, var(--color-bg-inverse) 0%, var(--primitive-charcoal) 100%); box-shadow: 0 10px 30px rgba(27, 40, 56, 0.2);">
-                <h3>Not Ready for a Consultation?</h3>
-                <p>That's perfectly fine. Drop us an email with your question and we'll get back to you within 24 hours. No pressure, just expertise.</p>
-                <a href="mailto:hello@newportpembury.com.au" class="btn btn-primary">Email Us Directly</a>
+                <h3>Not ready to book a call?</h3>
+                <p>No problem. See what our reports look like first — no email required.</p>
+                <a href="/assets/demos/cashflow-intelligence-report.html" class="btn btn-secondary" style="margin-top: 12px; margin-right: 12px;">View Sample Report</a>
             </div>
         </div>
     </section>
@@ -428,6 +452,52 @@
         document.querySelectorAll('.reveal').forEach(el => {
             observer.observe(el);
         });
+
+        // Two-step form navigation
+        function goToStep(step) {
+            const step1 = document.getElementById('formStep1');
+            const step2 = document.getElementById('formStep2');
+            const dot1 = document.getElementById('stepDot1');
+            const dot2 = document.getElementById('stepDot2');
+            const line = document.getElementById('stepLine');
+
+            if (step === 2) {
+                // Validate step 1 fields before advancing
+                const firstName = document.getElementById('firstName');
+                const email = document.getElementById('email');
+                let valid = true;
+
+                if (!firstName.value.trim()) {
+                    validateField('firstName');
+                    valid = false;
+                }
+                if (!email.value.trim() || !validateEmail(email.value)) {
+                    validateField('email');
+                    valid = false;
+                }
+
+                if (!valid) return;
+
+                step1.classList.remove('active');
+                step2.classList.add('active');
+                dot1.classList.remove('active');
+                dot1.classList.add('completed');
+                dot1.textContent = '✓';
+                dot2.classList.add('active');
+                line.classList.add('active');
+
+                // Scroll form into view
+                document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                step2.classList.remove('active');
+                step1.classList.add('active');
+                dot2.classList.remove('active');
+                dot1.classList.remove('completed');
+                dot1.classList.add('active');
+                dot1.textContent = '1';
+                line.classList.remove('active');
+            }
+        }
 
         // Form Validation
         const form = document.getElementById('consultationForm');
