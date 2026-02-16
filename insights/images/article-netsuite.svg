@@ -1,0 +1,97 @@
+<svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1B2838;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0F1923;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="340" fill="url(#bgGradient4)"/>
+
+  <!-- Connection lines (subtle white at low opacity) -->
+  <g stroke="rgba(245,240,232,0.15)" stroke-width="1.5" fill="none">
+    <!-- Horizontal connections -->
+    <line x1="110" y1="100" x2="250" y2="100"/>
+    <line x1="350" y1="100" x2="490" y2="100"/>
+    <line x1="110" y1="170" x2="250" y2="170"/>
+    <line x1="350" y1="170" x2="490" y2="170"/>
+    <line x1="110" y1="240" x2="250" y2="240"/>
+    <line x1="350" y1="240" x2="490" y2="240"/>
+
+    <!-- Vertical connections -->
+    <line x1="180" y1="70" x2="180" y2="270"/>
+    <line x1="300" y1="70" x2="300" y2="270"/>
+    <line x1="420" y1="70" x2="420" y2="270"/>
+  </g>
+
+  <!-- Module blocks - top tier -->
+  <g>
+    <!-- Top-left module (Finance) -->
+    <rect x="65" y="75" width="90" height="50" rx="3" fill="none" stroke="#C5A55A" stroke-width="2"/>
+    <rect x="68" y="78" width="84" height="44" rx="2" fill="rgba(197,165,90,0.08)"/>
+    <circle cx="110" cy="102" r="3" fill="#C5A55A" opacity="0.6"/>
+
+    <!-- Top-center module (Reporting) -->
+    <rect x="255" y="75" width="90" height="50" rx="3" fill="none" stroke="rgba(245,240,232,0.3)" stroke-width="2"/>
+    <rect x="258" y="78" width="84" height="44" rx="2" fill="rgba(245,240,232,0.04)"/>
+
+    <!-- Top-right module (Analytics) -->
+    <rect x="445" y="75" width="90" height="50" rx="3" fill="none" stroke="#C5A55A" stroke-width="2"/>
+    <rect x="448" y="78" width="84" height="44" rx="2" fill="rgba(197,165,90,0.08)"/>
+  </g>
+
+  <!-- Module blocks - middle tier -->
+  <g>
+    <!-- Middle-left module (Inventory) -->
+    <rect x="65" y="145" width="90" height="50" rx="3" fill="none" stroke="rgba(245,240,232,0.3)" stroke-width="2"/>
+    <rect x="68" y="148" width="84" height="44" rx="2" fill="rgba(245,240,232,0.04)"/>
+
+    <!-- Middle-center module (CRM) -->
+    <rect x="255" y="145" width="90" height="50" rx="3" fill="none" stroke="#C5A55A" stroke-width="2"/>
+    <rect x="258" y="148" width="84" height="44" rx="2" fill="rgba(197,165,90,0.08)"/>
+    <circle cx="300" cy="170" r="3" fill="#C5A55A" opacity="0.6"/>
+    <circle cx="315" cy="160" r="2" fill="#C5A55A" opacity="0.4"/>
+
+    <!-- Middle-right module (Procurement) -->
+    <rect x="445" y="145" width="90" height="50" rx="3" fill="none" stroke="rgba(245,240,232,0.3)" stroke-width="2"/>
+    <rect x="448" y="148" width="84" height="44" rx="2" fill="rgba(245,240,232,0.04)"/>
+  </g>
+
+  <!-- Module blocks - bottom tier -->
+  <g>
+    <!-- Bottom-left module (GL) -->
+    <rect x="65" y="215" width="90" height="50" rx="3" fill="none" stroke="#C5A55A" stroke-width="2"/>
+    <rect x="68" y="218" width="84" height="44" rx="2" fill="rgba(197,165,90,0.08)"/>
+
+    <!-- Bottom-center module (Consolidation) -->
+    <rect x="255" y="215" width="90" height="50" rx="3" fill="none" stroke="rgba(245,240,232,0.3)" stroke-width="2"/>
+    <rect x="258" y="218" width="84" height="44" rx="2" fill="rgba(245,240,232,0.04)"/>
+
+    <!-- Bottom-right module (AR/AP) -->
+    <rect x="445" y="215" width="90" height="50" rx="3" fill="none" stroke="#C5A55A" stroke-width="2"/>
+    <rect x="448" y="218" width="84" height="44" rx="2" fill="rgba(197,165,90,0.08)"/>
+    <circle cx="490" cy="240" r="3" fill="#C5A55A" opacity="0.6"/>
+  </g>
+
+  <!-- Data flow nodes (small circles at intersections) -->
+  <g fill="rgba(197,165,90,0.3)">
+    <circle cx="180" cy="100" r="2"/>
+    <circle cx="300" cy="100" r="2"/>
+    <circle cx="420" cy="100" r="2"/>
+    <circle cx="180" cy="170" r="2"/>
+    <circle cx="420" cy="170" r="2"/>
+    <circle cx="180" cy="240" r="2"/>
+    <circle cx="300" cy="240" r="2"/>
+  </g>
+
+  <!-- Integration pulse indicators -->
+  <g fill="none" stroke="#C5A55A" stroke-width="1.5" opacity="0.5">
+    <circle cx="110" cy="102" r="6">
+      <animate attributeName="r" values="6;8;6" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="490" cy="240" r="6">
+      <animate attributeName="r" values="6;8;6" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>

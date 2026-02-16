@@ -1,0 +1,87 @@
+<svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1B2838;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0F1923;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#C5A55A;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#C5A55A;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#C5A55A;stop-opacity:0.3" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="340" fill="url(#bgGradient3)"/>
+
+  <!-- Week markers (subtle vertical lines) -->
+  <g stroke="rgba(197,165,90,0.1)" stroke-width="1">
+    <line x1="50" y1="240" x2="50" y2="260"/>
+    <line x1="100" y1="240" x2="100" y2="260"/>
+    <line x1="150" y1="240" x2="150" y2="260"/>
+    <line x1="200" y1="240" x2="200" y2="260"/>
+    <line x1="250" y1="240" x2="250" y2="260"/>
+    <line x1="300" y1="240" x2="300" y2="260"/>
+    <line x1="350" y1="240" x2="350" y2="260"/>
+    <line x1="400" y1="240" x2="400" y2="260"/>
+    <line x1="450" y1="240" x2="450" y2="260"/>
+    <line x1="500" y1="240" x2="500" y2="260"/>
+    <line x1="550" y1="240" x2="550" y2="260"/>
+  </g>
+
+  <!-- Baseline -->
+  <line x1="30" y1="170" x2="570" y2="170" stroke="rgba(197,165,90,0.15)" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Flowing waveform path -->
+  <path d="M 30 170 Q 70 140 110 160 T 190 150 T 270 180 T 350 155 T 430 175 T 510 165 T 570 150"
+        stroke="#C5A55A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Area fill beneath curve -->
+  <path d="M 30 170 Q 70 140 110 160 T 190 150 T 270 180 T 350 155 T 430 175 T 510 165 T 570 150 L 570 240 L 30 240 Z"
+        fill="url(#flowGradient)" opacity="0.6"/>
+
+  <!-- Data points along the curve -->
+  <g fill="#C5A55A" opacity="0.8">
+    <circle cx="50" cy="162" r="2.5"/>
+    <circle cx="110" cy="160" r="2.5"/>
+    <circle cx="170" cy="155" r="2.5"/>
+    <circle cx="230" cy="168" r="2.5"/>
+    <circle cx="290" cy="178" r="2.5"/>
+    <circle cx="350" cy="155" r="2.5"/>
+    <circle cx="410" cy="172" r="2.5"/>
+    <circle cx="470" cy="168" r="2.5"/>
+    <circle cx="530" cy="158" r="2.5"/>
+  </g>
+
+  <!-- Vertical week markers (text-free, just visual separators) -->
+  <g stroke="rgba(245,240,232,0.08)" stroke-width="0.5">
+    <line x1="50" y1="80" x2="50" y2="240"/>
+    <line x1="110" y1="80" x2="110" y2="240"/>
+    <line x1="170" y1="80" x2="170" y2="240"/>
+    <line x1="230" y1="80" x2="230" y2="240"/>
+    <line x1="290" y1="80" x2="290" y2="240"/>
+    <line x1="350" y1="80" x2="350" y2="240"/>
+    <line x1="410" y1="80" x2="410" y2="240"/>
+    <line x1="470" y1="80" x2="470" y2="240"/>
+    <line x1="530" y1="80" x2="530" y2="240"/>
+  </g>
+
+  <!-- Flow direction indicators (faint arrows) -->
+  <g stroke="rgba(197,165,90,0.2)" stroke-width="1.5" fill="none" marker-end="url(#flowArrow)">
+    <path d="M 120 155 Q 150 152 180 160"/>
+    <path d="M 280 175 Q 310 165 340 158"/>
+    <path d="M 440 170 Q 470 167 500 162"/>
+  </g>
+
+  <defs>
+    <marker id="flowArrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="rgba(197,165,90,0.2)" />
+    </marker>
+  </defs>
+
+  <!-- Light rays to suggest flow -->
+  <g stroke="rgba(197,165,90,0.1)" stroke-width="0.5" stroke-dasharray="2,2">
+    <line x1="50" y1="100" x2="50" y2="240"/>
+    <line x1="290" y1="100" x2="290" y2="240"/>
+  </g>
+</svg>
