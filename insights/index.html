@@ -6,14 +6,13 @@
     <meta name="theme-color" content="#1B2838">
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
     <title>Insights | Newport Pembury & Co — Fractional CFO Thinking</title>
-    <meta name="description" content="Financial insights and CFO perspectives for founders and business owners. M&A readiness, cash flow strategy, and growth planning.">
+    <meta name="description" content="Financial insights and CFO perspectives for founders and business owners. M&A readiness, cash flow strategy, and growth planning from a Chartered Accountant with 20 years of experience.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/theme-toggle.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config = { corePlugins: { preflight: false } }</script>
+    <!-- Tailwind CDN REMOVED — replaced with critical inline CSS -->
     <script src="../assets/js/theme-toggle.js"></script>
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://newportpembury.com.au/insights/">
@@ -27,26 +26,299 @@
     <meta name="twitter:description" content="Financial insights and CFO perspectives for founders and business owners. M&A readiness, cash flow strategy, and growth planning.">
     <meta name="twitter:image" content="https://newportpembury.com.au/og-image.jpg">
     <link rel="canonical" href="https://newportpembury.com.au/insights/">
+    <!-- BreadcrumbList Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://newportpembury.com.au/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Insights",
-          "item": "https://newportpembury.com.au/insights/"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://newportpembury.com.au/" },
+        { "@type": "ListItem", "position": 2, "name": "Insights", "item": "https://newportpembury.com.au/insights/" }
       ]
     }
     </script>
+    <!-- CollectionPage + Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Newport Pembury & Co — Insights",
+      "description": "Financial insights and CFO perspectives for founders and business owners.",
+      "url": "https://newportpembury.com.au/insights/",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Newport Pembury & Co",
+        "url": "https://newportpembury.com.au"
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "Article",
+              "headline": "The $5M–$50M Blind Spot: Why Growing Companies Need a CFO Before They Think They Do",
+              "author": { "@type": "Person", "name": "Timothy Messieh" },
+              "publisher": { "@type": "Organization", "name": "Newport Pembury & Co" },
+              "datePublished": "2026-02-01",
+              "description": "Most founders wait until a crisis before they bring in financial leadership. Here's what the data says about the inflection point.",
+              "articleSection": "Strategy"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "Article",
+              "headline": "The Hidden Cost of Unprepared M&A: Why 70% of Deals Destroy Value",
+              "author": { "@type": "Person", "name": "Timothy Messieh" },
+              "publisher": { "@type": "Organization", "name": "Newport Pembury & Co" },
+              "url": "https://newportpembury.com.au/insights/ma-readiness-checklist/",
+              "datePublished": "2026-01-15",
+              "description": "M&A readiness isn't a last-minute sprint — it's built over years of financial discipline.",
+              "articleSection": "M&A"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "Article",
+              "headline": "The 13-Week Cash Flow Forecast: A Founder's Safety Net",
+              "author": { "@type": "Person", "name": "Timothy Messieh" },
+              "publisher": { "@type": "Organization", "name": "Newport Pembury & Co" },
+              "url": "https://newportpembury.com.au/insights/13-week-cashflow-forecast/",
+              "datePublished": "2026-01-20",
+              "description": "Why rolling cash flow visibility is the most important financial discipline for businesses in the $5M–$50M range.",
+              "articleSection": "Cash Flow"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+    <!-- Critical inline CSS replacing Tailwind CDN -->
+    <style>
+      /* Layout utilities (replacing Tailwind) */
+      .max-w-7xl { max-width: 80rem; }
+      .max-w-4xl { max-width: 56rem; }
+      .max-w-2xl { max-width: 42rem; }
+      .mx-auto { margin-left: auto; margin-right: auto; }
+      .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .px-8 { padding-left: 2rem; padding-right: 2rem; }
+      .py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+      .py-16 { padding-left: 0; padding-right: 0; padding-top: 4rem; padding-bottom: 4rem; }
+      .mb-3 { margin-bottom: 0.75rem; }
+      .mb-4 { margin-bottom: 1rem; }
+      .mb-6 { margin-bottom: 1.5rem; }
+      .mb-8 { margin-bottom: 2rem; }
+      .mb-12 { margin-bottom: 3rem; }
+      .mb-16 { margin-bottom: 4rem; }
+      .mt-4 { margin-top: 1rem; }
+      .gap-4 { gap: 1rem; }
+      .gap-8 { gap: 2rem; }
+      .z-10 { position: relative; z-index: 10; }
+
+      /* Flexbox */
+      .flex { display: flex; }
+      .flex-col { flex-direction: column; }
+      .items-center { align-items: center; }
+      .justify-center { justify-content: center; }
+      .justify-between { justify-content: space-between; }
+
+      /* Grid */
+      .grid { display: grid; }
+      .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+
+      /* Typography */
+      .text-center { text-align: center; }
+      .font-bold { font-weight: 700; }
+      .font-semibold { font-weight: 600; }
+      .text-white { color: #fff; }
+      .text-gray-100 { color: rgba(255,255,255,0.85); }
+      .text-xs { font-size: 0.75rem; line-height: 1rem; }
+      .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+      .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+      .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+      .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+      .text-5xl { font-size: 3rem; line-height: 1.1; }
+      .uppercase { text-transform: uppercase; }
+      .tracking-widest { letter-spacing: 0.1em; }
+      .text-balance { text-wrap: balance; }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
+
+      /* Visual */
+      .rounded-xl { border-radius: 0.75rem; }
+      .relative { position: relative; }
+
+      /* Responsive */
+      @media (min-width: 640px) {
+        .sm\:flex-row { flex-direction: row; }
+      }
+      @media (min-width: 768px) {
+        .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .md\:text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .md\:text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+        .md\:text-5xl { font-size: 3rem; line-height: 1.1; }
+        .md\:text-6xl { font-size: 3.75rem; line-height: 1.1; }
+      }
+      @media (min-width: 1024px) {
+        .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
+
+      /* ── Trust Bar ── */
+      .trust-bar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        padding: 1.5rem 0;
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+      }
+      .trust-bar-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: var(--color-text-secondary);
+        letter-spacing: 0.02em;
+      }
+      .trust-bar-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        opacity: 0.7;
+      }
+      .trust-bar-icon svg {
+        width: 100%;
+        height: 100%;
+        stroke: var(--color-action-primary);
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      [data-theme="dark"] .trust-bar {
+        border-top-color: rgba(255,255,255,0.08);
+        border-bottom-color: rgba(255,255,255,0.08);
+      }
+      [data-theme="dark"] .trust-bar-item {
+        color: rgba(255,255,255,0.6);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) .trust-bar {
+          border-top-color: rgba(255,255,255,0.08);
+          border-bottom-color: rgba(255,255,255,0.08);
+        }
+        :root:not([data-theme="light"]) .trust-bar-item {
+          color: rgba(255,255,255,0.6);
+        }
+      }
+
+      /* ── Hero editorial refinements ── */
+      .hero-editorial-line {
+        display: inline-block;
+        width: 60px;
+        height: 2px;
+        background: var(--color-action-primary);
+        margin-bottom: 1.5rem;
+        opacity: 0.8;
+      }
+      .hero-credential {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: rgba(255,255,255,0.5);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .hero-credential-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--color-action-primary);
+        opacity: 0.6;
+      }
+
+      /* ── Coming Soon badge ── */
+      .coming-soon-link {
+        pointer-events: none;
+        opacity: 0.5;
+        position: relative;
+      }
+      .coming-soon-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        color: var(--color-action-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.25rem 0.625rem;
+        border: 1px solid rgba(197, 165, 90, 0.25);
+        border-radius: 100px;
+        background: rgba(197, 165, 90, 0.06);
+      }
+
+      /* ── Enhanced scroll reveal (modern choreography) ── */
+      .scroll-reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .scroll-reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Staggered grid animation */
+      .article-card {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      }
+      .article-card.card-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── Enhanced card hovers ── */
+      .article-card:hover .article-card-img {
+        transform: scale(1.04);
+      }
+      .article-card .article-card-img {
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .featured-card:hover .article-card-img {
+        transform: scale(1.03);
+      }
+      .featured-card .article-card-img {
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      /* ── Reduced motion ── */
+      @media (prefers-reduced-motion: reduce) {
+        .scroll-reveal,
+        .article-card {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+        .article-card .article-card-img,
+        .featured-card .article-card-img {
+          transition: none !important;
+          transform: none !important;
+        }
+      }
+    </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -73,7 +345,7 @@
             <a href="/contact" class="btn btn-primary btn-sm nav-cta">
                 Book My Free Call
             </a>
-            <button class="theme-toggle-btn" aria-label="Switch to dark mode" title="Toggle theme">
+            <button class="theme-toggle-btn" aria-label="Switch to dark mode" aria-pressed="false" title="Toggle theme">
                 <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
                 <span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
             </button>
@@ -88,25 +360,44 @@
         </ol>
     </nav>
 
-    <!-- Hero -->
+    <!-- Hero — Editorial Statement (not just "Insights" heading) -->
     <section class="hero-section hero-section-insights">
-        <div class="max-w-4xl mx-auto px-6 z-10">
+        <div class="max-w-4xl mx-auto px-6 z-10" style="text-align: center;">
+            <span class="hero-editorial-line" aria-hidden="true"></span>
             <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 hero-title-serif text-balance">
-                Insights
+                The CFO Perspective
             </h1>
             <p class="text-xl md:text-2xl text-gray-100 hero-subtitle-sans text-balance">
-                Thinking from the CFO seat. Strategy, transactions, and the financial decisions that shape growing businesses.
+                Strategy, transactions, and the financial decisions that shape growing businesses &mdash; from the people who sit in the CFO seat.
             </p>
+            <div class="hero-credential" aria-label="Written by Timothy Messieh, Chartered Accountant">
+                <span class="hero-credential-dot" aria-hidden="true"></span>
+                <span>Timothy Messieh, CA &middot; 20 years in financial leadership</span>
+            </div>
         </div>
     </section>
 
     <!-- Content -->
     <main id="main-content" class="max-w-7xl mx-auto px-6 py-16">
-        <!-- Credentials Trust Line -->
-        <div class="text-center mb-12 scroll-reveal">
-            <p class="text-sm font-semibold credentials-trust-line">
-                Insights from a Chartered Accountant with 20 years of financial leadership experience
-            </p>
+
+        <!-- Trust Bar — Social Proof Signals -->
+        <div class="trust-bar scroll-reveal mb-12">
+            <div class="trust-bar-item">
+                <span class="trust-bar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+                <span>Chartered Accountant (CA ANZ)</span>
+            </div>
+            <div class="trust-bar-item">
+                <span class="trust-bar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+                <span>Led NetSuite ERP implementation</span>
+            </div>
+            <div class="trust-bar-item">
+                <span class="trust-bar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+                <span>Two acquisitions completed</span>
+            </div>
+            <div class="trust-bar-item">
+                <span class="trust-bar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
+                <span>$5M–$50M revenue focus</span>
+            </div>
         </div>
 
         <!-- Featured Article -->
@@ -119,110 +410,110 @@
                 <div class="featured-body">
                     <span class="category-pill strategy mb-4">Strategy</span>
                     <h3 class="featured-article-heading">The $5M–$50M Blind Spot: Why Growing Companies Need a CFO Before They Think They Do</h3>
-                    <p class="featured-article-desc">Most founders wait until a crisis — a failed raise, a cash crunch, a deal gone sideways — before they bring in financial leadership. By then, the cost of delay is real. Here's what the data says about the inflection point where a fractional CFO changes the trajectory.</p>
-                    <a href="#" aria-disabled="true" title="Coming soon" class="read-more read-more-custom">Read Article <span>&rarr;</span></a>
+                    <p class="featured-article-desc">Most founders wait until a crisis &mdash; a failed raise, a cash crunch, a deal gone sideways &mdash; before they bring in financial leadership. By then, the cost of delay is real. Here&rsquo;s what the data says about the inflection point where a fractional CFO changes the trajectory.</p>
+                    <span class="coming-soon-badge">Coming March 2026</span>
                 </div>
             </div>
         </section>
 
         <!-- Article Grid -->
         <section class="scroll-reveal mb-16">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articleGrid">
 
-                <!-- Article 1 -->
-                <div class="article-card">
+                <!-- Article 1 — LIVE -->
+                <article class="article-card">
                     <div class="article-image article-image-charcoal" role="img" aria-label="The Hidden Cost of Unprepared M&A: Why 70% of Deals Destroy Value">
                         <img src="/insights/images/article-ma-cost.svg" alt="Two overlapping circles with fracture lines representing the valuation gap in M&A deals" class="article-card-img" loading="lazy" width="600" height="340">
                     </div>
                     <div class="article-body">
                         <span class="category-pill ma mb-3 category-pill-custom">M&amp;A</span>
                         <h3 class="article-card-heading">The Hidden Cost of Unprepared M&A: Why 70% of Deals Destroy Value</h3>
-                        <p class="article-card-desc">Most founders don't realize they're one third of the way through value destruction the moment they decide to sell. M&A readiness isn't a last-minute sprint—it's built over years of financial discipline and operational clarity.</p>
+                        <p class="article-card-desc">Most founders don&rsquo;t realize they&rsquo;re one third of the way through value destruction the moment they decide to sell. M&amp;A readiness isn&rsquo;t a last-minute sprint &mdash; it&rsquo;s built over years of financial discipline and operational clarity.</p>
                         <a href="/insights/ma-readiness-checklist/" class="read-more read-more-custom">Read Article <span>&rarr;</span></a>
                     </div>
-                </div>
+                </article>
 
-                <!-- Article 2 -->
-                <div class="article-card">
+                <!-- Article 2 — LIVE -->
+                <article class="article-card">
                     <div class="article-image article-image-growth" role="img" aria-label="The 13-Week Cash Flow Forecast: A Founder's Safety Net">
                         <img src="/insights/images/article-cashflow.svg" alt="Flowing waveform across 13 data points representing a rolling cash flow forecast" class="article-card-img" loading="lazy" width="600" height="340">
                     </div>
                     <div class="article-body">
                         <span class="category-pill growth mb-3 category-pill-custom">Cash Flow</span>
-                        <h3 class="article-card-heading">The 13-Week Cash Flow Forecast: A Founder's Safety Net</h3>
-                        <p class="article-card-desc">Why rolling cash flow visibility is the single most important financial discipline for businesses in the $5M–$50M range. See the live interactive forecast.</p>
+                        <h3 class="article-card-heading">The 13-Week Cash Flow Forecast: A Founder&rsquo;s Safety Net</h3>
+                        <p class="article-card-desc">Why rolling cash flow visibility is the single most important financial discipline for businesses in the $5M&ndash;$50M range. See the live interactive forecast.</p>
                         <a href="/insights/13-week-cashflow-forecast/" class="read-more read-more-custom">Read Article <span>&rarr;</span></a>
                     </div>
-                </div>
+                </article>
 
-                <!-- Article 3 -->
-                <div class="article-card">
+                <!-- Article 3 — Coming Soon -->
+                <article class="article-card">
                     <div class="article-image article-image-charcoal-inverse" role="img" aria-label="NetSuite Implementation: A CFO's Honest Guide to ERP Without the Pain">
-                        <img src="/insights/images/article-netsuite-hero.webp" onerror="this.onerror=null;this.src='/insights/images/article-netsuite.svg'" alt="Abstract atmospheric editorial photograph of navy and gold flowing forms, representing the complexity and elegance of ERP system integration" class="article-card-img" loading="lazy" width="600" height="340">
+                        <img src="/insights/images/article-netsuite-hero.webp" onerror="this.onerror=null;this.src='/insights/images/article-netsuite.svg'" alt="Abstract floating stacked horizontal slabs in navy and charcoal, representing layers of ERP system integration" class="article-card-img" loading="lazy" width="600" height="340">
                     </div>
                     <div class="article-body">
                         <span class="category-pill systems mb-3">Systems</span>
-                        <h3 class="article-card-heading">NetSuite Implementation: A CFO's Honest Guide to ERP Without the Pain</h3>
-                        <p class="article-card-desc">We led our own NetSuite rollout from scoping to go-live. No consultants, no 18-month timeline. Here's how to do it without losing your team or your mind.</p>
-                        <a href="#" aria-disabled="true" title="Coming soon" class="read-more read-more-custom">Read Article <span>&rarr;</span></a>
+                        <h3 class="article-card-heading">NetSuite Implementation: A CFO&rsquo;s Honest Guide to ERP Without the Pain</h3>
+                        <p class="article-card-desc">We led our own NetSuite rollout from scoping to go-live. No consultants, no 18-month timeline. Here&rsquo;s how to do it without losing your team or your mind.</p>
+                        <span class="coming-soon-badge">Coming April 2026</span>
                     </div>
-                </div>
+                </article>
 
-                <!-- Article 4 -->
-                <div class="article-card">
+                <!-- Article 4 — Coming Soon -->
+                <article class="article-card">
                     <div class="article-image article-image-gold-light" role="img" aria-label="Financial Models That Actually Get Funded: What Investors Look For">
                         <img src="/insights/images/article-financial-models.svg" alt="Ascending bar chart with growth trajectory representing financial models that attract investment" class="article-card-img" loading="lazy" width="600" height="340">
                     </div>
                     <div class="article-body">
                         <span class="category-pill strategy mb-3">Strategy</span>
                         <h3 class="article-card-heading">Financial Models That Actually Get Funded: What Investors Look For</h3>
-                        <p class="article-card-desc">After preparing pitch deck models for multiple capital raises, there's a clear gap between the models that get funded and the ones that get politely declined.</p>
-                        <a href="#" aria-disabled="true" title="Coming soon" class="read-more read-more-custom">Read Article <span>&rarr;</span></a>
+                        <p class="article-card-desc">After preparing pitch deck models for multiple capital raises, there&rsquo;s a clear gap between the models that get funded and the ones that get politely declined.</p>
+                        <span class="coming-soon-badge">Coming May 2026</span>
                     </div>
-                </div>
+                </article>
 
-                <!-- Article 5 -->
-                <div class="article-card">
+                <!-- Article 5 — Coming Soon -->
+                <article class="article-card">
                     <div class="article-image article-image-charcoal-growth" role="img" aria-label="Acquiring a Competitor: Lessons From Two Acquisitions in Three Years">
-                        <img src="/insights/images/article-acquiring-hero.webp" onerror="this.onerror=null;this.src='/insights/images/article-acquiring.svg'" alt="Abstract fine art of two large geometric forms merging on dark charcoal canvas with warm gold light at the convergence zone, representing business acquisition" class="article-card-img" loading="lazy" width="600" height="340">
+                        <img src="/insights/images/article-acquiring-hero.webp" onerror="this.onerror=null;this.src='/insights/images/article-acquiring.svg'" alt="Abstract fine art of two stone monoliths with warm gold light in the gap, representing business acquisition convergence" class="article-card-img" loading="lazy" width="600" height="340">
                     </div>
                     <div class="article-body">
                         <span class="category-pill ma mb-3 category-pill-custom">M&amp;A</span>
                         <h3 class="article-card-heading">Acquiring a Competitor: Lessons From Two Acquisitions in Three Years</h3>
                         <p class="article-card-desc">Integrating two acquired businesses into a pet transport operation taught us more about M&amp;A than any textbook. Due diligence is only the beginning.</p>
-                        <a href="#" aria-disabled="true" title="Coming soon" class="read-more read-more-custom">Read Article <span>&rarr;</span></a>
+                        <span class="coming-soon-badge">Coming April 2026</span>
                     </div>
-                </div>
+                </article>
 
-                <!-- Article 6 -->
-                <div class="article-card">
+                <!-- Article 6 — Coming Soon -->
+                <article class="article-card">
                     <div class="article-image article-image-charcoal" role="img" aria-label="Building a Bespoke Booking System: When Off-the-Shelf Isn't Enough">
-                        <img src="/insights/images/article-booking-system-hero.webp" onerror="this.onerror=null;this.src='/insights/images/article-booking-system.svg'" alt="Abstract atmospheric editorial photograph of warm gold flowing forms with crystalline elements, representing the transformation of building custom systems" class="article-card-img" loading="lazy" width="600" height="340">
+                        <img src="/insights/images/article-booking-system-hero.webp" onerror="this.onerror=null;this.src='/insights/images/article-booking-system.svg'" alt="Abstract gold droplet creating concentric ripples on dark surface, representing the ripple effect of building custom systems" class="article-card-img" loading="lazy" width="600" height="340">
                     </div>
                     <div class="article-body">
                         <span class="category-pill systems mb-3">Systems</span>
-                        <h3 class="article-card-heading">Building a Bespoke Booking System: When Off-the-Shelf Isn't Enough</h3>
+                        <h3 class="article-card-heading">Building a Bespoke Booking System: When Off-the-Shelf Isn&rsquo;t Enough</h3>
                         <p class="article-card-desc">Sometimes the best system is the one you build yourself. How we designed and deployed a custom booking platform that outperformed every SaaS alternative we trialled.</p>
-                        <a href="#" aria-disabled="true" title="Coming soon" class="read-more read-more-custom">Read Article <span>&rarr;</span></a>
+                        <span class="coming-soon-badge">Coming May 2026</span>
                     </div>
-                </div>
+                </article>
 
             </div>
         </section>
 
-        <!-- Newsletter Subscribe -->
+        <!-- Newsletter Subscribe — Fixed: "Quarterly" consistently -->
         <section class="newsletter-section newsletter-gradient rounded-xl py-16 px-8 scroll-reveal mb-16">
             <div class="relative z-10 text-center max-w-2xl mx-auto">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 hero-title-serif">Get the Monthly CFO Briefing</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 hero-title-serif">Get the Quarterly CFO Briefing</h2>
                 <p class="text-lg mb-8" style="color: rgba(255, 255, 255, 0.7); line-height: 1.7;">
                     Quarterly insights on financial strategy, M&amp;A lessons, and operational thinking for business owners and boards. No fluff, no selling.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <form class="flex flex-col sm:flex-row gap-4 justify-center items-center" action="#" method="post" aria-label="Newsletter signup">
                     <label for="insights-email" class="sr-only">Email address</label>
-                    <input type="email" id="insights-email" class="newsletter-input" placeholder="Your email address">
-                    <button class="newsletter-btn" style="background: var(--color-action-primary); color: var(--color-bg-inverse);">Get the Briefing</button>
-                </div>
-                <p class="text-xs mt-4 newsletter-disclaimer">No spam. Unsubscribe anytime.</p>
+                    <input type="email" id="insights-email" name="email" class="newsletter-input" placeholder="Your email address" required autocomplete="email">
+                    <button type="submit" class="newsletter-btn">Get the Briefing</button>
+                </form>
+                <p class="text-xs mt-4 newsletter-disclaimer">No spam. Unsubscribe anytime. We respect your <a href="/privacy" style="color: rgba(255,255,255,0.5); text-decoration: underline;">privacy</a>.</p>
             </div>
         </section>
 
@@ -233,8 +524,8 @@
                 <h2>Ready to Talk Strategy?</h2>
                 <p>Schedule your confidential 30-minute consultation to discuss your business needs.</p>
                 <div class="cta-buttons">
-                    <a href="/contact" class="btn btn-primary">Book My Free Call</a>
-                    <a href="mailto:hello@newportpembury.com.au" class="btn btn-secondary">Email Timothy Directly</a>
+                    <a href="/contact" class="cta-btn-primary">Book My Free Call</a>
+                    <a href="mailto:hello@newportpembury.com.au" class="cta-btn-ghost">Email Timothy Directly</a>
                 </div>
             </div>
         </section>
@@ -285,86 +576,118 @@
     </footer>
 
     <!-- Back to top button -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
 
-    <!-- Scroll Reveal Script -->
+    <!-- Enhanced Script — Modern animation choreography -->
     <script>
-        const revealElements = document.querySelectorAll('.scroll-reveal');
+        // ── Respect reduced motion preference ──
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        const revealOnScroll = () => {
-            revealElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementBottom = element.getBoundingClientRect().bottom;
-
-                if (elementTop < window.innerHeight && elementBottom > 0) {
-                    element.classList.add('visible');
+        // ── Staggered scroll reveal with IntersectionObserver ──
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
                 }
             });
-        };
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-        window.addEventListener('scroll', revealOnScroll);
-        window.addEventListener('load', revealOnScroll);
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            if (prefersReducedMotion) {
+                el.classList.add('visible');
+            } else {
+                revealObserver.observe(el);
+            }
+        });
 
-        // Navbar shadow on scroll
+        // ── Staggered card animation ──
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const cards = entry.target.querySelectorAll('.article-card');
+                    cards.forEach((card, i) => {
+                        if (prefersReducedMotion) {
+                            card.classList.add('card-visible');
+                        } else {
+                            setTimeout(() => {
+                                card.classList.add('card-visible');
+                            }, i * 120);
+                        }
+                    });
+                    cardObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.05 });
+
+        const articleGrid = document.getElementById('articleGrid');
+        if (articleGrid) cardObserver.observe(articleGrid);
+
+        // ── Navbar shadow on scroll ──
         const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 0) {
+        let lastScrollY = 0;
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+            if (scrollY > 0) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
-        });
+            lastScrollY = scrollY;
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
 
-        // Back to top button
+        // ── Back to top button ──
         const backToTop = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-
+            backToTop.classList.toggle('visible', window.scrollY > 300);
+        }, { passive: true });
         backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         });
 
-        // Mobile CTA visibility
+        // ── Mobile CTA visibility ──
         const mobileCTA = document.getElementById('mobileCTA');
         const heroSection = document.querySelector('.hero-section');
         if (mobileCTA && heroSection) {
             window.addEventListener('scroll', () => {
                 if (window.innerWidth <= 768) {
                     const heroBottom = heroSection.getBoundingClientRect().bottom;
-                    if (heroBottom < 0) {
-                        mobileCTA.classList.add('active');
-                        document.body.classList.add('mobile-cta-visible');
-                    } else {
-                        mobileCTA.classList.remove('active');
-                        document.body.classList.remove('mobile-cta-visible');
-                    }
+                    mobileCTA.classList.toggle('active', heroBottom < 0);
+                    document.body.classList.toggle('mobile-cta-visible', heroBottom < 0);
                 }
-            });
+            }, { passive: true });
         }
 
-        // Hamburger menu toggle
+        // ── Hamburger menu toggle ──
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
-
         if (hamburger && navLinks) {
             hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
+                const isActive = hamburger.classList.toggle('active');
                 navLinks.classList.toggle('active');
-                const expanded = hamburger.classList.contains('active');
-                hamburger.setAttribute('aria-expanded', expanded);
+                hamburger.setAttribute('aria-expanded', isActive);
             });
-
             navLinks.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     hamburger.classList.remove('active');
                     navLinks.classList.remove('active');
                 });
             });
+        }
+
+        // ── Theme toggle aria-pressed sync ──
+        const themeToggle = document.querySelector('.theme-toggle-btn');
+        if (themeToggle) {
+            const syncAriaPressed = () => {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+                    (!document.documentElement.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                themeToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+                themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+            };
+            syncAriaPressed();
+            const observer = new MutationObserver(syncAriaPressed);
+            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
         }
     </script>
 </body>
