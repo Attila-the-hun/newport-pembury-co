@@ -139,24 +139,84 @@
 **Skill Update**: Added --font-size-*, --duration-*, --color-category-*, --color-*-bg/border/dark tokens to :root. Created utility classes in section 1b. Replaced 14 hardcoded HEX in component CSS. Stripped 32 inline styles from 8 HTML pages. Added Token Governance Checklist with verifiable assertions.
 **Status**: In progress — inline style count reduced from 130 to 94, hardcoded HEX in component CSS reduced from 19 to 0. Further work needed on services.html (31 remaining) and insights/index.html (43 remaining).
 
+### REF-011 — 2026-02-17 — Major
+**Gap**: Tailwind CDN (cdn.tailwindcss.com) still loaded on contact.html, M&A article, privacy.html, and terms.html — despite being removed from insights hub during the 4-phase overhaul. Creates token duplication (Tailwind config hardcodes brand HEX values that duplicate main.css tokens) and performance variance.
+**Root Cause**: Incomplete — CDN removal was executed per-page during insights overhaul, not as a site-wide sweep. No "zero CDN" assertion existed in testing checklist.
+**Detection Method**: Cross-AI full site review (Claude + ChatGPT + Gemini, 2026-02-17).
+**Skill File**: SKILL.md Testing Checklist
+**Generalised Pattern**: Per-page fixes create inconsistency if not followed by a site-wide sweep. Any change to shared infrastructure (CSS loading, meta tags, schema) must be applied to ALL pages in the same session. Confirms P-001.
+**Prevention Rule**: "After any infrastructure change (CSS source, font loading, meta tag pattern), grep ALL HTML files to confirm consistency. Testing Checklist: 'Tailwind CDN removed from ALL pages (grep for cdn.tailwindcss.com — 0 results)'."
+**Skill Update**: Add CDN removal check to SKILL.md Testing Checklist.
+**Status**: Active — awaiting fix execution
+
+### REF-012 — 2026-02-17 — Major
+**Gap**: Contact form has 6+ fields (name, email, phone, company, revenue range, checkboxes, message) violating the "3 fields max for highest conversion" rule documented in conversion-rules.md.
+**Root Cause**: Ignored — the rule existed but wasn't applied during contact page build. No verification mechanism caught it.
+**Detection Method**: Cross-AI full site review — all 3 AIs flagged this independently.
+**Skill File**: references/conversion-rules.md, SKILL.md Testing Checklist
+**Generalised Pattern**: Conversion rules that lack a verifiable checklist item get bypassed during builds. "3 fields max" was prose buried in a reference file, not a checkable assertion.
+**Prevention Rule**: "Contact/lead forms: count visible required fields. Maximum 3 for first-touch forms (Name, Email, Message). Move qualification fields to post-submission step. Testing Checklist: 'Primary lead form has ≤3 visible fields'."
+**Skill Update**: Promote form field limit to SKILL.md Testing Checklist with count assertion.
+**Status**: Active — awaiting fix execution
+
+### REF-013 — 2026-02-17 — Major
+**Gap**: CTA text varies across pages: "Book My Free Call" (canonical), "Get My Free Diagnostic" (contact hero), "Get the M&A Readiness Checklist" (article mid-CTA). No canonical CTA copy rule existed.
+**Root Cause**: Missing — SKILL.md CTA Banners checklist specifies HTML structure but not copy text. REF-009 fixed structural drift but didn't address textual drift.
+**Detection Method**: Cross-AI full site review (ChatGPT + Claude flagged).
+**Skill File**: SKILL.md Cross-Page Consistency Checklist
+**Generalised Pattern**: Structural consistency (HTML/CSS) and textual consistency (copy, labels) are separate failure modes. REF-009 solved structure; this gap shows copy needs its own canonical rule. Extends P-001 to cover content drift, not just markup drift.
+**Prevention Rule**: "CTA Copy Governance: Primary CTA = 'Book My Free Call' (canonical). Secondary CTA = 'Email Timothy Directly'. Content-specific CTAs (checklist downloads, newsletter) are permitted on their own pages but must NOT replace the primary CTA in shared components (nav, footer, CTA banner)."
+**Skill Update**: Add CTA Copy Governance section to SKILL.md.
+**Status**: Active — awaiting fix execution
+
+### REF-014 — 2026-02-17 — Minor
+**Gap**: Privacy and terms pages have 10-13 equally-weighted sections with no visual hierarchy aids (styled numbers, dividers, icons). Creates scanning fatigue.
+**Root Cause**: Missing — no legal/policy page template exists in skill files. All templates focus on marketing pages.
+**Detection Method**: Cross-AI full site review (Claude flagged).
+**Skill File**: references/ux-architecture.md (Page Architecture Patterns section)
+**Generalised Pattern**: Non-marketing pages (legal, policy, FAQ) also need design system treatment. A design system that only covers hero sections and service cards leaves utility pages looking unfinished.
+**Prevention Rule**: "Legal/policy pages: style section numbers (gold, bold), add horizontal dividers between major sections, constrain body text to max-width 65ch. Apply same typography hierarchy as content pages."
+**Skill Update**: Add Legal Page Template to ux-architecture.md Page Architecture Patterns.
+**Status**: Active — awaiting fix execution
+
+### REF-015 — 2026-02-17 — Minor
+**Gap**: Sticky mobile CTA ("Book My Free Call") appears on privacy.html and terms.html. A sales CTA on legal pages undermines credibility and creates perception of consent pressure.
+**Root Cause**: Missing — no rule about context-inappropriate CTA placement.
+**Detection Method**: Cross-AI full site review (Claude flagged).
+**Skill File**: references/conversion-rules.md
+**Generalised Pattern**: CTAs should be omitted from pages where the user's mindset is legal/compliance, not purchase. Persistent sales CTAs on policy pages signal "we're trying to sell you while you read our legal terms."
+**Prevention Rule**: "Hide persistent sales CTAs (sticky footer, floating buttons) on /privacy and /terms pages. Add body class `no-sticky-cta` and CSS rule to hide. Navigation CTA (in-nav button) is acceptable."
+**Skill Update**: Add context-appropriate CTA rule to conversion-rules.md.
+**Status**: Active — awaiting fix execution
+
+### REF-016 — 2026-02-17 — Minor
+**Gap**: Focus rings use default browser blue outline instead of brand-matched gold. Visually jarring on a charcoal/gold palette.
+**Root Cause**: Incomplete — accessibility.md says "visible focus indicators" but doesn't specify brand styling.
+**Detection Method**: Cross-AI full site review (Gemini flagged).
+**Skill File**: references/accessibility.md
+**Generalised Pattern**: Accessibility rules often specify the WHAT (focus must be visible) but not the HOW (what does it look like in our brand). Brand-matched accessibility features feel intentional; default browser features feel like oversights.
+**Prevention Rule**: "Focus indicators: `*:focus-visible { outline: 2px solid var(--color-action-primary); outline-offset: 2px; }`. Remove default blue outline. Ensure 3:1 contrast against adjacent backgrounds."
+**Skill Update**: Add brand-matched focus ring specification to accessibility.md.
+**Status**: Active — awaiting fix execution
+
 ---
 
 ## Patterns Observed (Updated)
 
 ### Pattern P-001: Shared Components Drift Without Canonical Specs
-**Reflections**: REF-003, REF-004, REF-009
-**Observation**: Header (REF-003) and footer (REF-004) both drifted independently because no canonical HTML pattern was documented. This will apply to any shared component — CTA banners, sidebar widgets, breadcrumbs, meta tags.
-**Implication**: Before building any new shared component, write the canonical spec FIRST. Don't build and then document — document and then build.
+**Reflections**: REF-003, REF-004, REF-009, REF-011, REF-013
+**Observation**: Header (REF-003), footer (REF-004), CTA banners (REF-009), CDN loading (REF-011), and CTA copy (REF-013) all drifted independently. Pattern now extends beyond HTML structure to infrastructure (CSS sources) and content (copy text). Any shared element — markup, styling source, or canonical copy — will drift without an explicit spec.
+**Implication**: Before building any new shared component, write the canonical spec for structure, styling, AND copy. Apply changes site-wide in a single pass, not page-by-page.
 
 ### Pattern P-002: Rules Without Exact Values Get Ignored
-**Reflections**: REF-001, REF-002, REF-008
+**Reflections**: REF-001, REF-002, REF-008, REF-012
 **Observation**: "Use design tokens" is too vague — you need "90% Tier 2, 0% hardcoded HEX". "Support dark mode" is too vague — you need explicit token mapping for every semantic category. "No hardcoded HEX" needs to specify what about fallback values and meta tags. Precision prevents interpretation.
 **Implication**: Every rule should include a testable assertion with a numeric threshold or exact string match, AND explicitly address edge cases.
 
 ### Pattern P-003: Missing Rules Are More Common Than Ignored Rules
-**Reflections**: REF-001, REF-002, REF-003, REF-004, REF-007
-**Observation**: In 6 out of 8 reflections, the root cause was "missing rule" — the skill files simply didn't cover the scenario. This confirms the skill system is still in its growth phase.
-**Implication**: Prioritise coverage (more rules across more domains) over depth (more nuance in existing rules) during the current phase.
+**Reflections**: REF-001, REF-002, REF-003, REF-004, REF-007, REF-013, REF-014, REF-015
+**Observation**: In 9 out of 16 reflections, the root cause was "missing rule" (56%). The skill system is expanding but gaps remain in: legal page templates, context-appropriate CTA rules, and copy governance. Growth phase continues.
+**Implication**: Prioritise coverage (more rules across more domains) over depth (more nuance in existing rules). New domains identified: legal pages, copy governance, context-aware CTA placement.
 
 ### Pattern P-005: Tokens Without Consumers Are Dead Code
 **Reflections**: REF-010
@@ -164,7 +224,7 @@
 **Implication**: After defining any new token, immediately wire it into at least one consumer (CSS rule or utility class). After every batch of token additions, audit for dead tokens and prune or connect them.
 
 ### Pattern P-004: Generic Rules Need Classification Specificity
-**Reflections**: REF-006, REF-008
+**Reflections**: REF-006, REF-008, REF-016
 **Observation**: "Images have alt text" doesn't distinguish decorative from content images. "No hardcoded HEX" doesn't address fallbacks or meta tags. Generic rules create false confidence — they look complete but leave gaps for specific sub-categories.
 **Implication**: When writing a rule, ask: "Are there sub-types where this rule applies differently?" If yes, document each sub-type explicitly.
 

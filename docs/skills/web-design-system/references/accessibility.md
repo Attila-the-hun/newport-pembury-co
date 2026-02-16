@@ -42,12 +42,13 @@ Test with: WebAIM, Contrast Ratio, WCAG Color Contrast Analyzer
 - Skip links for navigation: <a href="#main" class="skip-link">Skip to main content</a>
 
 ### Focus Indicators
-- **Visible at all times**: outline 2px solid (primary color)
+- **Visible at all times**: outline 2px solid (brand color, NOT browser default blue)
 - **Offset**: 2px minimum offset from element
 - **High Contrast**: focus indicator 3:1 against background
 - **Not Hidden**: no outline: none; without replacement
 - **Color Options**: use outline, box-shadow, or border
 - **Keyboard Only**: :focus-visible for keyboard focus (outline: 2px)
+- **Brand-matched**: Use `var(--color-focus)` token (gold for CFO brand). Browser default blue focus rings are a brand inconsistency — always override with a semantic token.
 
 ### Keyboard Interactions
 - **Enter/Space**: activate buttons and links

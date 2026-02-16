@@ -6,25 +6,23 @@
     <meta name="theme-color" content="#1B2838">
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
     <title>Contact | Newport Pembury & Co</title>
-    <meta name="description" content="Schedule a free 30-minute consultation with Newport Pembury & Co. Confidential, no obligation financial advisory discussion.">
+    <meta name="description" content="Get a free 30-minute strategy session with Newport Pembury & Co. Confidential, no obligation financial advisory discussion.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/theme-toggle.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config = { corePlugins: { preflight: false } }</script>
     <script src="assets/js/theme-toggle.js"></script>
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://newportpembury.com.au/contact">
-    <meta property="og:title" content="Contact Newport Pembury & Co | Schedule Your Free Consultation">
-    <meta property="og:description" content="Schedule a free 30-minute consultation with Newport Pembury & Co. Confidential, no obligation financial advisory discussion.">
+    <meta property="og:title" content="Contact Newport Pembury & Co | Get Your Free Strategy Session">
+    <meta property="og:description" content="Get a free 30-minute strategy session with Newport Pembury & Co. Confidential, no obligation financial advisory discussion.">
     <meta property="og:image" content="https://newportpembury.com.au/og-image.jpg">
     <meta property="og:locale" content="en_AU">
     <meta property="og:site_name" content="Newport Pembury & Co">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Contact Newport Pembury & Co | Schedule Your Free Consultation">
-    <meta name="twitter:description" content="Schedule a free 30-minute consultation with Newport Pembury & Co. Confidential, no obligation financial advisory discussion.">
+    <meta name="twitter:title" content="Contact Newport Pembury & Co | Get Your Free Strategy Session">
+    <meta name="twitter:description" content="Get a free 30-minute strategy session with Newport Pembury & Co. Confidential, no obligation financial advisory discussion.">
     <meta name="twitter:image" content="https://newportpembury.com.au/og-image.jpg">
     <link rel="canonical" href="https://newportpembury.com.au/contact">
     <script type="application/ld+json">
@@ -66,7 +64,7 @@
                 <li><a href="/insights/">Insights</a></li>
             </ul>
             <a href="/contact" class="btn btn-primary btn-sm nav-cta">
-                Book My Free Call
+                Get My Free Strategy Call
             </a>
             <button class="theme-toggle-btn" aria-label="Switch to dark mode" title="Toggle theme">
                 <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
@@ -87,7 +85,7 @@
     <main id="main-content">
     <!-- Hero Section -->
     <section class="hero-section" style="background: linear-gradient(135deg, var(--color-bg-inverse) 0%, var(--primitive-charcoal) 100%);">
-        <h1>Get Your Free Financial Diagnostic</h1>
+        <h1>Your Free Strategy Session</h1>
         <p>In 30 minutes, we'll identify the single highest-impact financial lever in your business. No pitch deck. No obligation. Just clarity.</p>
     </section>
 
@@ -98,7 +96,7 @@
                 <!-- Left: Consultation Booking Form -->
                 <div>
                     <div class="form-container">
-                        <h2 class="form-title">Your Free Financial Diagnostic</h2>
+                        <h2 class="form-title">Your Free Strategy Session</h2>
 
                         <div id="successAlert" class="alert alert-success" role="alert" aria-live="polite">
                             <strong>Success!</strong> Your consultation request has been received. We'll be in touch within 24 hours.
@@ -109,131 +107,33 @@
                             <!-- Honeypot field for spam protection -->
                             <input type="text" name="_gotcha" class="honeypot" aria-hidden="true" tabindex="-1">
 
-                            <!-- Progress Indicator -->
-                            <div class="form-steps-indicator">
-                                <div class="form-step-dot active" id="stepDot1">1</div>
-                                <div class="form-step-line" id="stepLine"></div>
-                                <div class="form-step-dot" id="stepDot2">2</div>
+                            <!-- Name -->
+                            <div class="form-group">
+                                <label for="firstName">Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
+                                <input type="text" id="firstName" name="firstName" required aria-required="true" aria-describedby="firstName-error" placeholder="Your full name">
+                                <div id="firstName-error" class="input-feedback" role="alert"></div>
                             </div>
 
-                            <!-- STEP 1: Quick essentials -->
-                            <div class="form-step-group active" id="formStep1">
-                                <p class="form-step-label">Step 1 of 2 — The essentials</p>
-
-                                <!-- First Name -->
-                                <div class="form-group">
-                                    <label for="firstName">First Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
-                                    <input type="text" id="firstName" name="firstName" required aria-required="true" aria-describedby="firstName-error">
-                                    <div id="firstName-error" class="input-feedback" role="alert"></div>
-                                </div>
-
-                                <!-- Email -->
-                                <div class="form-group">
-                                    <label for="email">Email <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
-                                    <input type="email" id="email" name="email" required aria-required="true" aria-describedby="email-error">
-                                    <div id="email-error" class="input-feedback" role="alert"></div>
-                                </div>
-
-                                <!-- Company Revenue -->
-                                <div class="form-group">
-                                    <label for="companyRevenue">Company Revenue</label>
-                                    <select id="companyRevenue" name="companyRevenue">
-                                        <option value="">Select revenue range</option>
-                                        <option value="Under $1M">Under $1M</option>
-                                        <option value="$1M-$5M">$1M - $5M</option>
-                                        <option value="$5M-$20M">$5M - $20M</option>
-                                        <option value="$20M-$50M">$20M - $50M</option>
-                                        <option value="$50M+">$50M+</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-nav-buttons">
-                                    <button type="button" class="btn btn-primary btn-next" id="btnNext" onclick="goToStep(2)">Continue — Tell Us More</button>
-                                </div>
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email">Email <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
+                                <input type="email" id="email" name="email" required aria-required="true" aria-describedby="email-error" placeholder="you@company.com">
+                                <div id="email-error" class="input-feedback" role="alert"></div>
                             </div>
 
-                            <!-- STEP 2: Additional details -->
-                            <div class="form-step-group" id="formStep2">
-                                <p class="form-step-label">Step 2 of 2 — Help us prepare for your call</p>
-
-                                <!-- Last Name -->
-                                <div class="form-group">
-                                    <label for="lastName">Last Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
-                                    <input type="text" id="lastName" name="lastName" required aria-required="true" aria-describedby="lastName-error">
-                                    <div id="lastName-error" class="input-feedback" role="alert"></div>
-                                </div>
-
-                                <!-- Phone -->
-                                <div class="form-group">
-                                    <label for="phone">Phone <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
-                                    <input type="tel" id="phone" name="phone" required aria-required="true" aria-describedby="phone-error">
-                                    <div id="phone-error" class="input-feedback" role="alert"></div>
-                                </div>
-
-                                <!-- Company Name -->
-                                <div class="form-group">
-                                    <label for="companyName">Company Name <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
-                                    <input type="text" id="companyName" name="companyName" required aria-required="true" aria-describedby="companyName-error">
-                                    <div id="companyName-error" class="input-feedback" role="alert"></div>
-                                </div>
-
-                                <!-- Industry -->
-                                <div class="form-group">
-                                    <label for="industry">Industry</label>
-                                    <select id="industry" name="industry">
-                                        <option value="">Select industry</option>
-                                        <option value="Technology">Technology</option>
-                                        <option value="Manufacturing">Manufacturing</option>
-                                        <option value="Professional Services">Professional Services</option>
-                                        <option value="Tourism & Hospitality">Tourism & Hospitality</option>
-                                        <option value="E-Commerce">E-Commerce</option>
-                                        <option value="Healthcare">Healthcare</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-
-                                <!-- What are you looking for -->
-                                <div class="form-group">
-                                    <label style="margin-bottom: 12px;">What keeps you up at night?</label>
-                                    <div class="checkboxes-group">
-                                        <div class="checkbox-wrapper">
-                                            <input type="checkbox" id="mAndA" name="services" value="M&A Advisory">
-                                            <label for="mAndA">Buying or selling a business</label>
-                                        </div>
-                                        <div class="checkbox-wrapper">
-                                            <input type="checkbox" id="cashflow" name="services" value="AI-Powered Cash Flow Intelligence">
-                                            <label for="cashflow">Cash flow uncertainty</label>
-                                        </div>
-                                        <div class="checkbox-wrapper">
-                                            <input type="checkbox" id="systems" name="services" value="AI & Finance Transformation">
-                                            <label for="systems">Manual finance processes slowing us down</label>
-                                        </div>
-                                        <div class="checkbox-wrapper">
-                                            <input type="checkbox" id="partnership" name="services" value="Strategic CFO Partnership">
-                                            <label for="partnership">Need senior financial leadership</label>
-                                        </div>
-                                        <div class="checkbox-wrapper">
-                                            <input type="checkbox" id="guidance" name="services" value="Not sure yet — I need guidance">
-                                            <label for="guidance">Not sure yet — I need guidance</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Additional Notes -->
-                                <div class="form-group">
-                                    <label for="notes">What would make this call valuable for you?</label>
-                                    <textarea id="notes" name="notes" rows="3" placeholder="E.g., 'I want to understand our cash runway before approaching investors...'"></textarea>
-                                </div>
-
-                                <!-- Navigation & Submit -->
-                                <div class="form-nav-buttons">
-                                    <button type="button" class="btn-back" onclick="goToStep(1)">&#8592; Back</button>
-                                    <button type="submit" id="submitBtn" class="btn btn-primary btn-next">Get My Free Diagnostic</button>
-                                </div>
-
-                                <!-- Form Note -->
-                                <p class="form-note">Your information is strictly confidential. We'll respond within 24 hours.</p>
+                            <!-- Message -->
+                            <div class="form-group">
+                                <label for="notes">What's on your mind? <span class="required-indicator">*</span><span class="sr-only">(Required)</span></label>
+                                <textarea id="notes" name="notes" rows="4" required aria-required="true" placeholder="E.g., 'We're considering an acquisition and need financial due diligence guidance...'"></textarea>
                             </div>
+
+                            <!-- Submit -->
+                            <div class="form-nav-buttons">
+                                <button type="submit" id="submitBtn" class="btn btn-primary btn-next">Request My Strategy Session</button>
+                            </div>
+
+                            <!-- Form Note -->
+                            <p class="form-note">Your information is strictly confidential. We'll respond within 24 hours.</p>
                         </form>
                     </div>
                 </div>
@@ -453,79 +353,26 @@
             observer.observe(el);
         });
 
-        // Two-step form navigation
-        function goToStep(step) {
-            const step1 = document.getElementById('formStep1');
-            const step2 = document.getElementById('formStep2');
-            const dot1 = document.getElementById('stepDot1');
-            const dot2 = document.getElementById('stepDot2');
-            const line = document.getElementById('stepLine');
-
-            if (step === 2) {
-                // Validate step 1 fields before advancing
-                const firstName = document.getElementById('firstName');
-                const email = document.getElementById('email');
-                let valid = true;
-
-                if (!firstName.value.trim()) {
-                    validateField('firstName');
-                    valid = false;
-                }
-                if (!email.value.trim() || !validateEmail(email.value)) {
-                    validateField('email');
-                    valid = false;
-                }
-
-                if (!valid) return;
-
-                step1.classList.remove('active');
-                step2.classList.add('active');
-                dot1.classList.remove('active');
-                dot1.classList.add('completed');
-                dot1.textContent = '✓';
-                dot2.classList.add('active');
-                line.classList.add('active');
-
-                // Scroll form into view
-                document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                step2.classList.remove('active');
-                step1.classList.add('active');
-                dot2.classList.remove('active');
-                dot1.classList.remove('completed');
-                dot1.classList.add('active');
-                dot1.textContent = '1';
-                line.classList.remove('active');
-            }
-        }
-
         // Form Validation
         const form = document.getElementById('consultationForm');
         const submitBtn = document.getElementById('submitBtn');
         const successAlert = document.getElementById('successAlert');
         const errorAlert = document.getElementById('errorAlert');
 
-        const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'companyName'];
+        const requiredFields = ['firstName', 'email'];
         const fields = {
             firstName: { type: 'text', minLength: 2 },
-            lastName: { type: 'text', minLength: 2 },
-            email: { type: 'email' },
-            phone: { type: 'tel' },
-            companyName: { type: 'text', minLength: 2 }
+            email: { type: 'email' }
         };
 
         function validateEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
 
-        function validatePhone(phone) {
-            return /^[\d\s\-\+\(\)]+$/.test(phone) && phone.replace(/\D/g, '').length >= 10;
-        }
-
         function validateField(fieldId) {
             const field = document.getElementById(fieldId);
             const feedback = field.nextElementSibling;
-            let isValid = false;
+            if (!feedback) return true;
 
             if (!field.value.trim() && requiredFields.includes(fieldId)) {
                 feedback.textContent = 'This field is required';
@@ -549,15 +396,7 @@
                 return false;
             }
 
-            if (fieldId === 'phone' && !validatePhone(field.value)) {
-                feedback.innerHTML = '<span>✗</span> Invalid phone number';
-                feedback.classList.add('error', 'show');
-                field.classList.remove('valid');
-                field.classList.add('error');
-                return false;
-            }
-
-            if (fields[fieldId].minLength && field.value.length < fields[fieldId].minLength) {
+            if (fields[fieldId] && fields[fieldId].minLength && field.value.length < fields[fieldId].minLength) {
                 feedback.textContent = `Minimum ${fields[fieldId].minLength} characters required`;
                 feedback.classList.add('error', 'show');
                 field.classList.remove('valid');
@@ -576,19 +415,21 @@
         // Real-time validation
         requiredFields.forEach(fieldId => {
             const field = document.getElementById(fieldId);
-            field.addEventListener('blur', () => validateField(fieldId));
-            field.addEventListener('input', () => {
-                if (field.classList.contains('valid') || field.classList.contains('error')) {
-                    validateField(fieldId);
-                }
-            });
+            if (field) {
+                field.addEventListener('blur', () => validateField(fieldId));
+                field.addEventListener('input', () => {
+                    if (field.classList.contains('valid') || field.classList.contains('error')) {
+                        validateField(fieldId);
+                    }
+                });
+            }
         });
 
         // Form submission
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Validate all required fields
+            // Validate required fields
             let isFormValid = true;
             requiredFields.forEach(fieldId => {
                 if (!validateField(fieldId)) {
@@ -606,27 +447,16 @@
             successAlert.classList.remove('show');
             errorAlert.classList.remove('show');
 
-            // Prepare form data
-            const formData = new FormData(form);
-            const services = Array.from(document.querySelectorAll('input[name="services"]:checked'))
-                .map(cb => cb.value);
-
-            if (services.length > 0) {
-                formData.set('services', services.join(', '));
-            }
-
             // Disable submit button
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
 
             try {
-                // Build JSON payload for Cloudflare Worker
-                const payload = {};
-                for (const [key, value] of formData.entries()) {
-                    if (key === 'services') continue; // handled separately
-                    payload[key] = value;
-                }
-                payload.services = services;
+                const payload = {
+                    firstName: document.getElementById('firstName').value,
+                    email: document.getElementById('email').value,
+                    notes: document.getElementById('notes').value
+                };
 
                 const response = await fetch(form.action, {
                     method: 'POST',
@@ -643,11 +473,14 @@
                     successAlert.classList.add('show');
                     form.reset();
                     requiredFields.forEach(fieldId => {
-                        document.getElementById(fieldId).classList.remove('valid', 'error');
-                        document.getElementById(fieldId).nextElementSibling.classList.remove('show');
+                        const field = document.getElementById(fieldId);
+                        if (field) {
+                            field.classList.remove('valid', 'error');
+                            if (field.nextElementSibling) {
+                                field.nextElementSibling.classList.remove('show');
+                            }
+                        }
                     });
-
-                    // Scroll to success message
                     successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                     errorAlert.textContent = result.message || 'There was an error submitting your form. Please try again.';
@@ -658,7 +491,7 @@
                 errorAlert.classList.add('show');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Schedule My Consultation';
+                submitBtn.textContent = 'Request My Strategy Session';
             }
         });
 

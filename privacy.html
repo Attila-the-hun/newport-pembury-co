@@ -50,33 +50,9 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/theme-toggle.css">
 
-    <!-- Tailwind CSS CDN with custom config -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            corePlugins: { preflight: false },
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-charcoal': '#1B2838',
-                        'brand-gold': '#C5A55A',
-                        'brand-gold-light': '#D4C085',
-                        'brand-ivory': '#F5F0E8',
-                        'brand-slate': '#6B7B8D',
-                        'brand-dark': '#0F1923',
-                        'brand-cream': '#FAF8F4',
-                    },
-                    fontFamily: {
-                        'display': ['Cormorant Garamond', 'serif'],
-                        'body': ['DM Sans', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
     <script src="assets/js/theme-toggle.js"></script>
 </head>
-<body>
+<body class="no-sticky-cta">
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Noise overlay -->
@@ -84,7 +60,7 @@
 
     <!-- Sticky mobile CTA -->
     <div class="mobile-cta" id="mobileCTA">
-        <a href="/contact" class="btn btn-primary btn-sm" style="width: 100%; text-align: center;">Book My Free Call</a>
+        <a href="/contact" class="btn btn-primary btn-sm" style="width: 100%; text-align: center;">Get My Free Strategy Call</a>
     </div>
 
     <!-- Navigation -->
@@ -102,7 +78,7 @@
                 <li><a href="/insights/">Insights</a></li>
             </ul>
             <a href="/contact" class="btn btn-primary btn-sm nav-cta">
-                Book My Free Call
+                Get My Free Strategy Call
             </a>
             <button class="theme-toggle-btn" aria-label="Switch to dark mode" title="Toggle theme">
                 <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
@@ -134,7 +110,7 @@
             <div class="policy-container">
                 <div class="policy-section">
                     <h2>About Us</h2>
-                    <p>Newport Pembury & Co (ABN to be confirmed) is the entity responsible for collecting and handling your personal information. You can contact us about privacy matters at:</p>
+                    <p>Newport Pembury & Co is the entity responsible for collecting and handling your personal information. You can contact us about privacy matters at:</p>
                     <p><strong>Email:</strong> hello@newportpembury.com.au<br>
                     <strong>Address:</strong> Sydney, NSW, Australia</p>
                 </div>

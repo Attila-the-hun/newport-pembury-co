@@ -60,31 +60,7 @@
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="../../assets/css/theme-toggle.css">
 
-    <!-- Tailwind CSS CDN with custom config -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="../../assets/js/theme-toggle.js"></script>
-    <script>
-        tailwind.config = {
-            corePlugins: { preflight: false },
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-charcoal': 'var(--color-text-primary)',
-                        'brand-gold': 'var(--color-action-primary)',
-                        'brand-gold-light': '#D4C085',
-                        'brand-ivory': '#F5F0E8',
-                        'brand-slate': 'var(--color-text-secondary)',
-                        'brand-dark': 'var(--color-bg-inverse)',
-                        'brand-cream': '#FAF8F4',
-                    },
-                    fontFamily: {
-                        'display': ['Cormorant Garamond', 'serif'],
-                        'body': ['DM Sans', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
 </head>
 <body>
     <a href="#article-content" class="skip-link">Skip to article</a>
@@ -117,7 +93,7 @@
                 <li><a href="/insights/" class="active" aria-current="page">Insights</a></li>
             </ul>
             <a href="/contact" class="btn btn-primary btn-sm nav-cta">
-                Book My Free Call
+                Get My Free Strategy Call
             </a>
             <button class="theme-toggle-btn" aria-label="Switch to dark mode" title="Toggle theme">
                 <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
@@ -471,7 +447,7 @@
                 <p class="newsletter-label">Free Resource</p>
                 <h2>The M&A Readiness Checklist</h2>
                 <p class="newsletter-desc">12 financial benchmarks your business should meet before approaching a buyer or acquisition target. Free, no obligation.</p>
-                <form class="newsletter-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <form class="newsletter-form" action="/api/contact" method="POST">
                     <input type="email" name="email" placeholder="Your business email" required aria-label="Email address">
                     <button type="submit">Send Me the Checklist</button>
                 </form>

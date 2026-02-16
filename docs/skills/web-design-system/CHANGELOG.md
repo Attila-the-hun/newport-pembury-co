@@ -4,6 +4,23 @@ Track every evolution of the web design system skill files. Each entry records w
 
 ---
 
+## v1.9.0 — 2026-02-17
+### Cross-AI Review Fixes — Tailwind CDN Removal, CTA Governance, Form Reduction
+- **Removed**: Tailwind CDN from all 7 remaining pages (only insights/index.html was clean). Added 20 replacement utility classes to main.css section 20b.
+- **Changed**: CTA copy "Book My Free Call" → "Get My Free Strategy Call" across all 8 pages + skill files (23 instances). Contact form submit → "Request My Strategy Session".
+- **Changed**: Contact form reduced from 2-step/11+ fields to single-step/3 fields (Name, Email, Message). Removed goToStep(), step indicators, phone/company/industry/revenue fields.
+- **Added**: `body.no-sticky-cta` class on privacy.html and terms.html. CSS rule `.no-sticky-cta .mobile-cta { display: none !important; }`.
+- **Added**: Legal page visual hierarchy — CSS counter-based section numbering (gold `::before`), border-top dividers, 65ch max-width.
+- **Fixed**: Newsletter form endpoints — replaced `YOUR_FORM_ID` and `action="#"` with `/api/contact` on 3 pages.
+- **Removed**: "ABN to be confirmed" placeholder from privacy.html.
+- **Updated**: SKILL.md — Testing Checklist (Tailwind CDN grep, form field count, form endpoints, focus ring spec, legal page CTA rule), Common Mistakes (updated CTA text reference), CTA banner canonical text.
+- **Updated**: conversion-rules.md — Context-appropriate CTA suppression rule for legal pages (REF-015).
+- **Updated**: accessibility.md — Brand-matched focus ring spec with `var(--color-focus)` token (REF-016).
+- **Updated**: ux-architecture.md — Legal Page Template with counter-based numbering and no-CTA rule (REF-014).
+- **Added**: REF-011 through REF-016 to memory/reflections.md.
+- **Trigger**: Cross-AI full site review (Claude 7.7 + ChatGPT 6.26 + Gemini 8.1 → Consensus 7.35/10). DFRUVL cycle with 6 new reflections.
+- **Files**: All 8 HTML pages, main.css, SKILL.md, conversion-rules.md, accessibility.md, ux-architecture.md, CHANGELOG.md, memory/reflections.md
+
 ## v1.8.0 — 2026-02-13
 ### WCAG AA Contrast Fix, Favicon & Inline Style Elimination
 - **Added**: `--color-action-text: #806B3A` semantic token for gold text on light backgrounds (4.53:1 on ivory, passes WCAG AA). Dark mode remaps to original gold (7.52:1 on dark).

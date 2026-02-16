@@ -101,14 +101,16 @@ Use this skill when building or redesigning professional business websites. Prov
 - [ ] Design tokens applied correctly
 - [ ] Color contrast passes WCAG AA
 - [ ] Keyboard navigation works
-- [ ] Forms have 3 fields or fewer
+- [ ] Primary lead form has **≤3 visible fields** (Name, Email, Message for first-touch; qualification fields post-submission only)
 - [ ] CTAs use high-contrast colors
 - [ ] Core Web Vitals targets met
-- [ ] Mobile CTA sticky positioned
+- [ ] Mobile CTA sticky positioned (except on legal pages — `body.no-sticky-cta` hides it)
 - [ ] Hero/content images have descriptive alt text (15-125 chars); only decorative images use alt=""
 - [ ] Interactive elements use native HTML (button, a, input) — never div with role="button"
 - [ ] Heading hierarchy correct
-- [ ] Focus indicators visible
+- [ ] Focus indicators visible (gold `var(--color-focus)`, not browser default blue)
+- [ ] **Tailwind CDN removed from ALL pages** (`grep -r 'cdn.tailwindcss.com' *.html` returns **0 results**)
+- [ ] **All form endpoints point to real backend** (no `YOUR_FORM_ID`, no `action="#"`)
 
 ## Token Governance Checklist (run after every CSS/HTML change)
 
@@ -145,7 +147,7 @@ Run this checklist after every multi-page build or before deployment. Inconsiste
 - [ ] Identical `<nav id="navbar">` structure on every page
 - [ ] Same nav links in same order (Our Firm, What We Do, Insights)
 - [ ] Correct `active` class on the current page's nav link only
-- [ ] Same CTA button text ("Book My Free Call") and href (/contact)
+- [ ] Same CTA button text ("Get My Free Strategy Call") and href (/contact)
 - [ ] Theme toggle present and positioned identically (after CTA)
 - [ ] Hamburger button includes `aria-controls="navLinks"`
 - [ ] Same padding/height (`py-5`) on nav container
@@ -172,7 +174,7 @@ Run this checklist after every multi-page build or before deployment. Inconsiste
         <h2>[Headline]</h2>
         <p>[Description]</p>
         <div class="cta-buttons">
-            <a href="/contact" class="cta-btn-primary">Book My Free Call</a>
+            <a href="/contact" class="cta-btn-primary">Get My Free Strategy Call</a>
             <a href="mailto:hello@newportpembury.com.au" class="cta-btn-ghost">Email Timothy Directly</a>
         </div>
     </div>
@@ -208,7 +210,7 @@ Run this checklist after every multi-page build or before deployment. Inconsiste
 - Missing `<nav>` or `<ul>/<li>` semantic wrappers in footer link columns
 - Hash links (`#process`) that only work on the homepage — use `/#process` on all non-homepage pages
 - Extra footer columns on some pages but not others
-- CTA text variations ("Schedule Consultation" vs "Book My Free Call")
+- CTA text variations ("Schedule Consultation" vs "Get My Free Strategy Call")
 - Missing `aria-label` attributes on navigation landmarks
 - Using `<div role="button">` instead of native `<button>` elements (accordions, toggles, dropdowns)
 - Inline styles that duplicate existing CSS class properties (e.g. styling .cta-btn-primary with inline background/padding)

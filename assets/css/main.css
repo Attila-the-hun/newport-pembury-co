@@ -1691,6 +1691,11 @@ footer > section {
   display: flex;
 }
 
+/* Hide sticky CTA on legal/policy pages */
+.no-sticky-cta .mobile-cta {
+  display: none !important;
+}
+
 @media (min-width: 769px) {
   .mobile-cta {
     display: none !important;
@@ -1786,12 +1791,20 @@ footer > section {
 }
 
 .policy-container {
-  max-width: 800px;
+  max-width: 65ch;
   margin: 0 auto;
+  counter-reset: policy-section;
 }
 
 .policy-section {
   margin-bottom: var(--space-3xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.policy-section:first-child {
+  border-top: none;
+  padding-top: 0;
 }
 
 .policy-section:last-child {
@@ -1804,6 +1817,13 @@ footer > section {
   margin-bottom: var(--space-lg);
   padding-bottom: var(--space-sm);
   border-bottom: 2px solid var(--color-action-primary);
+  counter-increment: policy-section;
+}
+
+.policy-section h2::before {
+  content: counter(policy-section, decimal-leading-zero) ". ";
+  color: var(--color-action-primary);
+  font-weight: 700;
 }
 
 .policy-section h3 {
@@ -1899,6 +1919,47 @@ footer > section {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+/* ==========================================================================
+   20b. TAILWIND REPLACEMENT UTILITIES
+   Replaces cdn.tailwindcss.com — keep these minimal and intentional.
+   ========================================================================== */
+
+/* Layout containers */
+.max-w-7xl { max-width: 80rem; }
+.max-w-4xl { max-width: 56rem; }
+
+/* Padding */
+.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+
+/* Margin */
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+
+/* Flexbox */
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 0.5rem; }
+
+/* Typography (services hero) */
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.text-base { font-size: 1rem; line-height: 1.5; }
+.text-lg { font-size: 1.125rem; line-height: 1.75; }
+.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+.text-white { color: #fff; }
+.text-gray-200 { color: rgba(255, 255, 255, 0.87); }
+
+/* Positioning */
+.z-10 { position: relative; z-index: 10; }
+
+/* Responsive */
+@media (min-width: 768px) {
+  .md\:text-5xl { font-size: 3rem; line-height: 1.1; }
+  .md\:text-xl { font-size: 1.25rem; line-height: 1.75; }
 }
 
 /* ==========================================================================

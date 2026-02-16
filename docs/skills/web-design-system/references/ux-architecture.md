@@ -227,6 +227,36 @@ People accelerate effort as they approach a goal. Apply progress indicators to m
 - Final step should feel close — "Just one more thing" converts better than "Step 5 of 5"
 - Combine with celebration micro-interactions (checkmark animation on completion)
 
+### Legal Page Template (Privacy, Terms)
+
+Legal pages have unique UX requirements: they must be readable and trustworthy, not sales-y. Applying the same CTA pressure as service pages erodes trust.
+
+```
+1. Page Header
+   → H1 with policy name, effective date, last updated
+
+2. Table of Contents (optional for >5 sections)
+   → Anchor links to each section
+
+3. Numbered Sections (CSS counter-based)
+   → Gold section numbers (var(--color-action-primary))
+   → border-top dividers between sections
+   → max-width: 65ch for optimal readability
+
+4. NO sticky CTA, NO floating sales buttons
+   → body.no-sticky-cta suppresses .mobile-cta
+   → CTA banners may be omitted entirely on legal pages
+
+5. Footer (standard)
+   → Same canonical footer as all other pages
+```
+
+**Key rules:**
+- Use `counter-reset: policy-section` on container, `counter-increment` on h2
+- Section numbers in `::before` pseudo-element with gold color and bold weight
+- No sales-oriented CTAs — contact information in footer is sufficient
+- Typography: max-width 65ch for comfortable reading line length
+
 ### Product Business Homepage
 
 ```

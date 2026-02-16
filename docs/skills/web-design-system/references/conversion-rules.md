@@ -35,6 +35,7 @@
 - Bottom: Final CTA within last 600px
 - Sticky mobile: CTA fixed bottom, 10-15% conversion boost
 - Sticky desktop: Optional, avoid over-placement
+- **Context-appropriate suppression**: Legal pages (privacy, terms) must NOT show sticky/floating CTAs — add `body.no-sticky-cta` class and hide `.mobile-cta` with `display: none !important`. Sales pressure on legal pages erodes trust.
 
 ### CTA Whitespace
 - 232% conversion increase with adequate whitespace
