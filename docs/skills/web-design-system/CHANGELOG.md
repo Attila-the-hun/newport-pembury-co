@@ -4,6 +4,18 @@ Track every evolution of the web design system skill files. Each entry records w
 
 ---
 
+## v2.0.0 — 2026-02-17
+### Cross-AI Review Round 2 — DFRUVL Cycle with 8 New Reflections
+- **Fixed**: SVG diagram backgrounds from rgba(0.4) → solid var(--color-bg-inverse) on 13-week cashflow article.
+- **Fixed**: Stat-highlight donut chart visibility — added dark background and text colors.
+- **Added**: REF-017 through REF-024 to memory/reflections.md (1 Critical, 3 Major, 2 Moderate, 2 Minor).
+- **Added**: Pattern P-006 (Deployment & Environment Configuration) to reflections.md.
+- **Updated**: Patterns P-001, P-003, P-004 with new reflection references.
+- **Created**: cross-ai-site-review-r2.md — full synthesis of Claude 7.96, ChatGPT 7.42, Gemini 9.2 → Consensus 8.19/10.
+- **Trigger**: Cross-AI full site review Round 2 (consensus up from 7.35 → 8.19, +0.84).
+- **Pending skill updates**: SKILL.md (deployment checklist, CTA governance expansion), conversion-rules.md (form state, lead magnet hierarchy), ux-architecture.md (services page template), accessibility.md (SVG wrapper, touch targets), premium-polish.md (font loading strategy).
+- **Files**: main.css, cross-ai-site-review-r2.md (new), memory/reflections.md, CHANGELOG.md
+
 ## v1.9.0 — 2026-02-17
 ### Cross-AI Review Fixes — Tailwind CDN Removal, CTA Governance, Form Reduction
 - **Removed**: Tailwind CDN from all 7 remaining pages (only insights/index.html was clean). Added 20 replacement utility classes to main.css section 20b.

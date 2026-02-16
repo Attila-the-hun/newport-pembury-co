@@ -204,9 +204,9 @@
 ## Patterns Observed (Updated)
 
 ### Pattern P-001: Shared Components Drift Without Canonical Specs
-**Reflections**: REF-003, REF-004, REF-009, REF-011, REF-013
-**Observation**: Header (REF-003), footer (REF-004), CTA banners (REF-009), CDN loading (REF-011), and CTA copy (REF-013) all drifted independently. Pattern now extends beyond HTML structure to infrastructure (CSS sources) and content (copy text). Any shared element — markup, styling source, or canonical copy — will drift without an explicit spec.
-**Implication**: Before building any new shared component, write the canonical spec for structure, styling, AND copy. Apply changes site-wide in a single pass, not page-by-page.
+**Reflections**: REF-003, REF-004, REF-009, REF-011, REF-013, REF-018, REF-019, REF-021
+**Observation**: Header (REF-003), footer (REF-004), CTA banners (REF-009), CDN loading (REF-011), CTA copy (REF-013, REF-018), services page CTAs (REF-019), and lead magnet strategy (REF-021) all drifted independently. Pattern now extends beyond HTML structure to infrastructure, content, page-specific templates, and conversion strategy.
+**Implication**: Before building any new shared component, write the canonical spec for structure, styling, AND copy. Apply changes site-wide in a single pass, not page-by-page. Page-specific templates (services, articles) also need canonical CTA rules.
 
 ### Pattern P-002: Rules Without Exact Values Get Ignored
 **Reflections**: REF-001, REF-002, REF-008, REF-012
@@ -214,9 +214,9 @@
 **Implication**: Every rule should include a testable assertion with a numeric threshold or exact string match, AND explicitly address edge cases.
 
 ### Pattern P-003: Missing Rules Are More Common Than Ignored Rules
-**Reflections**: REF-001, REF-002, REF-003, REF-004, REF-007, REF-013, REF-014, REF-015
-**Observation**: In 9 out of 16 reflections, the root cause was "missing rule" (56%). The skill system is expanding but gaps remain in: legal page templates, context-appropriate CTA rules, and copy governance. Growth phase continues.
-**Implication**: Prioritise coverage (more rules across more domains) over depth (more nuance in existing rules). New domains identified: legal pages, copy governance, context-aware CTA placement.
+**Reflections**: REF-001, REF-002, REF-003, REF-004, REF-007, REF-013, REF-014, REF-015, REF-017, REF-019, REF-020, REF-021
+**Observation**: In 14 out of 24 reflections, the root cause was "missing rule" (58%). The skill system is expanding but gaps remain in: deployment procedures, page-specific templates (services), form state management, conversion strategy hierarchy, SVG accessibility, and font loading strategy.
+**Implication**: Prioritise coverage (more rules across more domains) over depth (more nuance in existing rules). New domains identified: deployment checklists, page-specific CTA templates, form state visibility, lead magnet hierarchy.
 
 ### Pattern P-005: Tokens Without Consumers Are Dead Code
 **Reflections**: REF-010
@@ -224,9 +224,96 @@
 **Implication**: After defining any new token, immediately wire it into at least one consumer (CSS rule or utility class). After every batch of token additions, audit for dead tokens and prune or connect them.
 
 ### Pattern P-004: Generic Rules Need Classification Specificity
-**Reflections**: REF-006, REF-008, REF-016
-**Observation**: "Images have alt text" doesn't distinguish decorative from content images. "No hardcoded HEX" doesn't address fallbacks or meta tags. Generic rules create false confidence — they look complete but leave gaps for specific sub-categories.
+**Reflections**: REF-006, REF-008, REF-016, REF-022
+**Observation**: "Images have alt text" doesn't distinguish decorative from content images. "No hardcoded HEX" doesn't address fallbacks or meta tags. "SVGs have alt text" doesn't work because SVGs are containers, not images. Generic rules create false confidence — they look complete but leave gaps for specific sub-categories.
 **Implication**: When writing a rule, ask: "Are there sub-types where this rule applies differently?" If yes, document each sub-type explicitly.
+
+### Pattern P-006: Deployment & Environment Configuration
+**Reflections**: REF-017
+**Observation**: Code works in local development but fails in production because environment-dependent configuration (API keys, email addresses, endpoint URLs) isn't verified during deployment. The function exists, the HTML wires to it, but the env var that makes it actually send email was never set.
+**Implication**: Deployment checklists must include step-by-step verification of every environment variable used by production code. "Code deployed" ≠ "feature working."
+
+---
+
+### REF-017 — 2026-02-17 — Critical
+**Gap**: Contact form endpoint (functions/api/contact.js) exists but is not activated. CONTACT_EMAIL environment variable is not set on Cloudflare Pages. Form submissions are accepted by the UI but discarded server-side — zero leads collected.
+**Root Cause**: Missing — no deployment checklist in SKILL.md covers environment variable configuration for Cloudflare Functions.
+**Detection Method**: Cross-AI full site review Round 2 (Claude source code inspection).
+**Skill File**: SKILL.md (Deployment section)
+**Generalised Pattern**: Serverless function deployment requires bridging local development (where env vars exist) to production (where they must be explicitly set). Without a deployment checklist, critical configuration gets forgotten. Pattern P-006.
+**Prevention Rule**: "Deployment Checklist: (1) Verify functions/api/contact.js exists, (2) Confirm CONTACT_EMAIL is set in Cloudflare Pages environment settings, (3) Send test submission to verify email delivery, (4) Check Cloudflare Pages Functions logs for errors."
+**Skill Update**: Add Deployment Checklist to SKILL.md.
+**Status**: Active — blocking lead collection
+
+### REF-018 — 2026-02-17 — Major
+**Gap**: CTA language has re-diverged since REF-013 fix. Current variants: "Get My Free Strategy Call" (canonical), "Strategy Session" (contact hero), "Request My Strategy Session" (contact button), "Financial Diagnostic" (services). REF-013 fixed 23 instances of the old copy but missed contextual variants introduced during the same update.
+**Root Cause**: Incomplete — REF-013's canonical was "Book My Free Call" which was later changed to "Get My Free Strategy Call". The rule wasn't updated after the change, and secondary CTA variants weren't addressed.
+**Detection Method**: Cross-AI full site review Round 2 (ChatGPT + Claude independently flagged).
+**Skill File**: SKILL.md CTA Copy Governance section
+**Generalised Pattern**: When a canonical value changes, the rule AND all instances must be swept again. Changing primary copy without updating secondary patterns creates asymmetry. Extends P-001 to copy governance.
+**Prevention Rule**: "CTA Copy Hierarchy: Primary = 'Get My Free Strategy Call' (exact, no variants). Prohibited variants: 'Strategy Session', 'Financial Diagnostic', 'Strategy Call', 'Free Consultation'. Testing: grep all HTML for 'Session', 'Diagnostic', 'Consultation' — 0 results in CTAs."
+**Skill Update**: Expand CTA Copy Governance in SKILL.md. Add prohibited variants list.
+**Status**: Active — awaiting fix execution
+
+### REF-019 — 2026-02-17 — Major
+**Gap**: Services page has 4 service sections each with a distinct CTA verb: "Discuss Your Transaction", "See the Dashboard", "Start My AI Transformation". Creates cognitive overload — 4+ competing primary actions instead of funnelling to one.
+**Root Cause**: Missing — no services page template exists in skill files. Each service section was designed ad hoc.
+**Detection Method**: Cross-AI full site review Round 2 (Claude + ChatGPT independently flagged).
+**Skill File**: references/ux-architecture.md (Page Architecture Patterns)
+**Generalised Pattern**: Page-specific templates need their own canonical CTA rules. The design system covers shared components (header, footer) but not page-specific conversion patterns. Extends P-001 to page templates.
+**Prevention Rule**: "Services Page: All service sections use maximum 2 CTA types: (1) Primary = 'Get My Free Strategy Call' (links to /contact), (2) Secondary = 'Learn More' (expands or deep-links). Prohibited: custom verbs per service."
+**Skill Update**: Add Services Page Template to ux-architecture.md.
+**Status**: Active — awaiting fix execution
+
+### REF-020 — 2026-02-17 — Major
+**Gap**: Contact page displays a success message ("Success! Your message has been received...") in the default page load state, visible before user submits the form. Trust violation — users see confirmation without action.
+**Root Cause**: Incomplete — form validation and success state logic exists but no visibility rule specified whether success message should be hidden on initial load.
+**Detection Method**: Cross-AI full site review Round 2 (ChatGPT flagged as "trust killer").
+**Skill File**: references/conversion-rules.md, SKILL.md Testing Checklist
+**Generalised Pattern**: Form state management requires explicit rules for initial state, input state, validation state, and submission state. Forms without state-specific visibility rules leak states.
+**Prevention Rule**: "Form success state: hidden attribute or display:none on page load. Visible ONLY after successful submission. Testing: view contact.html in fresh tab — success message not visible."
+**Skill Update**: Add Form State Management section to conversion-rules.md.
+**Status**: Active — awaiting fix execution
+
+### REF-021 — 2026-02-17 — Moderate
+**Gap**: 3+ competing lead magnets: Strategy Call (primary nav/footer), email-gated M&A Checklist (mid-article), newsletter capture (insights hub). Splits intent and dilutes premium CFO positioning.
+**Root Cause**: Missing — no lead magnet strategy or hierarchy exists in conversion-rules.md. Magnets added page-by-page without coordination.
+**Detection Method**: Cross-AI full site review Round 2 (Claude + ChatGPT flagged).
+**Skill File**: references/conversion-rules.md
+**Generalised Pattern**: Lead magnet strategy is a shared conversion architecture element — needs a declared hierarchy, not emergent plurality. Extends P-001 to conversion strategy.
+**Prevention Rule**: "Lead Magnet Hierarchy: Primary = Strategy Call (all pages). Secondary = content lead magnets (articles only, max 1 per article, ~50% scroll depth). Tertiary = newsletter (insights hub footer only). Homepage + services = primary CTA only."
+**Skill Update**: Add Lead Magnet Strategy section to conversion-rules.md.
+**Status**: Active — awaiting fix execution
+
+### REF-022 — 2026-02-17 — Moderate
+**Gap**: Inline SVG diagrams lack role="img" and aria-label. Screen readers announce individual SVG child elements instead of treating diagrams as cohesive data visualizations.
+**Root Cause**: Incomplete — accessibility.md says "images have alt text" but doesn't specify that inline SVGs require role="img" + aria-label as a wrapper, not alt on individual paths.
+**Detection Method**: Cross-AI full site review Round 2 (Claude + Gemini flagged).
+**Skill File**: references/accessibility.md
+**Generalised Pattern**: SVGs are containers with many children, not images. Treating them like <img> tags leads to incomplete accessibility coverage. Extends P-004.
+**Prevention Rule**: "SVG Data Visualizations: Wrap with <figure role='img' aria-label='[Chart title and key insight]'><svg>...</svg></figure>."
+**Skill Update**: Add SVG diagram accessibility rule to accessibility.md.
+**Status**: Active — awaiting fix execution
+
+### REF-023 — 2026-02-17 — Minor
+**Gap**: Web fonts (Cormorant Garamond, DM Sans) cause flash of unstyled text (FOUT) on load.
+**Root Cause**: Incomplete — font-display CSS property not optimised. No font preload strategy documented.
+**Detection Method**: Cross-AI full site review Round 2 (Gemini flagged).
+**Skill File**: references/premium-polish.md
+**Generalised Pattern**: Web font loading has performance/UX tradeoffs. Rules should declare the strategy explicitly.
+**Prevention Rule**: "font-display: optional for headings, swap for body. Preload critical font weights. Testing: disable web fonts → page readable in fallback."
+**Skill Update**: Add Font Loading Strategy to premium-polish.md.
+**Status**: Active — awaiting fix execution
+
+### REF-024 — 2026-02-17 — Minor
+**Gap**: Footer links on mobile (375px) have insufficient touch target spacing. Links cluster with <8px padding, creating misclick risk.
+**Root Cause**: Incomplete — footer template (REF-004) specifies HTML structure but not mobile spacing rules.
+**Detection Method**: Cross-AI full site review Round 2 (ChatGPT + Gemini flagged).
+**Skill File**: references/accessibility.md, SKILL.md
+**Generalised Pattern**: Extends P-002. "Touch-friendly" is too vague. Rules need explicit dimensions (48x48px minimum, 8px spacing).
+**Prevention Rule**: "Footer touch targets: ≥48x48px per link, ≥8px gap between adjacent items. Testing: 375px mobile view — all footer links tappable without misclick risk."
+**Skill Update**: Add touch target spacing rule to accessibility.md.
+**Status**: Active — awaiting fix execution
 
 ---
 
