@@ -99,9 +99,8 @@
                     <div class="form-container">
                         <h2 class="form-title">Your Free Strategy Call</h2>
 
-                        <div id="successAlert" class="alert alert-success" role="alert" aria-live="polite" hidden aria-hidden="true">
-                            <strong>Success!</strong> Your consultation request has been received. We'll be in touch within 24 hours.
-                        </div>
+                        <!-- Alert containers: text injected by JS on form submission only -->
+                        <div id="successAlert" class="alert alert-success" role="alert" aria-live="polite" hidden aria-hidden="true"></div>
                         <div id="errorAlert" class="alert alert-error" role="alert" aria-live="polite" hidden aria-hidden="true"></div>
 
                         <form id="consultationForm" method="POST" action="/api/contact" novalidate>
@@ -493,6 +492,7 @@
                 const result = await response.json();
 
                 if (result.ok) {
+                    successAlert.innerHTML = '<strong>Success!</strong> Your consultation request has been received. We\u2019ll be in touch within 24 hours.';
                     successAlert.removeAttribute('hidden');
                     successAlert.setAttribute('aria-hidden', 'false');
                     successAlert.classList.add('show');

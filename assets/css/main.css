@@ -562,6 +562,32 @@ img {
   outline-offset: 2px;
 }
 
+/* Ensure buttons and interactive elements respect focus-visible */
+.btn:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.cta-btn-gold:focus-visible,
+.cta-btn-ghost:focus-visible,
+.engagement-gold-btn:focus-visible,
+.engagement-outline-btn:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* Hero text link (demoted secondary CTA) */
+.hero-text-link {
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-size: var(--font-size-body);
+  font-family: var(--font-body);
+  transition: color 0.2s ease;
+}
+.hero-text-link:hover {
+  color: var(--color-accent-gold);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -2884,6 +2910,19 @@ footer > section {
 .form-trust-item svg {
   flex-shrink: 0;
   opacity: 0.6;
+}
+
+/* CTA email alternative — demoted from button to text */
+.cta-email-alt {
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+.cta-email-alt a {
+  color: var(--color-accent-gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .form-note {

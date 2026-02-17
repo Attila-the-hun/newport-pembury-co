@@ -409,25 +409,9 @@
             </div>
         </div>
 
-        <!-- Featured Article -->
-        <section class="scroll-reveal mb-16">
-            <p class="text-xs font-semibold uppercase tracking-widest mb-6 featured-label">Featured</p>
-            <div class="featured-card">
-                <div class="featured-image featured-image-gradient" role="img" aria-label="The $5M–$50M Blind Spot: Why Growing Companies Need a CFO Before They Think They Do">
-                    <img src="/insights/images/article-blind-spot-hero.webp" onerror="this.onerror=null;this.src='/insights/images/article-blind-spot.svg'" alt="Abstract fine art of converging gold lines on dark navy canvas, representing the financial inflection point where growing companies need CFO leadership" class="article-card-img" loading="lazy" width="600" height="340">
-                </div>
-                <div class="featured-body">
-                    <span class="category-pill strategy mb-4">Strategy</span>
-                    <h3 class="featured-article-heading">The $5M–$50M Blind Spot: Why Growing Companies Need a CFO Before They Think They Do</h3>
-                    <p class="featured-article-desc">Most founders wait until a crisis &mdash; a failed raise, a cash crunch, a deal gone sideways &mdash; before they bring in financial leadership. By then, the cost of delay is real. Here&rsquo;s what the data says about the inflection point where a fractional CFO changes the trajectory.</p>
-                    <span class="coming-soon-badge">Coming March 2026</span>
-                </div>
-            </div>
-        </section>
-
         <!-- Published Articles -->
         <section class="scroll-reveal mb-16">
-            <p class="text-xs font-semibold uppercase tracking-widest mb-6 featured-label">Published</p>
+            <h2 class="text-xs font-semibold uppercase tracking-widest mb-6 featured-label" style="font-size:var(--font-size-xs);font-family:var(--font-body);font-weight:600;">Published</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articleGrid">
 
                 <!-- Article 1 — LIVE -->
@@ -459,9 +443,23 @@
             </div>
         </section>
 
-        <!-- Upcoming Articles -->
+        <!-- Featured Upcoming + Coming Soon Articles -->
         <section class="scroll-reveal mb-16">
-            <p class="text-xs font-semibold uppercase tracking-widest mb-6 featured-label">Coming Soon</p>
+            <h2 class="text-xs font-semibold uppercase tracking-widest mb-6 featured-label" style="font-size:var(--font-size-xs);font-family:var(--font-body);font-weight:600;">Coming Soon</h2>
+
+            <!-- Featured Upcoming Article -->
+            <div class="featured-card mb-8">
+                <div class="featured-image featured-image-gradient" role="img" aria-label="The $5M–$50M Blind Spot: Why Growing Companies Need a CFO Before They Think They Do">
+                    <img src="/insights/images/article-blind-spot-hero.webp" onerror="this.onerror=null;this.src='/insights/images/article-blind-spot.svg'" alt="Abstract fine art of converging gold lines on dark navy canvas, representing the financial inflection point where growing companies need CFO leadership" class="article-card-img" loading="lazy" width="600" height="340">
+                </div>
+                <div class="featured-body">
+                    <span class="category-pill strategy mb-4">Strategy</span>
+                    <h3 class="featured-article-heading">The $5M&ndash;$50M Blind Spot: Why Growing Companies Need a CFO Before They Think They Do</h3>
+                    <p class="featured-article-desc">Most founders wait until a crisis &mdash; a failed raise, a cash crunch, a deal gone sideways &mdash; before they bring in financial leadership. By then, the cost of delay is real. Here&rsquo;s what the data says about the inflection point where a fractional CFO changes the trajectory.</p>
+                    <span class="coming-soon-badge">Coming March 2026</span>
+                </div>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
                 <!-- Article 3 — Coming Soon -->
@@ -543,8 +541,8 @@
                 <p>Schedule your confidential 30-minute consultation to discuss your business needs.</p>
                 <div class="cta-buttons">
                     <a href="/contact" class="cta-btn-primary">Get My Free Strategy Call</a>
-                    <a href="mailto:hello@newportpembury.com.au" class="cta-btn-ghost">Email Timothy Directly</a>
                 </div>
+                <p class="cta-email-alt">Or email us at <a href="mailto:hello@newportpembury.com.au">hello@newportpembury.com.au</a></p>
             </div>
         </section>
     </main>
