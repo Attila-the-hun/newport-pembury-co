@@ -2827,6 +2827,7 @@ footer > section {
 
 .engagement-section .section-intro-label {
   color: var(--color-action-primary);
+  max-width: none;
 }
 
 .engagement-label {
