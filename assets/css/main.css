@@ -4812,6 +4812,36 @@ footer > section {
   margin-bottom: 0;
 }
 
+/* --- APES 320 Compliance Callout --- */
+.compliance-callout {
+  background: rgba(197,165,90,0.04);
+  border-left: 3px solid var(--color-action-primary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-lg) var(--space-xl);
+  margin: var(--space-xl) 0;
+}
+
+.compliance-callout .compliance-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-action-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.compliance-callout p:last-child {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .compliance-callout {
+  background: rgba(197,165,90,0.06);
+}
+
 /* --- Gold dot divider --- */
 .gold-dot-divider {
   display: flex;
