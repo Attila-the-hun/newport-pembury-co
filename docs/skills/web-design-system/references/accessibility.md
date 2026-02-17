@@ -33,6 +33,30 @@ Accessibility checklist for professional business websites targeting WCAG 2.2 Le
 
 Test with: WebAIM, Contrast Ratio, WCAG Color Contrast Analyzer
 
+### Dark Background Contrast Verification (R9 — session lesson after 3 invisible-text bugs)
+
+**Context**: Dark sections (`--color-bg-inverse`, `#0F1923`) are the highest-risk areas for contrast failures because:
+- Undefined CSS classes cause text to inherit charcoal (`--color-text-primary`, #1B2838) → invisible on dark bg
+- Light-mode tokens (e.g., `--color-action-text` #806B3A) produce ~2.8:1 contrast on dark backgrounds
+- Developers/reviewers dismiss faint text as "subtle design choice" instead of recognising a contrast bug
+
+**Mandatory Verification Protocol**:
+1. **Never eyeball contrast from screenshots.** Always compute actual ratios using `getComputedStyle()` or a contrast checker tool.
+2. **"Faint" = red flag, not design choice.** If text appears subtle, measure it. Subtle text that falls below 4.5:1 is a WCAG violation, not an aesthetic preference.
+3. **Audit every text element in dark sections** — not just headings. Labels, captions, secondary text, and badge text are most likely to fail.
+4. **Check for undefined classes** — if `getComputedStyle(el).color` returns the body default (`rgb(27, 40, 56)`), the class probably has no CSS definition.
+
+**CFO Brand Dark Section Token Map**:
+| Element Type | Correct Value | Contrast on #0F1923 |
+|-------------|---------------|---------------------|
+| Headings (h1-h3) | `var(--color-text-inverse)` #FAFAFA | ~15.2:1 ✅ |
+| Body text | `rgba(255,255,255,0.7)` | ~8.4:1 ✅ |
+| Secondary text | `rgba(255,255,255,0.6)` | ~6.5:1 ✅ |
+| Labels/captions | `rgba(255,255,255,0.5)` | ~4.8:1 ✅ |
+| Gold accents | `var(--color-action-primary)` #C5A55A | ~5.2:1 ✅ |
+| WRONG: light-bg gold | `var(--color-action-text)` #806B3A | ~2.8:1 ❌ |
+| WRONG: inherited charcoal | `var(--color-text-primary)` #1B2838 | ~1.1:1 ❌ |
+
 ## Keyboard Navigation
 
 ### Tab Order Requirements

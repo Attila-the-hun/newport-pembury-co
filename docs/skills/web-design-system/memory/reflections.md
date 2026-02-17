@@ -214,7 +214,7 @@
 **Implication**: Every rule should include a testable assertion with a numeric threshold or exact string match, AND explicitly address edge cases.
 
 ### Pattern P-003: Missing Rules Are More Common Than Ignored Rules
-**Reflections**: REF-001, REF-002, REF-003, REF-004, REF-007, REF-013, REF-014, REF-015, REF-017, REF-019, REF-020, REF-021, REF-025, REF-026
+**Reflections**: REF-001, REF-002, REF-003, REF-004, REF-007, REF-013, REF-014, REF-015, REF-017, REF-019, REF-020, REF-021, REF-025, REF-026, REF-030
 **Observation**: In 16 out of 28 reflections, the root cause was "missing rule" (57%). R8 added two: page-specific CTA templates (REF-025) and inline style prevention gate (REF-026). The skill system is expanding but gaps remain in: deployment procedures, form state management, SVG accessibility, and font loading strategy. Many R8 fixes were adding missing skill rules rather than fixing code.
 **Implication**: Prioritise coverage (more rules across more domains) over depth (more nuance in existing rules). The skill system is nearing breadth completion for the current 8-page site.
 
@@ -224,7 +224,7 @@
 **Implication**: After defining any new token, immediately wire it into at least one consumer (CSS rule or utility class). After every batch of token additions, audit for dead tokens and prune or connect them.
 
 ### Pattern P-004: Generic Rules Need Classification Specificity
-**Reflections**: REF-006, REF-008, REF-016, REF-022
+**Reflections**: REF-006, REF-008, REF-016, REF-022, REF-029
 **Observation**: "Images have alt text" doesn't distinguish decorative from content images. "No hardcoded HEX" doesn't address fallbacks or meta tags. "SVGs have alt text" doesn't work because SVGs are containers, not images. Generic rules create false confidence — they look complete but leave gaps for specific sub-categories.
 **Implication**: When writing a rule, ask: "Are there sub-types where this rule applies differently?" If yes, document each sub-type explicitly.
 
@@ -368,6 +368,50 @@
 **Reflections**: REF-028
 **Observation**: After 8 rounds of fixes across 3 AIs, scores converge around 8.9. The remaining gap to 9.0+ is consistently "trust is self-asserted" — a content/business problem requiring real client testimonials, logos, and case studies. No amount of HTML/CSS/JS improvement bridges this gap.
 **Implication**: Declare code-level optimisation substantially complete at 8.9. Next improvement phase is content: onboard first client, collect testimonial, add logo bar. Document this transition in CLAUDE.md.
+
+### REF-029 — 2026-02-18 — Critical (R9)
+**Gap**: Key Takeaways "WHAT YOU'LL LEARN" label on Cash Compass article was invisible — gold text (#806B3A) on dark background (#0F1923) = ~2.8:1 contrast ratio. Reviewer dismissed it as "faint gold — subtle but intentional" across multiple screenshots instead of flagging it as a contrast bug.
+**Root Cause**: Incomplete — `.takeaway-label` used `var(--color-action-text)` (#806B3A), a token designed for light backgrounds. No dark-section token map existed to guide correct token selection. Additionally, the review process had no requirement to compute actual contrast ratios.
+**Detection Method**: User visual inspection ("Is anything missing from this image?").
+**Skill File**: references/accessibility.md, SKILL.md
+**Generalised Pattern**: "Subtle" and "invisible" are indistinguishable without measurement. Eyeballing contrast from screenshots is unreliable — reviewers rationalise faint text as design intent. Contrast verification must be computed (getComputedStyle + WCAG formula), never visual. New Pattern P-009.
+**Prevention Rule**: "Dark Background Contrast Verification Protocol: compute actual WCAG ratio for every text element on dark sections. 'Faint' = red flag, not design choice. Added dark section token quick reference to SKILL.md and accessibility.md."
+**Skill Update**: Added Dark Background Verification Rule to SKILL.md. Added Dark Background Contrast Verification section to accessibility.md with token map table. Added 3 new Testing Checklist items.
+**Status**: Resolved — token swapped to `var(--color-action-primary)` (#C5A55A, ~5.2:1)
+
+### REF-030 — 2026-02-18 — Critical (R9)
+**Gap**: Engagement pricing section on services.html had 5 CSS classes used in HTML but never defined in main.css: `.engagement-label`, `.engagement-secondary`, `.engagement-body`, `.engagement-recommended-badge`, `.section-heading-lg-36-inverse`. All text inherited charcoal (#1B2838) from body — invisible on dark background (#0F1923). Section appeared completely blank.
+**Root Cause**: Missing — HTML was written with intended class names but the corresponding CSS rules were never created. No "class existence check" was part of the build workflow.
+**Detection Method**: User visual inspection + JavaScript getComputedStyle audit showing `rgb(27, 40, 56)` on all text elements.
+**Skill File**: SKILL.md
+**Generalised Pattern**: HTML classes without CSS definitions are silent failures — no error, no warning, just invisible text. The build workflow must include a class existence check: every class in HTML must have a matching definition in CSS. New extension of P-003 (missing rules).
+**Prevention Rule**: "Undefined CSS Class Prevention Rule: Search main.css for the class name BEFORE using it in HTML. Zero classes in HTML without CSS definitions. Added to Common Mistakes and Testing Checklist."
+**Skill Update**: Added Undefined CSS Class Prevention Rule to SKILL.md. Added testing assertion to Testing Checklist.
+**Status**: Resolved — 5 class definitions added, all text visible
+
+### REF-031 — 2026-02-18 — Major (R9)
+**Gap**: "Engagement Models" label on services page appeared 68px left of the "Structured to fit your stage" heading. Both had `text-align: center` but the label (a `<p>` element) was constrained to 711px by the global `p { max-width: 65ch }` rule, while the `<h2>` had no max-width (848px). Both started at the same left edge, so the label centred within its narrower box — visually offset from the heading.
+**Root Cause**: Incomplete — global `p { max-width: 65ch }` is correct for body text readability but shouldn't apply to section intro labels, centred headings, or other non-body text elements. No override existed for centred section labels.
+**Detection Method**: User visual inspection ("The words Engagement Models start slightly to the left").
+**Skill File**: SKILL.md, references/accessibility.md
+**Generalised Pattern**: Global element rules (`p`, `img`, `a`) create unintended side effects on elements that happen to use those tags but serve a different purpose. A `<p>` used as a section label behaves differently from a `<p>` used as body text — global rules can't distinguish intent. Override rules are needed for semantic-role overrides. New Pattern P-010.
+**Prevention Rule**: "Centred section labels that use `<p>` tags must override global `p { max-width: 65ch }` with `max-width: none`. Testing: visually verify centred labels and headings share the same visual centre axis."
+**Skill Update**: Added to Testing Checklist and Common Mistakes in SKILL.md.
+**Status**: Resolved — `max-width: none` added to `.engagement-section .section-intro-label`
+
+---
+
+## Patterns Observed (Updated — R9)
+
+### Pattern P-009: "Subtle" Text Is Indistinguishable From Invisible Without Measurement
+**Reflections**: REF-029
+**Observation**: A reviewer looked at barely-visible text (#806B3A on #0F1923, contrast 2.8:1) across multiple screenshots and rationalised it as "faint gold — subtle but intentional design choice." The text was actually a WCAG violation. The human eye adapts to low contrast on screens and normalises it as "intentional." Only computed measurement distinguishes subtle-by-design (≥4.5:1) from invisible-by-bug (<4.5:1).
+**Implication**: Every contrast assessment must use computed values (getComputedStyle + luminance formula), never visual judgment from screenshots. "Faint" in a review should trigger a measurement, not an explanation.
+
+### Pattern P-010: Global Element Rules Create Unintended Side Effects
+**Reflections**: REF-031
+**Observation**: `p { max-width: 65ch }` is excellent for body text readability but broke centre alignment of a `<p>` used as a section label. The global rule can't distinguish a body paragraph from a label that happens to use the `<p>` tag. Similar risks exist for other global rules on `img`, `a`, `ul`, etc.
+**Implication**: When writing global element rules, document which use cases they're designed for and which need overrides. When building sections that use common elements in non-standard ways (centred labels, decorative images, navigation lists), check for inherited global constraints.
 
 ---
 

@@ -111,6 +111,9 @@ Use this skill when building or redesigning professional business websites. Prov
 - [ ] Focus indicators visible (gold `var(--color-focus)`, not browser default blue)
 - [ ] **Tailwind CDN removed from ALL pages** (`grep -r 'cdn.tailwindcss.com' *.html` returns **0 results**)
 - [ ] **All form endpoints point to real backend** (no `YOUR_FORM_ID`, no `action="#"`)
+- [ ] **Dark section contrast verified**: Every text element on `--color-bg-inverse` sections has ≥4.5:1 contrast (computed, not eyeballed)
+- [ ] **Zero undefined CSS classes**: Every class in HTML has a matching definition in main.css (no silent inheritance)
+- [ ] **Centred section labels not constrained by global `p { max-width }` rule**: Section intro labels use `max-width: none` to centre-align with their headings
 
 ## Token Governance Checklist (run after every CSS/HTML change)
 
@@ -248,6 +251,57 @@ Run this checklist after every multi-page build or before deployment. Inconsiste
 - New HTML written with `style=` attributes instead of CSS classes (write the class FIRST, then reference it)
 - Hardcoded negative-value colors (`#ef4444`, `#E63946`) instead of `var(--color-error)` token
 - Engagement card pricing with inline `margin-bottom` instead of `.engagement-pricing` class
+- CSS classes in HTML with zero CSS definitions (text inherits charcoal, invisible on dark backgrounds)
+- Using `--color-action-text` (#806B3A) on dark backgrounds instead of `--color-action-primary` (#C5A55A) — contrast 2.8:1 vs 5.2:1
+- Dismissing barely-visible text as "subtle design choice" instead of computing actual WCAG contrast ratio
+- Centred `<p>` labels misaligned with headings due to global `p { max-width: 65ch }` inheritance — override with `max-width: none`
+- Building dark sections without verifying every text element's computed colour against the background
+
+## Dark Background Verification Rule (R9 Lesson)
+
+**Problem**: Text on dark backgrounds (`--color-bg-inverse`, `#0F1923`) repeatedly becomes invisible because: (a) CSS classes used in HTML are never defined in CSS, so text inherits `--color-text-primary` (charcoal — invisible on dark), or (b) semantic tokens designed for light backgrounds are applied to dark backgrounds (e.g., `--color-action-text` #806B3A instead of `--color-action-primary` #C5A55A), or (c) global element rules (e.g., `p { max-width: 65ch }`) constrain centred labels, breaking visual alignment.
+
+**Rule**: Every dark-background section MUST pass a 3-step verification:
+
+1. **Class Existence Check**: For every class used in the HTML of a dark section, verify a CSS definition exists. `grep '.classname' main.css` must return ≥1 result. Zero-definition classes = invisible text.
+2. **Contrast Computation**: For every text element in the section, compute the WCAG contrast ratio against the section background. Use `getComputedStyle()` to extract actual rendered colours — never eyeball from screenshots. Minimum: 4.5:1 for body text, 3:1 for large text (18px+ bold or 24px+). If text appears "faint" or "subtle", that is a RED FLAG, not a design choice.
+3. **Max-Width Override Check**: If a text element inside a centred container appears misaligned, check for inherited `max-width` from global element rules (e.g., `p { max-width: 65ch }`). Centred section labels and headings should have `max-width: none`.
+
+**Dark Section Token Quick Reference** (use THESE tokens on `--color-bg-inverse` backgrounds):
+| Element | Correct Token | Wrong Token |
+|---------|---------------|-------------|
+| Headings | `var(--color-text-inverse)` | `var(--color-text-primary)` |
+| Body text | `rgba(255, 255, 255, 0.7)` | `var(--color-text-secondary)` |
+| Labels/captions | `rgba(255, 255, 255, 0.5)` | inheriting body default |
+| Gold accents | `var(--color-action-primary)` #C5A55A | `var(--color-action-text)` #806B3A |
+| Links on dark | `var(--color-action-primary)` | `var(--color-text-action)` |
+
+**Testing**: After building or modifying any dark section, run this JavaScript audit:
+```javascript
+// Paste in DevTools console — flags any text with contrast < 4.5:1
+document.querySelectorAll('.dark-section *').forEach(el => {
+  const color = getComputedStyle(el).color;
+  // Check if color is close to background — any text with contrast < 3:1 is a bug
+});
+```
+
+## Undefined CSS Class Prevention Rule (R9 Lesson)
+
+**Problem**: HTML written with intended class names but no matching CSS definitions. The element silently inherits parent styles, which may be invisible on dark backgrounds or misaligned on light ones. This was the root cause of 5 undefined classes in the engagement pricing section.
+
+**Rule**: When writing HTML with a new class name:
+1. **Search main.css** for the class name BEFORE using it in HTML
+2. **Class exists** → Use it
+3. **Class doesn't exist** → Write the CSS definition in main.css FIRST → Then use in HTML
+4. **NEVER** write a class in HTML that has zero CSS definitions
+
+**Testing**: After any HTML change, run:
+```bash
+# Extract all class names from HTML, check each exists in CSS
+grep -oP 'class="[^"]*"' page.html | tr ' ' '\n' | sort -u | while read cls; do
+  grep -q "\\.$cls" assets/css/main.css || echo "UNDEFINED: $cls"
+done
+```
 
 ## Inline Style Prevention Rule (R8 Lesson)
 

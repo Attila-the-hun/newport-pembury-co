@@ -101,8 +101,9 @@ These are the most impactful lessons from the reflections log. Read these FIRST 
 
 ## Session Continuity
 
-**Last session**: 2026-02-13
-**Last task completed**: WCAG AA contrast fix + favicon + inline style elimination (v1.8.0). Added --color-action-text (#806B3A) for gold text on light backgrounds (4.53:1 AA pass). SVG favicon on all 8 pages. Stripped 74 inline styles (91→17, 81% reduction) with 65+ new CSS classes.
-**Next logical task**: Re-run audit to confirm 9.0+ score, then push. Consider pruning remaining 10 dead tokens and further inline style reduction.
-**Governance score**: Estimated 9.0-9.2/10 (contrast fixed, favicon added, inline styles 91→17)
-**Reflections count**: 10 active (REF-001–REF-010), 0 resolved, 5 patterns identified (P-001–P-005)
+**Last session**: 2026-02-18 (session 6 — R9 visual bug fixes + dark section contrast rules)
+**Last task completed**: Fixed 3 dark-background visibility bugs: (1) Key Takeaways label invisible (token swap), (2) 5 undefined CSS classes in engagement pricing section, (3) "Engagement Models" label 68px misaligned from heading due to global `p { max-width: 65ch }`. Added Dark Background Verification Rule, Undefined CSS Class Prevention Rule, and 3 new reflections (REF-029–031) with 2 new patterns (P-009, P-010) to skill files.
+**Current task**: Skill file updates committed. Site-wide dark section audit recommended.
+**Next logical task**: (1) Commit skill file updates + push. (2) Site-wide dark section contrast audit (index.html, about.html, contact.html). (3) Contact form activation. (4) Custom domain connection.
+**Governance score**: 8.94/10 (ChatGPT R8). Code ceiling reached — next gains require content.
+**Reflections count**: 31 total (REF-001–REF-031), 7 archived, 10 patterns identified (P-001–P-010)
