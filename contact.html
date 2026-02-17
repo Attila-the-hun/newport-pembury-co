@@ -99,10 +99,10 @@
                     <div class="form-container">
                         <h2 class="form-title">Your Free Strategy Call</h2>
 
-                        <div id="successAlert" class="alert alert-success" role="alert" aria-live="polite">
+                        <div id="successAlert" class="alert alert-success" role="alert" aria-live="polite" hidden aria-hidden="true">
                             <strong>Success!</strong> Your consultation request has been received. We'll be in touch within 24 hours.
                         </div>
-                        <div id="errorAlert" class="alert alert-error" role="alert" aria-live="polite"></div>
+                        <div id="errorAlert" class="alert alert-error" role="alert" aria-live="polite" hidden aria-hidden="true"></div>
 
                         <form id="consultationForm" method="POST" action="/api/contact" novalidate>
                             <!-- Honeypot field for spam protection -->
@@ -440,13 +440,19 @@
 
             if (!isFormValid) {
                 errorAlert.textContent = 'Please fill in all required fields correctly.';
+                errorAlert.removeAttribute('hidden');
+                errorAlert.setAttribute('aria-hidden', 'false');
                 errorAlert.classList.add('show');
                 return;
             }
 
             // Hide alerts
             successAlert.classList.remove('show');
+            successAlert.setAttribute('hidden', '');
+            successAlert.setAttribute('aria-hidden', 'true');
             errorAlert.classList.remove('show');
+            errorAlert.setAttribute('hidden', '');
+            errorAlert.setAttribute('aria-hidden', 'true');
 
             // Disable submit button
             submitBtn.disabled = true;
@@ -471,6 +477,8 @@
                 const result = await response.json();
 
                 if (result.ok) {
+                    successAlert.removeAttribute('hidden');
+                    successAlert.setAttribute('aria-hidden', 'false');
                     successAlert.classList.add('show');
                     form.reset();
                     requiredFields.forEach(fieldId => {
@@ -485,10 +493,14 @@
                     successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                     errorAlert.textContent = result.message || 'There was an error submitting your form. Please try again.';
+                    errorAlert.removeAttribute('hidden');
+                    errorAlert.setAttribute('aria-hidden', 'false');
                     errorAlert.classList.add('show');
                 }
             } catch (error) {
                 errorAlert.textContent = 'Network error. Please check your connection and try again.';
+                errorAlert.removeAttribute('hidden');
+                errorAlert.setAttribute('aria-hidden', 'false');
                 errorAlert.classList.add('show');
             } finally {
                 submitBtn.disabled = false;
