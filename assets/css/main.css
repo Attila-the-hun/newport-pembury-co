@@ -520,17 +520,30 @@ img {
   text-align: left;
 }
 
-/* Stat label text positioning */
-.stat-label-text {
-  text-align: left;
-  margin: 0 0 8px;
-  color: rgba(255, 255, 255, 0.75);
+/* Stat highlight inner layout */
+.stat-highlight-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
 }
 
-/* Stat source text positioning */
-.stat-source-text {
+/* Stat label text positioning — specificity override for article-body */
+.stat-label-text,
+.article-layout .article-body .stat-label-text {
+  text-align: left;
+  margin: 0 0 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+}
+
+/* Stat source text positioning — specificity override for article-body */
+.stat-source-text,
+.article-layout .article-body .stat-source-text {
   margin: 0;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.5);
   font-style: italic;
   font-size: var(--font-size-sm);
 }
@@ -4571,9 +4584,24 @@ footer > section {
 
 /* --- Diamond dividers --- */
 .diamond-divider {
-  text-align: center;
-  padding: var(--space-2xl) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-lg) 0;
 }
+
+.diamond-divider::before,
+.diamond-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(to var(--diamond-dir, right), transparent, var(--color-action-text));
+}
+
+.diamond-divider::before { --diamond-dir: right; }
+.diamond-divider::after  { --diamond-dir: left; }
 
 .diamond {
   font-size: var(--font-size-xs);
@@ -4605,7 +4633,8 @@ footer > section {
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
-.pull-quote p {
+.pull-quote p,
+.article-layout .article-body .pull-quote p {
   font-family: 'Cormorant Garamond', serif;
   font-size: var(--font-size-lg);
   font-weight: 500;
@@ -4613,6 +4642,7 @@ footer > section {
   color: var(--color-text-primary);
   line-height: 1.5;
   max-width: 55ch;
+  margin-bottom: 0;
 }
 
 /* --- Diamond lists (styled bullet lists) --- */
@@ -4650,7 +4680,8 @@ footer > section {
   text-align: center;
 }
 
-.mid-article-cta .cta-label {
+.mid-article-cta .cta-label,
+.article-layout .article-body .mid-article-cta .cta-label {
   font-family: 'DM Sans', sans-serif;
   font-size: var(--font-size-xs);
   font-weight: 600;
@@ -4660,7 +4691,8 @@ footer > section {
   margin-bottom: var(--space-sm);
 }
 
-.mid-article-cta h3 {
+.mid-article-cta h3,
+.article-layout .article-body .mid-article-cta h3 {
   font-family: 'Cormorant Garamond', serif;
   font-size: var(--font-size-lg);
   font-weight: 600;
@@ -4668,7 +4700,8 @@ footer > section {
   margin-bottom: var(--space-sm);
 }
 
-.mid-article-cta p {
+.mid-article-cta p,
+.article-layout .article-body .mid-article-cta p {
   font-family: 'DM Sans', sans-serif;
   color: rgba(255, 255, 255, 0.7);
   font-size: var(--font-size-base);
@@ -4774,9 +4807,10 @@ footer > section {
   scroll-margin-top: 100px;
 }
 
-.takeaway-label {
+.takeaway-label,
+.article-layout .article-body .takeaway-label {
   font-family: 'DM Sans', sans-serif;
-  font-size: var(--font-size-xs);
+  font-size: 0.8125rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -4821,7 +4855,8 @@ footer > section {
   margin: var(--space-xl) 0;
 }
 
-.compliance-callout .compliance-label {
+.compliance-callout .compliance-label,
+.article-layout .article-body .compliance-callout .compliance-label {
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 700;
@@ -4831,7 +4866,8 @@ footer > section {
   margin-bottom: var(--space-sm);
 }
 
-.compliance-callout p:last-child {
+.compliance-callout p:last-child,
+.article-layout .article-body .compliance-callout p:last-child {
   font-size: 0.9rem;
   line-height: 1.65;
   margin: 0;
