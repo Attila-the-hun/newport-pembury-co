@@ -3891,6 +3891,21 @@ footer > section {
   margin-right: 12px;
 }
 
+/* ---------- Utility: text underline ---------- */
+.text-underline {
+  text-decoration: underline;
+}
+
+/* ---------- Proof object negative values ---------- */
+.proof-object-kpi-negative {
+  color: var(--color-error, #ef4444);
+}
+
+/* ---------- Engagement card pricing ---------- */
+.engagement-pricing {
+  margin-bottom: 16px;
+}
+
 /* One-off CTA button classes removed in v1.8.1 — unified to .btn system */
 
 @media (max-width: 768px) {
