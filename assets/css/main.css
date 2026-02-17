@@ -3856,6 +3856,41 @@ footer > section {
   }
 }
 
+/* ---------- Newsletter utility classes (DRY from inline styles) ---------- */
+.newsletter-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+}
+.newsletter-disclaimer {
+  color: rgba(255, 255, 255, 0.45);
+}
+.newsletter-disclaimer-link {
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: underline;
+}
+.newsletter-cta-action {
+  text-align: center;
+}
+.newsletter-cta-action .btn {
+  display: inline-block;
+}
+
+/* ---------- Contact page utility classes (DRY from inline styles) ---------- */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--color-bg-inverse) 0%, var(--primitive-charcoal) 100%);
+}
+.bg-surface {
+  background-color: var(--color-bg-surface);
+}
+.mobile-cta-btn-block {
+  width: 100%;
+  text-align: center;
+}
+.cta-banner-action {
+  margin-top: 12px;
+  margin-right: 12px;
+}
+
 /* One-off CTA button classes removed in v1.8.1 — unified to .btn system */
 
 @media (max-width: 768px) {
