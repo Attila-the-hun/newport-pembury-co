@@ -194,6 +194,32 @@ Run this checklist after every multi-page build or before deployment. Inconsiste
 - [ ] Legal pages (privacy, terms) may omit CTA banners
 - [ ] Article pages may use content-specific CTAs (newsletter signup form)
 
+### Page-Specific CTA Templates (R8 lesson — page CTAs drift as fast as shared components)
+
+**Homepage Service Cards** (4 cards in `.services-grid`):
+| Card # | Service | CTA Text (exact) | Class |
+|--------|---------|-------------------|-------|
+| 01 | M&A Advisory | Discuss Your Deal → | `.service-card-cta` |
+| 02 | AI-Powered Cash Flow Intelligence | Get Cash Flow Clarity → | `.service-card-cta` |
+| 03 | AI & Finance Transformation | Assess Your Stack → | `.service-card-cta` |
+| 04 | Strategic CFO Partnership | Book a Strategy Call → | `.service-card-cta` |
+
+**Rule**: Every homepage service card CTA must be intent-specific. "Get Started →" is PROHIBITED on service cards. Each CTA maps to a specific user pain point, not a generic funnel entry.
+
+**Services Engagement Cards** (3 cards in `.engagement-grid`):
+| Card | Model | CTA Text (exact) | Class |
+|------|-------|-------------------|-------|
+| Project | $5K per engagement | Scope My Project | `.engagement-outline-btn` |
+| Retainer | $3K per month | Book a Retainer Call | `.engagement-gold-btn` |
+| Interim CFO | Custom | Discuss Interim Role | `.engagement-outline-btn` |
+
+**Rule**: Engagement card CTAs must describe the specific next step for that engagement model. "Get Started" is PROHIBITED on engagement cards.
+
+**Insights Article CTAs** (per-article, content-specific):
+- M&A article: "Send Me the Checklist" (email-gated lead magnet)
+- 13-Week Cashflow: "Get My Free Strategy Call" (links to /contact)
+- Rule: Max 1 content-specific CTA per article at ~50% scroll depth. Primary CTA (strategy call) must appear in article CTA banner section.
+
 ### Brand Consistency
 - [ ] Logo text "Newport Pembury & Co" rendered identically everywhere (including footer)
 - [ ] Tagline "Strategic Financial Leadership" matches exactly
@@ -217,6 +243,73 @@ Run this checklist after every multi-page build or before deployment. Inconsiste
 - var() fallback values that don't match canonical token values (e.g. `var(--color-error, #wrong-hex)`)
 - CSS custom property references in HTML meta attributes where they're invalid (e.g. `<meta name="theme-color" content="var(--x)">`)
 - Hero or content images with empty alt="" (only acceptable for truly decorative elements)
+
+- Generic "Get Started" on homepage service cards or services engagement cards (use intent-specific CTAs — see Page-Specific CTA Templates)
+- New HTML written with `style=` attributes instead of CSS classes (write the class FIRST, then reference it)
+- Hardcoded negative-value colors (`#ef4444`, `#E63946`) instead of `var(--color-error)` token
+- Engagement card pricing with inline `margin-bottom` instead of `.engagement-pricing` class
+
+## Inline Style Prevention Rule (R8 Lesson)
+
+**Problem**: Inline styles are reintroduced with every new feature. Post-build grep catches them but doesn't prevent them.
+
+**Rule**: When writing new HTML, ALWAYS check if a CSS class exists for the styling needed. If not, create the class in main.css FIRST, then reference it in HTML. The workflow is:
+
+1. Need styling → Check main.css for existing class
+2. Class exists → Use it
+3. Class doesn't exist → Create it in main.css → Use it
+4. NEVER write `style="..."` as a shortcut
+
+**Exception**: Truly dynamic values (e.g., JavaScript-computed positions, inline SVG attributes) may use inline styles with a code comment explaining why.
+
+## Cross-AI Review Methodology (R1–R8 Lessons)
+
+### Reviewer Personas & Calibration
+| AI | Persona | Scoring Tendency | Best For |
+|----|---------|------------------|----------|
+| Claude | Source Code Engineer | Strict (8.3–8.9 range) | Token compliance, semantic HTML, accessibility gaps, code governance |
+| ChatGPT | Creative Director | Moderate (6.3–8.9 range) | Conversion architecture, CTA clarity, trust signals, editorial framing |
+| Gemini | UX Engineer | Generous (8.1–10.0 range) | UX polish, micro-interactions, print/a11y edge cases, structured data |
+
+### Score Interpretation
+- **Consensus** = weighted: (Claude × 0.35) + (ChatGPT × 0.35) + (Gemini × 0.30)
+- Gemini 10.0 ≠ perfection — it means "no issues I can detect via browser visit"
+- ChatGPT scores are the hardest to move above 8.5 (most conversion-focused)
+- Claude subagent scores may be stricter than calibrated Claude scores (different context)
+
+### What Each AI Cannot See
+- **ChatGPT**: Cannot inspect `<script type="application/ld+json">` (schema.org). Schema fixes won't boost ChatGPT score.
+- **Gemini**: Tends to not penalise for missing features it hasn't seen before (no baseline expectation).
+- **Claude subagent**: May miscount DOM elements if reading source vs. rendered HTML differs (e.g., Coming Soon articles).
+
+### Diminishing Returns Curve
+| Score Range | Effort per 0.1 point | Fix Type |
+|-------------|----------------------|----------|
+| 7.0–8.0 | 1–2 hours | Structural (form reduction, CDN removal, CTA unification) |
+| 8.0–8.5 | 2–4 hours | Governance (inline styles, token compliance, cross-page consistency) |
+| 8.5–9.0 | 4–8 hours | Polish (accessibility, editorial framing, page-specific templates) |
+| 9.0+ | 8+ hours | Content (client logos, case studies, external validation, animations) |
+
+### Score Trajectory (Actuals, R1–R8)
+| Round | Claude | ChatGPT | Gemini | Consensus |
+|-------|--------|---------|--------|-----------|
+| R1 | 7.70 | 6.26 | 8.10 | 7.35 |
+| R2 | 7.96 | 7.42 | 9.20 | 8.19 |
+| R3 | 8.29 | 8.05 | 9.60 | 8.65 |
+| R4 | 8.48 | 8.44 | 9.70 | 8.87 |
+| R5 | 8.72 | 8.68 | 9.85 | 9.08 |
+| R6 | 8.77 | 8.76 | 9.93 | 9.15 |
+| R7 | 8.82 | 8.84 | 10.0 | 9.22 |
+| R8 | ~8.9 | 8.94 | 10.0 | ~9.3 |
+
+### Regression Check Protocol
+Every review round includes a regression table verifying previous fixes still hold. Template:
+```
+| Fix Description | Expected | Status |
+|-----------------|----------|--------|
+| [Specific testable assertion] | [PASS criteria] | PASS/FAIL |
+```
+Include ALL fixes from the previous round plus any critical fixes from earlier rounds. A FAIL on a regression is higher priority than a new issue.
 
 ---
 

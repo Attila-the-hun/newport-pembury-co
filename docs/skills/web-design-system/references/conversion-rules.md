@@ -37,6 +37,36 @@
 - Sticky desktop: Optional, avoid over-placement
 - **Context-appropriate suppression**: Legal pages (privacy, terms) must NOT show sticky/floating CTAs — add `body.no-sticky-cta` class and hide `.mobile-cta` with `display: none !important`. Sales pressure on legal pages erodes trust.
 
+### CTA Copy Governance (R8 — hardened after 8 rounds of drift)
+**Primary CTA**: "Get My Free Strategy Call" (exact — no variants)
+**Secondary CTA**: "Email Timothy Directly" (shared components only)
+**Prohibited variants** (grep for these — 0 results in CTA buttons):
+- "Get Started" (too generic — reintroduced in R2, R4, R6, R7)
+- "Strategy Session" / "Financial Diagnostic" / "Free Consultation"
+- "Schedule" / "Request" / "Submit" (passive voice)
+
+**Page-specific CTAs are permitted** but must follow rules:
+- Homepage service cards: 4 unique intent-specific verbs (see SKILL.md Page-Specific CTA Templates)
+- Services engagement cards: 3 unique model-specific verbs
+- Article lead magnets: 1 per article, content-specific (e.g., "Send Me the Checklist")
+- Article CTA banners: must use primary CTA ("Get My Free Strategy Call")
+- Newsletter: "Get the Briefing" (insights hub only)
+
+**Testing**: `grep -ri 'Get Started' *.html` in CTA buttons/links → must return 0 results
+
+### Trust Signal Maturity Ladder (R1–R8 lesson — self-asserted trust has a ceiling)
+All three AIs consistently flagged trust as "strong but self-asserted." To break through 9.0:
+
+| Level | Example | Score Impact |
+|-------|---------|-------------|
+| 1. Self-asserted | "20 years experience", "CA (Chartered Accountants ANZ)" | Gets to ~8.5 |
+| 2. Structured data | Schema.org hasCredential, ProfessionalService | +0.1 (invisible to ChatGPT) |
+| 3. Social proof text | Named testimonials with title + company | +0.2 |
+| 4. Verifiable external | Client logos, "Trusted by" bar, case study metrics | +0.3 (needed for 9.0+) |
+| 5. Third-party badges | Industry awards, certification logos with links | +0.2 |
+
+**Current state**: Level 2. To reach 9.0+, add Level 3-4 (client testimonials with names, "Trusted by" logo bar on services page).
+
 ### CTA Whitespace
 - 232% conversion increase with adequate whitespace
 - Minimum margin: 24px on sides, 16px top/bottom

@@ -49,6 +49,7 @@ Test with: WebAIM, Contrast Ratio, WCAG Color Contrast Analyzer
 - **Color Options**: use outline, box-shadow, or border
 - **Keyboard Only**: :focus-visible for keyboard focus (outline: 2px)
 - **Brand-matched**: Use `var(--color-focus)` token (gold for CFO brand). Browser default blue focus rings are a brand inconsistency — always override with a semantic token.
+- **Implementation**: `*:focus-visible { outline: 2px solid var(--color-action-primary); outline-offset: 2px; }` — remove default blue outline globally. Ensure 3:1 contrast against adjacent backgrounds in both light and dark modes.
 
 ### Keyboard Interactions
 - **Enter/Space**: activate buttons and links
@@ -186,9 +187,33 @@ Bad:
 <img src="chart.png" alt="Revenue increased 45% year-over-year">
 ```
 
-## Form Accessibility Checklist
+## Form Accessibility Checklist (R8 — hardened after 6 rounds of form label findings)
 
-- [ ] Every input has <label for="id"> associated
+### Label Strategy (R5–R8 lesson: sr-only labels are insufficient for ChatGPT scoring)
+Every form input MUST have a `<label for="id">` element. Two patterns are acceptable:
+
+**Pattern A — Visible label** (preferred for contact forms, settings):
+```html
+<label for="email">Email address <span class="required-indicator">*</span></label>
+<input type="email" id="email" name="email" required aria-required="true">
+```
+
+**Pattern B — Screen-reader-only label** (acceptable for newsletter inputs with visible placeholder):
+```html
+<label for="newsletter-email" class="sr-only">Email address</label>
+<input type="email" id="newsletter-email" name="email" placeholder="Your email address" required>
+```
+
+**PROHIBITED patterns**:
+- `aria-label` without `<label>` element (weaker association, flagged by Claude R8)
+- Placeholder-only without any label (WCAG violation)
+- `<label>` without matching `for` attribute
+
+**Testing**: For each `<input>` on the page, verify a `<label for="[matching-id]">` exists. Zero inputs without labels.
+
+### Full Checklist
+
+- [ ] Every input has `<label for="id">` associated (NOT just `aria-label`)
 - [ ] Label positioned before or beside input
 - [ ] Required fields marked with aria-required="true"
 - [ ] Input type="email" for email (mobile keyboard)
@@ -282,15 +307,64 @@ body {
 - Test contrast in both modes
 - Use CSS custom properties for easy switching
 
-## Touch Target Sizing
+## SVG Accessibility (R8 — inline SVG diagrams are NOT images)
+
+### The Problem
+Inline SVGs contain many child elements (`<path>`, `<rect>`, `<text>`, `<circle>`). Screen readers announce each child individually, creating noise instead of conveying the chart's meaning. `alt` attributes don't work on `<svg>` — they're only valid on `<img>`.
+
+### Pattern — Wrap with `<figure>`
+```html
+<!-- CORRECT: figure wrapper with role and aria-label -->
+<figure role="img" aria-label="Cash flow waterfall showing $450K revenue declining to $120K net after 5 expense categories">
+  <svg viewBox="0 0 800 400" aria-hidden="true">
+    <!-- SVG paths, rects, text elements -->
+  </svg>
+  <figcaption class="sr-only">Cash flow waterfall chart: Revenue $450K, COGS -$180K, Opex -$95K, Tax -$35K, Capex -$20K, Net $120K</figcaption>
+</figure>
+
+<!-- WRONG: bare SVG with no accessibility wrapper -->
+<svg viewBox="0 0 800 400">...</svg>
+
+<!-- WRONG: aria-label on SVG without role="img" on wrapper -->
+<svg aria-label="Cash flow chart" viewBox="0 0 800 400">...</svg>
+```
+
+### Rules
+- Every inline SVG data visualisation MUST be wrapped in `<figure role="img" aria-label="...">`
+- The `aria-label` should describe the chart type AND key insight (not just "chart")
+- Add `aria-hidden="true"` to the `<svg>` element itself to prevent child announcement
+- Include a `<figcaption class="sr-only">` with the data summary for screen readers
+- Decorative SVGs (icons, dividers): use `aria-hidden="true"` directly, no figure wrapper
+
+### Testing
+For each inline `<svg>` on the page: verify a `<figure role="img">` parent exists with a descriptive `aria-label`. Zero bare SVGs containing data content.
+
+## Touch Target Sizing (R8 — hardened with spacing rules)
 
 ### Minimum Sizes
-- **44x44px**: button, link, input, icon button
-- **48x48px**: recommended (Apple, Google standard)
+- **44x44px**: WCAG 2.2 AA minimum for all interactive elements
+- **48x48px**: recommended (Apple HIG, Material Design standard)
 - **50x50px**: ideal for forms on mobile
-- **Spacing**: 8-16px minimum between targets
+- **Spacing**: ≥8px minimum gap between adjacent touch targets (prevents misclicks)
 
-### Implementation
+### Footer-Specific Touch Targets (REF-024)
+Footer links on mobile (375px) are the most common spacing violation. Rules:
+- Each footer link: ≥48x48px touch area (use padding, not just font size)
+- Gap between adjacent footer links: ≥8px
+- Testing: on 375px viewport, all footer links tappable without misclick risk
+```css
+/* Footer mobile touch targets */
+@media (max-width: 768px) {
+  .footer-links a {
+    display: block;
+    min-height: 48px;
+    padding: 12px 0;
+    /* 12px top + 12px bottom + line-height = well above 48px */
+  }
+}
+```
+
+### General Implementation
 ```css
 button {
   min-width: 120px;

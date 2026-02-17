@@ -204,8 +204,8 @@
 ## Patterns Observed (Updated)
 
 ### Pattern P-001: Shared Components Drift Without Canonical Specs
-**Reflections**: REF-003, REF-004, REF-009, REF-011, REF-013, REF-018, REF-019, REF-021
-**Observation**: Header (REF-003), footer (REF-004), CTA banners (REF-009), CDN loading (REF-011), CTA copy (REF-013, REF-018), services page CTAs (REF-019), and lead magnet strategy (REF-021) all drifted independently. Pattern now extends beyond HTML structure to infrastructure, content, page-specific templates, and conversion strategy.
+**Reflections**: REF-003, REF-004, REF-009, REF-011, REF-013, REF-018, REF-019, REF-021, REF-025
+**Observation**: Header (REF-003), footer (REF-004), CTA banners (REF-009), CDN loading (REF-011), CTA copy (REF-013, REF-018), services page CTAs (REF-019, REF-025), and lead magnet strategy (REF-021) all drifted independently. R8 added service card CTAs (REF-025) — even after canonical rules existed, new page sections introduced without templates defaulted to generic copy.
 **Implication**: Before building any new shared component, write the canonical spec for structure, styling, AND copy. Apply changes site-wide in a single pass, not page-by-page. Page-specific templates (services, articles) also need canonical CTA rules.
 
 ### Pattern P-002: Rules Without Exact Values Get Ignored
@@ -214,9 +214,9 @@
 **Implication**: Every rule should include a testable assertion with a numeric threshold or exact string match, AND explicitly address edge cases.
 
 ### Pattern P-003: Missing Rules Are More Common Than Ignored Rules
-**Reflections**: REF-001, REF-002, REF-003, REF-004, REF-007, REF-013, REF-014, REF-015, REF-017, REF-019, REF-020, REF-021
-**Observation**: In 14 out of 24 reflections, the root cause was "missing rule" (58%). The skill system is expanding but gaps remain in: deployment procedures, page-specific templates (services), form state management, conversion strategy hierarchy, SVG accessibility, and font loading strategy.
-**Implication**: Prioritise coverage (more rules across more domains) over depth (more nuance in existing rules). New domains identified: deployment checklists, page-specific CTA templates, form state visibility, lead magnet hierarchy.
+**Reflections**: REF-001, REF-002, REF-003, REF-004, REF-007, REF-013, REF-014, REF-015, REF-017, REF-019, REF-020, REF-021, REF-025, REF-026
+**Observation**: In 16 out of 28 reflections, the root cause was "missing rule" (57%). R8 added two: page-specific CTA templates (REF-025) and inline style prevention gate (REF-026). The skill system is expanding but gaps remain in: deployment procedures, form state management, SVG accessibility, and font loading strategy. Many R8 fixes were adding missing skill rules rather than fixing code.
+**Implication**: Prioritise coverage (more rules across more domains) over depth (more nuance in existing rules). The skill system is nearing breadth completion for the current 8-page site.
 
 ### Pattern P-005: Tokens Without Consumers Are Dead Code
 **Reflections**: REF-010
@@ -315,10 +315,83 @@
 **Skill Update**: Add touch target spacing rule to accessibility.md.
 **Status**: Active — awaiting fix execution
 
+### REF-025 — 2026-02-17 — Major (R8)
+**Gap**: Homepage service cards and services engagement cards all used generic "Get Started →" CTA text. 4 homepage cards + 3 engagement cards = 7 identical generic CTAs competing for attention with no intent differentiation.
+**Root Cause**: Missing — no page-specific CTA template existed. SKILL.md CTA Copy Governance covered primary/secondary CTAs but not card-level CTAs within page sections.
+**Detection Method**: Cross-AI R8 review (Claude source code + ChatGPT browser both flagged independently).
+**Skill File**: SKILL.md (Page-Specific CTA Templates — new section)
+**Generalised Pattern**: CTA taxonomy drift is the #1 persistent defect across R1-R8 (flagged in R2, R4, R6, R7, R8). Generic verbs ("Get Started", "Learn More", "Submit") reintroduce themselves every 1-2 rounds because they're the path of least resistance. Prevention requires an explicit prohibited list AND page-specific alternatives.
+**Prevention Rule**: "Page-Specific CTA Templates added to SKILL.md with exact text for each card. Prohibited: 'Get Started' anywhere in CTA buttons (grep test: 0 results). Each service card maps to a specific intent verb."
+**Skill Update**: Added Page-Specific CTA Templates section to SKILL.md with 4 homepage service card CTAs, 3 services engagement card CTAs, and article CTA rules. Added "Get Started" to prohibited variants in conversion-rules.md CTA Copy Governance.
+**Status**: Resolved — all 7 generic CTAs replaced with intent-specific copy (R8 + R8b commits)
+
+### REF-026 — 2026-02-17 — Major (R8)
+**Gap**: 15+ inline `style=` attributes persisted across 7 pages despite REF-010's reduction effort (130 → 94). New inline styles were introduced during subsequent builds (newsletter sections, mobile CTA, proof object, engagement pricing).
+**Root Cause**: Missing — no pre-build gate existed to prevent NEW inline styles from being introduced. REF-010 reduced existing inline styles but didn't prevent new ones.
+**Detection Method**: Cross-AI R8 review (Claude source code inspection found hardcoded #ef4444, inline widths, inline backgrounds).
+**Skill File**: SKILL.md (Inline Style Prevention Rule — new section)
+**Generalised Pattern**: Inline styles are a hydra — fix 10, introduce 5 more in the next build. Removal is reactive; prevention requires a proactive workflow gate: "Before writing `style=`, check if a CSS class exists. If not, create one in main.css first."
+**Prevention Rule**: "Inline Style Prevention Rule: 4-step workflow added to SKILL.md. Check → Exists? → Use class. Doesn't exist? → Create class → Use class. Zero new inline styles permitted."
+**Skill Update**: Added Inline Style Prevention Rule to SKILL.md. Created 12+ utility classes in main.css (R8 commit).
+**Status**: Resolved — all identified inline styles replaced with CSS classes
+
+### REF-027 — 2026-02-17 — Minor (R8)
+**Gap**: ChatGPT R8 marked schema.org `hasCredential` as FAIL despite it being live and verified. Browser-based reviewers cannot inspect `<script type="application/ld+json">` content — they only see rendered DOM.
+**Root Cause**: Limitation of reviewer tool — ChatGPT reviews rendered pages, not source code. Schema.org in JSON-LD is invisible to browser rendering.
+**Detection Method**: Cross-AI R8 review (ChatGPT false negative, verified live via JavaScript).
+**Skill File**: SKILL.md (Cross-AI Review Methodology — new section)
+**Generalised Pattern**: Each AI reviewer has blind spots. ChatGPT can't see schema.org. Gemini doesn't penalise missing features (inflated scores). Claude subagent may miscount DOM elements. Documented in "What Each AI Cannot See" section.
+**Prevention Rule**: "Cross-AI Review Methodology: document what each AI can and cannot evaluate. Never treat a single AI's regression FAIL as definitive without manual verification."
+**Skill Update**: Added Cross-AI Review Methodology section to SKILL.md with reviewer personas, blind spots, and calibration rules.
+**Status**: Resolved — methodology documented, false negatives expected and handled
+
+### REF-028 — 2026-02-17 — Enhancement (R8)
+**Gap**: After 8 rounds of iterative improvement, ChatGPT score plateaued at 8.94/10. All three AIs consistently flag trust signals as "strong but self-asserted." The remaining 0.06 to 9.0 requires verifiable external proof (client logos, named testimonials, case study metrics) — a content problem, not a code problem.
+**Root Cause**: Missing — no trust signal maturity model existed. All trust elements are Level 1-2 (self-asserted credentials, structured data). Level 3-4 (social proof with names, verifiable external evidence) requires real client data.
+**Detection Method**: Pattern analysis across R1-R8 scores (diminishing returns curve).
+**Skill File**: references/conversion-rules.md (Trust Signal Maturity Ladder — new section)
+**Generalised Pattern**: Code-level optimisation has a ceiling (~8.9). Breaking through 9.0 requires content that code can't generate: real client names, real logos, real case study metrics. The Trust Signal Maturity Ladder maps 5 levels with score impact estimates.
+**Prevention Rule**: "Trust Signal Maturity Ladder: Level 1-2 (self-asserted) gets to ~8.5. Level 3 (named testimonials) +0.2. Level 4 (client logos, case studies) +0.3. Level 5 (third-party badges) +0.2. Current state: Level 2."
+**Skill Update**: Added Trust Signal Maturity Ladder to conversion-rules.md with 5 levels and score impact estimates.
+**Status**: Active — requires real client content (not a code fix)
+
+---
+
+## Patterns Observed (Updated — R8)
+
+### Pattern P-007: CTA Taxonomy Drift Is the #1 Persistent Defect
+**Reflections**: REF-013, REF-018, REF-019, REF-025
+**Observation**: Generic CTA text ("Get Started", "Learn More", "Submit") reintroduced itself in R2, R4, R6, R7, and R8 despite being fixed each time. Root cause: generic verbs are the path of least resistance. Prevention requires both a prohibited list AND pre-written alternatives for every CTA placement.
+**Implication**: The skill system must provide exact replacement text for every CTA position, not just rules about what NOT to write. "Don't use 'Get Started'" is insufficient without "'Use [exact alternative] instead'".
+
+### Pattern P-008: Code Optimisation Has a Ceiling (~8.9)
+**Reflections**: REF-028
+**Observation**: After 8 rounds of fixes across 3 AIs, scores converge around 8.9. The remaining gap to 9.0+ is consistently "trust is self-asserted" — a content/business problem requiring real client testimonials, logos, and case studies. No amount of HTML/CSS/JS improvement bridges this gap.
+**Implication**: Declare code-level optimisation substantially complete at 8.9. Next improvement phase is content: onboard first client, collect testimonial, add logo bar. Document this transition in CLAUDE.md.
+
 ---
 
 ## Resolved Archive
 
-(Move resolved reflections here after 6 months with no repeat defects)
+(Move resolved reflections here after confirmed 0 repeat defects across 2+ review rounds)
 
-*Empty — system just launched*
+### Archived — REF-002 (Dark Mode Tokens)
+Resolved R3 — dark mode tokens comprehensive, binary toggle implemented, 0 repeat defects through R8.
+
+### Archived — REF-003 (Navbar Drift)
+Resolved R4 — navbar standardised across all 8 pages, 0 repeat defects through R8.
+
+### Archived — REF-004 (Footer Drift)
+Resolved R4 — footer standardised across all 8 pages with canonical HTML pattern, 0 repeat defects through R8.
+
+### Archived — REF-006 (Hero Image Alt Text)
+Resolved R5 — hero image has descriptive alt text, 0 repeat defects through R8.
+
+### Archived — REF-007 (Div Role Button)
+Resolved R5 — FAQ accordion uses native `<button>` elements, 0 repeat defects through R8.
+
+### Archived — REF-008 (Token Fallback HEX)
+Resolved R6 — all var() fallbacks match canonical primitives, meta tags use documented HEX, 0 repeat defects through R8.
+
+### Archived — REF-009 (CTA Banner Pattern)
+Resolved R6 — canonical CTA banner HTML template documented and applied, 0 repeat defects through R8.
