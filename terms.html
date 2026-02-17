@@ -51,6 +51,48 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/theme-toggle.css">
 
+    <style>
+        .legal-toc {
+            background: var(--color-surface-secondary, #f8f5ef);
+            border: 1px solid var(--color-border, #e0ddd5);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+        .legal-toc-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-text-primary, #1B2838);
+        }
+        .legal-toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            columns: 2;
+            column-gap: 2rem;
+        }
+        .legal-toc-list li {
+            padding: 0.25rem 0;
+            break-inside: avoid;
+        }
+        .legal-toc-list li a {
+            color: var(--color-text-secondary, #4a5568);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .legal-toc-list li a:hover {
+            color: var(--color-primary, #C5A55A);
+        }
+        @media (max-width: 600px) {
+            .legal-toc-list {
+                columns: 1;
+            }
+        }
+    </style>
+
     <script src="assets/js/theme-toggle.js"></script>
 </head>
 <body class="no-sticky-cta">
@@ -109,8 +151,27 @@
         <!-- Policy Content -->
         <section class="policy-content">
             <div class="policy-container">
+                <nav class="legal-toc" aria-label="Table of Contents">
+                    <p class="legal-toc-title">Contents</p>
+                    <ol class="legal-toc-list">
+                        <li><a href="#services-description">1. Services Description</a></li>
+                        <li><a href="#engagement-terms">2. Engagement Terms</a></li>
+                        <li><a href="#confidentiality">3. Confidentiality</a></li>
+                        <li><a href="#limitation-of-liability">4. Limitation of Liability</a></li>
+                        <li><a href="#indemnification">5. Indemnification</a></li>
+                        <li><a href="#intellectual-property">6. Intellectual Property</a></li>
+                        <li><a href="#dispute-resolution">7. Dispute Resolution</a></li>
+                        <li><a href="#governing-law-jurisdiction">8. Governing Law and Jurisdiction</a></li>
+                        <li><a href="#limitation-engagement-scope">9. Limitation of Engagement Scope</a></li>
+                        <li><a href="#force-majeure">10. Force Majeure</a></li>
+                        <li><a href="#termination">11. Termination</a></li>
+                        <li><a href="#changes-to-terms">12. Changes to These Terms</a></li>
+                        <li><a href="#contact">13. Contact</a></li>
+                    </ol>
+                </nav>
+
                 <div class="policy-section">
-                    <h2>1. Services Description</h2>
+                    <h2 id="services-description">1. Services Description</h2>
                     <p>Newport Pembury & Co provides fractional CFO advisory and M&A advisory services to companies in the $5M–$50M revenue range. Our services include, but are not limited to:</p>
                     <ul>
                         <li>Fractional CFO partnerships and strategic financial leadership</li>
@@ -123,7 +184,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>2. Engagement Terms</h2>
+                    <h2 id="engagement-terms">2. Engagement Terms</h2>
                     <p>All advisory services are provided subject to the execution of a written engagement agreement between Newport Pembury & Co and the Client. Services commence upon written agreement and mutual consent. Engagement terms shall include:</p>
                     <ul>
                         <li>Scope of services and deliverables</li>
@@ -137,7 +198,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>3. Confidentiality</h2>
+                    <h2 id="confidentiality">3. Confidentiality</h2>
                     <p>Newport Pembury & Co acknowledges that during the course of providing services, we will have access to confidential, proprietary, and sensitive client information. We commit to:</p>
                     <ul>
                         <li>Treat all client information as strictly confidential</li>
@@ -150,7 +211,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>4. Limitation of Liability</h2>
+                    <h2 id="limitation-of-liability">4. Limitation of Liability</h2>
                     <p>Newport Pembury & Co provides advisory services based on information available at the time of engagement and our professional judgment. Our services are advisory in nature and do not constitute a guarantee of specific business outcomes or financial results.</p>
                     <p>To the maximum extent permitted by law:</p>
                     <ul>
@@ -162,7 +223,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>5. Indemnification</h2>
+                    <h2 id="indemnification">5. Indemnification</h2>
                     <p>The Client agrees to indemnify and hold harmless Newport Pembury & Co, its directors, employees, and contractors from any claims, damages, losses, or expenses (including reasonable legal fees) arising from:</p>
                     <ul>
                         <li>The Client's use of our advisory services or work product</li>
@@ -173,7 +234,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>6. Intellectual Property</h2>
+                    <h2 id="intellectual-property">6. Intellectual Property</h2>
                     <p>All work product, reports, analyses, frameworks, and recommendations delivered by Newport Pembury & Co during the engagement remain our intellectual property unless otherwise specified in the engagement agreement. However:</p>
                     <ul>
                         <li>The client may use our work product for internal business purposes during and after the engagement</li>
@@ -184,7 +245,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>7. Dispute Resolution</h2>
+                    <h2 id="dispute-resolution">7. Dispute Resolution</h2>
                     <p>In the event of a dispute arising from or in connection with these Terms or any engagement, the parties agree to the following process before commencing court proceedings:</p>
                     <ul>
                         <li><strong>Negotiation:</strong> The parties will first attempt to resolve the dispute through good-faith negotiation within 14 days of written notice of the dispute.</li>
@@ -195,13 +256,13 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>8. Governing Law and Jurisdiction</h2>
+                    <h2 id="governing-law-jurisdiction">8. Governing Law and Jurisdiction</h2>
                     <p>These Terms of Service and all engagements with Newport Pembury & Co are governed by and construed in accordance with the laws of New South Wales, Australia, without regard to its conflict of law provisions.</p>
                     <p>Both parties submit to the exclusive jurisdiction of the courts of New South Wales for the resolution of any disputes arising from these Terms or our engagement. This choice of law and jurisdiction does not limit any rights the client may have under the Australian Consumer Law or other applicable consumer protection legislation.</p>
                 </div>
 
                 <div class="policy-section">
-                    <h2>9. Limitation of Engagement Scope</h2>
+                    <h2 id="limitation-engagement-scope">9. Limitation of Engagement Scope</h2>
                     <p>Unless expressly agreed in writing, Newport Pembury & Co does not provide:</p>
                     <ul>
                         <li>Accounting or tax preparation services (we recommend engaging your accountant or tax advisor)</li>
@@ -213,12 +274,12 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>10. Force Majeure</h2>
+                    <h2 id="force-majeure">10. Force Majeure</h2>
                     <p>Neither party shall be liable for any delay or failure to perform its obligations under these Terms or any engagement agreement where such delay or failure arises from circumstances beyond that party's reasonable control, including but not limited to: natural disasters, pandemics, government actions, power failures, internet outages, or industrial disputes. The affected party must promptly notify the other party and use reasonable efforts to mitigate the impact.</p>
                 </div>
 
                 <div class="policy-section">
-                    <h2>11. Termination</h2>
+                    <h2 id="termination">11. Termination</h2>
                     <p>Either party may terminate an engagement by providing written notice as specified in the engagement agreement. Upon termination:</p>
                     <ul>
                         <li>The client remains obligated to pay fees for all services rendered through the termination date</li>
@@ -228,12 +289,12 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>12. Changes to These Terms</h2>
+                    <h2 id="changes-to-terms">12. Changes to These Terms</h2>
                     <p>Newport Pembury & Co reserves the right to update these Terms of Service from time to time. We will provide at least 30 days' notice of material changes by email to clients with active engagements. For non-material changes, updated Terms will be posted to this page with a revised "Last updated" date. Continued engagement following such changes constitutes acceptance of the updated Terms. We encourage clients to review these Terms periodically.</p>
                 </div>
 
                 <div class="policy-section">
-                    <h2>13. Contact</h2>
+                    <h2 id="contact">13. Contact</h2>
                     <p>If you have any questions about these Terms of Service or wish to discuss your engagement, please contact us:</p>
                     <p><strong>Email:</strong> hello@newportpembury.com.au<br>
                     <strong>Address:</strong> Sydney, Australia</p>

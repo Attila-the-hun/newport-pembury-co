@@ -2865,6 +2865,27 @@ footer > section {
   opacity: 0.7;
 }
 
+.form-trust-strip {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.form-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.form-trust-item svg {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
 .form-note {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);

@@ -52,6 +52,48 @@
     <link rel="stylesheet" href="assets/css/theme-toggle.css">
 
     <script src="assets/js/theme-toggle.js"></script>
+
+    <style>
+        .legal-toc {
+            background: var(--color-surface-secondary, #f8f5ef);
+            border: 1px solid var(--color-border, #e0ddd5);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+        .legal-toc-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-text-primary, #1B2838);
+        }
+        .legal-toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            columns: 2;
+            column-gap: 2rem;
+        }
+        .legal-toc-list li {
+            padding: 0.25rem 0;
+            break-inside: avoid;
+        }
+        .legal-toc-list li a {
+            color: var(--color-text-secondary, #4a5568);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .legal-toc-list li a:hover {
+            color: var(--color-primary, #C5A55A);
+        }
+        @media (max-width: 600px) {
+            .legal-toc-list {
+                columns: 1;
+            }
+        }
+    </style>
 </head>
 <body class="no-sticky-cta">
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -109,15 +151,33 @@
         <!-- Policy Content -->
         <section class="policy-content">
             <div class="policy-container">
+                <nav class="legal-toc" aria-label="Table of Contents">
+                    <p class="legal-toc-title">Contents</p>
+                    <ol class="legal-toc-list">
+                        <li><a href="#about-us">About Us</a></li>
+                        <li><a href="#information-we-collect">Information We Collect</a></li>
+                        <li><a href="#how-we-use-your-information">How We Use Your Information</a></li>
+                        <li><a href="#third-party-services">Third-Party Services and Overseas Disclosure</a></li>
+                        <li><a href="#data-security">Data Security</a></li>
+                        <li><a href="#data-retention">Data Retention</a></li>
+                        <li><a href="#your-rights">Your Rights</a></li>
+                        <li><a href="#complaints">Complaints</a></li>
+                        <li><a href="#cookies-tracking">Cookies and Tracking</a></li>
+                        <li><a href="#notifiable-data-breaches">Notifiable Data Breaches</a></li>
+                        <li><a href="#contact-us">Contact Us</a></li>
+                        <li><a href="#updates-to-this-policy">Updates to This Policy</a></li>
+                    </ol>
+                </nav>
+
                 <div class="policy-section">
-                    <h2>About Us</h2>
+                    <h2 id="about-us">About Us</h2>
                     <p>Newport Pembury & Co is the entity responsible for collecting and handling your personal information. You can contact us about privacy matters at:</p>
                     <p><strong>Email:</strong> hello@newportpembury.com.au<br>
                     <strong>Address:</strong> Sydney, NSW, Australia</p>
                 </div>
 
                 <div class="policy-section">
-                    <h2>Information We Collect</h2>
+                    <h2 id="information-we-collect">Information We Collect</h2>
                     <p>We only collect personal information that is reasonably necessary for our functions and activities, as required by Australian Privacy Principle 3. We do not collect sensitive information (such as health, racial, or political information). Specifically, we collect:</p>
                     <ul>
                         <li><strong>Business Email Addresses:</strong> When you subscribe to our newsletter, we collect your business email address to send you periodic insights and updates related to fractional CFO services, financial strategy, and business growth.</li>
@@ -129,7 +189,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>How We Use Your Information</h2>
+                    <h2 id="how-we-use-your-information">How We Use Your Information</h2>
                     <p>We use the personal information we collect for the following purposes:</p>
                     <ul>
                         <li><strong>Responding to Enquiries:</strong> Your contact form data is used to respond to your inquiry, discuss your financial situation, and explore how our fractional CFO advisory services might support your business.</li>
@@ -142,7 +202,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>Third-Party Services and Overseas Disclosure</h2>
+                    <h2 id="third-party-services">Third-Party Services and Overseas Disclosure</h2>
                     <p>We use the following third-party services to operate our website and deliver our services:</p>
                     <ul>
                         <li><strong>Formspree (United States):</strong> We use Formspree to process contact form submissions. Your form data is transmitted to and processed by Formspree's servers in the United States. Formspree is bound by their privacy obligations and processes data securely. For details, review their privacy policy at formspree.io.</li>
@@ -154,7 +214,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>Data Security</h2>
+                    <h2 id="data-security">Data Security</h2>
                     <p>In accordance with Australian Privacy Principle 11, we take reasonable steps to protect your personal information from misuse, interference, loss, and unauthorised access, modification, or disclosure. Our security measures include:</p>
                     <ul>
                         <li>Secure server infrastructure with TLS encryption in transit</li>
@@ -166,7 +226,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>Data Retention</h2>
+                    <h2 id="data-retention">Data Retention</h2>
                     <p>We retain your personal information only for as long as reasonably necessary to fulfil the purposes for which it was collected, or as required by law. Specifically:</p>
                     <ul>
                         <li><strong>Contact form submissions:</strong> Retained for the duration of any resulting engagement, plus 12 months after the enquiry is resolved or the engagement concludes.</li>
@@ -177,7 +237,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>Your Rights</h2>
+                    <h2 id="your-rights">Your Rights</h2>
                     <p>Under the Australian Privacy Act 1988, you have the following rights:</p>
                     <ul>
                         <li><strong>Access (APP 12):</strong> You can request access to the personal information we hold about you. We will respond to access requests within 30 days.</li>
@@ -190,7 +250,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>Complaints</h2>
+                    <h2 id="complaints">Complaints</h2>
                     <p>If you believe we have breached the Australian Privacy Principles or you are unsatisfied with how we have handled your personal information, you can lodge a complaint with us by emailing hello@newportpembury.com.au. We will acknowledge your complaint within 5 business days and aim to resolve it within 30 days.</p>
                     <p>If you are not satisfied with our response, you have the right to lodge a complaint with the Office of the Australian Information Commissioner (OAIC):</p>
                     <p><strong>Website:</strong> <a href="https://www.oaic.gov.au" target="_blank" rel="noopener noreferrer">www.oaic.gov.au</a><br>
@@ -199,7 +259,7 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>Cookies and Tracking</h2>
+                    <h2 id="cookies-tracking">Cookies and Tracking</h2>
                     <p>Our website uses minimal cookies. We do not use cookies for advertising or behavioural tracking purposes. Our website may use:</p>
                     <ul>
                         <li><strong>Essential cookies:</strong> Required for core website functionality (session management, security).</li>
@@ -209,19 +269,19 @@
                 </div>
 
                 <div class="policy-section">
-                    <h2>Notifiable Data Breaches</h2>
+                    <h2 id="notifiable-data-breaches">Notifiable Data Breaches</h2>
                     <p>In the event of an eligible data breach that is likely to result in serious harm, we will comply with the Notifiable Data Breaches (NDB) scheme under Part IIIC of the Privacy Act 1988. This includes notifying the OAIC and affected individuals as soon as practicable.</p>
                 </div>
 
                 <div class="policy-section">
-                    <h2>Contact Us</h2>
+                    <h2 id="contact-us">Contact Us</h2>
                     <p>If you have any questions about this Privacy Policy, concerns about how we handle your information, or wish to exercise your privacy rights, please contact us:</p>
                     <p><strong>Email:</strong> hello@newportpembury.com.au<br>
                     <strong>Address:</strong> Sydney, NSW, Australia</p>
                 </div>
 
                 <div class="policy-section">
-                    <h2>Updates to This Policy</h2>
+                    <h2 id="updates-to-this-policy">Updates to This Policy</h2>
                     <p>We may update this Privacy Policy from time to time to reflect changes in our practices or applicable laws. We encourage you to review this policy periodically. Significant changes will be communicated via email or a prominent notice on our website.</p>
                 </div>
 
