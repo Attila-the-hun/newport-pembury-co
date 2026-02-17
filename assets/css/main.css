@@ -5531,4 +5531,165 @@ body.mobile-cta-visible {
   :root:not([data-theme="light"]) .mobile-cta {
     background: linear-gradient(to top, var(--primitive-charcoal) 0%, rgba(27, 40, 56, 0.95) 100%);
   }
+
+  :root:not([data-theme="light"]) .legal-toc {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  :root:not([data-theme="light"]) .legal-toc-title {
+    color: var(--color-text-inverse);
+  }
+
+  :root:not([data-theme="light"]) .legal-toc-list li a {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  :root:not([data-theme="light"]) .legal-toc-list li a:hover {
+    color: var(--color-action-primary);
+  }
+}
+
+/* ==========================================================================
+   LEGAL TABLE OF CONTENTS (shared: Terms + Privacy)
+   ========================================================================== */
+
+.legal-toc {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-strong);
+  border-left: 3px solid var(--color-action-primary);
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.legal-toc-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary);
+}
+
+.legal-toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  columns: 2;
+  column-gap: 2rem;
+}
+
+.legal-toc-list li {
+  padding: 0.35rem 0;
+  break-inside: avoid;
+}
+
+.legal-toc-list li a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  transition: color 0.2s ease;
+}
+
+.legal-toc-list li a:hover {
+  color: var(--color-action-primary);
+}
+
+@media (max-width: 600px) {
+  .legal-toc-list {
+    columns: 1;
+  }
+}
+
+/* ==========================================================================
+   NEWSLETTER FOCUS-VISIBLE OVERRIDE
+   ========================================================================== */
+
+.newsletter-input:focus-visible,
+.newsletter-btn:focus-visible,
+.newsletter-form input[type="email"]:focus-visible,
+.newsletter-form button[type="submit"]:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   EXTERNAL LINK INDICATOR
+   ========================================================================== */
+
+a[target="_blank"]::after {
+  content: " \2197";
+  font-size: 0.75em;
+  vertical-align: super;
+  opacity: 0.6;
+  margin-left: 2px;
+}
+
+/* Don't show on social icons, nav elements, or image links */
+.social-icon[target="_blank"]::after,
+.social-icons a[target="_blank"]::after,
+nav a[target="_blank"]::after,
+a[target="_blank"]:has(> img)::after,
+a[target="_blank"]:has(> svg)::after {
+  content: none;
+}
+
+/* ==========================================================================
+   PRINT STYLESHEET
+   ========================================================================== */
+
+@media print {
+  /* Hide non-essential elements */
+  nav, .mobile-cta, .back-to-top, .noise-overlay,
+  .theme-toggle-btn, .skip-link, .hamburger,
+  footer, .cta-banner, .social-icons, .breadcrumb-nav {
+    display: none !important;
+  }
+
+  /* Reset backgrounds */
+  body, .policy-hero, .policy-content, .hero-section {
+    background: white !important;
+    color: black !important;
+  }
+
+  .policy-hero h1, .policy-hero p {
+    color: black !important;
+  }
+
+  .policy-hero {
+    padding: 1rem 0 !important;
+  }
+
+  .policy-section h2 {
+    border-bottom-color: #C5A55A !important;
+    color: black !important;
+    page-break-after: avoid;
+  }
+
+  .policy-section {
+    page-break-inside: avoid;
+  }
+
+  .policy-section p, .policy-section li {
+    color: #333 !important;
+  }
+
+  .legal-toc {
+    background: #f5f5f5 !important;
+    border-color: #ccc !important;
+    border-left-color: #C5A55A !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  /* Don't print URL for anchor links */
+  a[href^="#"]::after,
+  a[href^="mailto:"]::after,
+  a[href^="tel:"]::after {
+    content: none;
+  }
 }
