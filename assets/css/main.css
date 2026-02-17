@@ -2810,6 +2810,7 @@ footer > section {
 /* Engagement section */
 .engagement-section {
   background: var(--color-bg-inverse);
+  color: var(--color-text-inverse);
   padding: var(--space-3xl) 0;
   width: 100vw;
   position: relative;
@@ -2817,6 +2818,48 @@ footer > section {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+}
+
+.engagement-section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--color-text-inverse);
+}
+
+.engagement-section .section-intro-label {
+  color: var(--color-action-primary);
+}
+
+.engagement-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: var(--space-xs);
+}
+
+.engagement-secondary {
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.engagement-body {
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.engagement-recommended-badge {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-action-primary);
+  margin-bottom: var(--space-sm);
 }
 
 .engagement-grid {
