@@ -467,7 +467,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -475,7 +475,7 @@ body {
   font-weight: 400;
   color: var(--color-text-primary);
   background: var(--color-bg-primary);
-  overflow-x: hidden;
+  overflow-x: clip;
   text-wrap: pretty;
   line-height: 1.6;
 }
@@ -697,6 +697,11 @@ nav.scrolled {
   align-items: center;
 }
 
+/* Hide mobile-only CTA on desktop */
+.nav-cta-mobile {
+  display: none;
+}
+
 .nav-links a {
   color: var(--color-text-primary);
   font-size: var(--font-size-nav);
@@ -798,7 +803,7 @@ nav.scrolled {
   .nav-actions {
     display: flex;
     align-items: center;
-    gap: var(--space-2xs);
+    gap: var(--space-xs);
     margin-left: auto;
   }
 
@@ -852,6 +857,33 @@ nav.scrolled {
   .nav-cta,
   .btn.nav-cta {
     display: none;
+  }
+
+  /* Mobile-only CTA inside dropdown */
+  .nav-cta-mobile {
+    display: list-item !important;
+    padding: var(--space-xs) var(--space-lg) var(--space-sm);
+  }
+
+  .nav-cta-mobile a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--color-action-primary);
+    color: var(--primitive-dark);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-lg);
+    text-decoration: none;
+  }
+
+  /* Dropdown top separator */
+  .nav-links.active {
+    border-top: 1px solid var(--color-border-strong);
   }
 }
 
