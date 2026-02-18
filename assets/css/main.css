@@ -810,8 +810,13 @@ li.nav-cta-mobile {
   }
 
   .nav-logo {
-    letter-spacing: 0.01em;
-    font-size: var(--font-size-base);
+    letter-spacing: 0.02em;
+    font-size: var(--font-size-lg);
+    word-spacing: 0.08em;
+  }
+
+  .nav-logo .gold-amp {
+    padding: 0 0.15em;
   }
 
   .nav-actions {
