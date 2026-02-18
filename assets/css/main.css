@@ -737,7 +737,9 @@ nav.scrolled {
 
 .nav-cta {
   display: inline-flex;
+  align-items: center;
   margin-left: auto;
+  min-height: 44px;
 }
 
 /* Hamburger menu */
@@ -941,6 +943,7 @@ nav.scrolled {
   padding: var(--space-xs) var(--space-lg);
   font-size: var(--font-size-sm);
   border-radius: var(--radius-sm);
+  min-height: 44px;
 }
 
 /* ==========================================================================
