@@ -811,7 +811,7 @@ li.nav-cta-mobile {
 
   .nav-logo {
     letter-spacing: 0.02em;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
     word-spacing: 0.08em;
   }
 
