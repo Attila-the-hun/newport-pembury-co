@@ -2625,6 +2625,10 @@ footer > section {
     grid-template-columns: 1fr;
     gap: var(--space-xl);
   }
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
 }
 
 /* ==========================================================================
@@ -4979,6 +4983,16 @@ footer > section {
   color: rgba(255, 255, 255, 0.4);
   font-family: 'DM Sans', sans-serif;
   margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .mid-cta-preview-kpis {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-xs);
+  }
+  .mid-cta-kpi-label {
+    font-size: 8px;
+  }
 }
 
 @media (max-width: 480px) {
