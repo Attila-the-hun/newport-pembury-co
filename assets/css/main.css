@@ -704,8 +704,8 @@ nav.scrolled {
   align-items: center;
 }
 
-/* Hide mobile-only CTA on desktop */
-.nav-cta-mobile {
+/* Hide mobile-only CTA on desktop — li prefix matches .nav-links li specificity (0,1,1) */
+li.nav-cta-mobile {
   display: none;
 }
 
