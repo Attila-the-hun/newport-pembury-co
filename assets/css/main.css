@@ -6308,19 +6308,23 @@ a[target="_blank"]:has(> svg)::after {
   .trust-section { order: 7; }
   .cta-banner { order: 8; }
 
-  /* HERO — lighter overlay, left-aligned body, tighter height */
+  /* HERO — visible image, tight top, left-aligned */
   .hero {
     min-height: auto;
-    padding: var(--space-3xl) var(--space-md) var(--space-xl);
+    padding: var(--space-lg) var(--space-md) var(--space-xl);
   }
 
   .hero::before {
     background: linear-gradient(
       180deg,
-      rgba(15, 25, 35, 0.6) 0%,
-      rgba(15, 25, 35, 0.75) 50%,
-      rgba(15, 25, 35, 0.85) 100%
+      rgba(15, 25, 35, 0.35) 0%,
+      rgba(15, 25, 35, 0.5) 50%,
+      rgba(15, 25, 35, 0.7) 100%
     );
+  }
+
+  .hero-bg-img {
+    object-position: center 60%;
   }
 
   .hero-inner {
