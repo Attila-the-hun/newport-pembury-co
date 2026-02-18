@@ -6580,11 +6580,15 @@ a[target="_blank"]:has(> svg)::after {
   }
 
   .footer-links {
-    gap: var(--space-2xs);
+    gap: 0;
   }
 
   .footer-links a {
-    min-height: 40px;
+    min-height: 36px;
+  }
+
+  .footer-links nav ul li a {
+    padding: var(--space-3xs, 2px) 0;
   }
 
   .footer-links h4 {
