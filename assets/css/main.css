@@ -591,7 +591,9 @@ a:focus-visible {
 
 /* Hero anchor link — clearly subordinate to primary CTA */
 .hero-anchor-link {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   margin-top: 1rem;
   color: var(--color-text-tertiary);
   text-decoration: none;
@@ -743,6 +745,8 @@ nav.scrolled {
   align-items: center;
   width: 44px;
   height: 44px;
+  min-width: 44px;
+  flex-shrink: 0;
   cursor: pointer;
   background: none;
   border: none;
@@ -818,7 +822,8 @@ nav.scrolled {
     opacity: 1;
   }
 
-  .nav-cta {
+  .nav-cta,
+  .btn.nav-cta {
     display: none;
   }
 }
