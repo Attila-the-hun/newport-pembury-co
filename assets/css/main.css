@@ -803,8 +803,9 @@ nav.scrolled {
     height: 56px;
   }
 
-  nav > div {
+  #navbar > div {
     padding: var(--space-sm) 0;
+    position: static; /* Dropdown anchors to <nav> (sticky = containing block), not this div */
   }
 
   .nav-actions {
