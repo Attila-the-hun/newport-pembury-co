@@ -1404,7 +1404,12 @@ li.nav-cta-mobile {
     margin: 0 auto;
   }
 
-  .director-content p {
+  .director-label,
+  .director-role {
+    text-align: center;
+  }
+
+  .director-content p:not(.director-label):not(.director-role) {
     margin-left: auto;
     margin-right: auto;
     text-align: left;
@@ -5766,8 +5771,35 @@ body.mobile-cta-visible {
   }
 
   .proof-object-kpi-value {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
     word-break: break-word;
+  }
+
+  .proof-object-preview {
+    padding: var(--space-md);
+  }
+
+  .proof-object-kpi-row {
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .proof-object-kpi-label {
+    font-size: 10px;
+  }
+
+  .proof-object-features {
+    gap: var(--space-2xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .proof-object-features span {
+    font-size: 11px;
+    padding: var(--space-3xs, 2px) var(--space-xs);
+  }
+
+  .proof-object-client-label {
+    font-size: var(--font-size-sm);
   }
 }
 
@@ -6475,9 +6507,9 @@ a[target="_blank"]:has(> svg)::after {
     padding: var(--space-lg);
   }
 
-  /* LEAD CAPTURE — tighter spacing */
+  /* LEAD CAPTURE — tighter spacing, balanced padding */
   .lead-capture {
-    padding: var(--space-xl) var(--space-md);
+    padding: var(--space-lg) var(--space-md);
   }
 
   .lead-capture h2 {
@@ -6493,7 +6525,7 @@ a[target="_blank"]:has(> svg)::after {
   }
 
   .lead-form-note {
-    margin-top: var(--space-md);
+    margin-top: var(--space-lg);
   }
 
   /* TRUST BADGES — tighter, horizontal scroll */
@@ -6536,7 +6568,7 @@ a[target="_blank"]:has(> svg)::after {
 
   footer > section {
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
+    gap: var(--space-md);
   }
 
   .footer-brand {
@@ -6552,7 +6584,7 @@ a[target="_blank"]:has(> svg)::after {
   }
 
   .footer-links a {
-    min-height: 44px;
+    min-height: 40px;
   }
 
   .footer-links h4 {
