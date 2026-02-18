@@ -559,6 +559,9 @@ img {
   left: 16px;
   z-index: 9999;
   padding: var(--space-xs) var(--space-lg);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   background: var(--color-action-primary);
   color: var(--color-bg-inverse);
   font-weight: 700;
@@ -1193,6 +1196,7 @@ nav.scrolled {
   font-weight: 600;
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: var(--space-2xs);
   transition: color var(--duration-normal) var(--ease-smooth), gap var(--duration-normal) var(--ease-smooth);
 }
@@ -1552,6 +1556,9 @@ footer > section {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   transition: color var(--duration-normal) var(--ease-smooth);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .footer-links a:hover {
@@ -1650,6 +1657,9 @@ footer > section {
   color: var(--color-text-secondary);
   text-decoration: none;
   transition: color var(--duration-normal) var(--ease-smooth);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .footer-bottom a:hover {
@@ -3857,6 +3867,7 @@ footer > section {
 
 .newsletter-form input[type="email"] {
   padding: var(--space-sm) var(--space-md);
+  min-height: 44px;
   border: 2px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.08);
@@ -3881,6 +3892,7 @@ footer > section {
 
 .newsletter-form button[type="submit"] {
   padding: var(--space-xs) var(--space-lg);
+  min-height: 44px;
   background: var(--color-action-primary);
   color: var(--color-bg-inverse);
   border: none;
@@ -5586,6 +5598,20 @@ body.mobile-cta-visible {
     min-width: 0;
     max-width: 100%;
     overflow: hidden;
+  }
+
+  .proof-object-kpi-row {
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .proof-object-kpi {
+    min-width: 0;
+  }
+
+  .proof-object-kpi-value {
+    font-size: var(--font-size-lg);
+    word-break: break-word;
   }
 }
 
