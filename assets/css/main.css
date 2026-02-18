@@ -4182,6 +4182,9 @@ footer > section {
   color: var(--color-text-tertiary);
   text-decoration: none;
   transition: color 0.2s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .article-breadcrumbs a:hover {
@@ -4222,6 +4225,9 @@ footer > section {
   display: flex;
   align-items: center;
   gap: var(--space-lg);
+  overflow: hidden;
+  max-width: 100%;
+  flex-wrap: wrap;
 }
 
 .social-proof-logo {
@@ -5063,6 +5069,9 @@ footer > section {
   color: var(--color-action-text);
   text-decoration: none;
   transition: color 0.2s var(--ease-smooth);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .author-details a:hover {
@@ -5404,7 +5413,9 @@ body.mobile-cta-visible {
 }
 
 .mobile-toc nav a {
-  display: block;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
   padding: var(--space-xs) 0;
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
