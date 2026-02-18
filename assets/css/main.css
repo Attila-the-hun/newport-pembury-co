@@ -467,6 +467,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -661,6 +662,9 @@ nav.scrolled {
   font-family: 'Cormorant Garamond', serif;
   font-size: var(--font-size-md);
   font-weight: 700;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
   color: var(--color-text-primary);
   letter-spacing: var(--letter-spacing-tight);
   white-space: nowrap;
@@ -1657,8 +1661,8 @@ footer > section {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-sm);
   background: rgba(197, 165, 90, 0.1);
   color: var(--color-action-text);
@@ -4158,6 +4162,8 @@ footer > section {
   padding: var(--space-lg) var(--space-xl);
   opacity: 0.4;
   transition: opacity 0.3s ease;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .social-proof-strip:hover {
@@ -5568,6 +5574,13 @@ body.mobile-cta-visible {
   .proof-object-card {
     grid-template-columns: 1fr;
     gap: var(--space-xl);
+  }
+
+  .proof-object-content,
+  .proof-object-preview {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
   }
 }
 

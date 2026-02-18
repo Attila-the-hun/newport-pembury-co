@@ -5,8 +5,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border-radius: 9999px;
   border: none;
   background: transparent;
@@ -68,8 +68,8 @@ html[data-theme="dark"] .theme-toggle-btn:hover {
 /* Mobile responsive */
 @media (max-width: 768px) {
   .theme-toggle-btn {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     margin: 12px auto 4px;
     opacity: 0.6;
   }
