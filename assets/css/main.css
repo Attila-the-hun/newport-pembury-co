@@ -6509,7 +6509,7 @@ a[target="_blank"]:has(> svg)::after {
 
   /* LEAD CAPTURE — tighter spacing, balanced padding */
   .lead-capture {
-    padding: var(--space-lg) var(--space-md);
+    padding: var(--space-lg) var(--space-md) var(--space-md);
   }
 
   .lead-capture h2 {
@@ -6530,7 +6530,7 @@ a[target="_blank"]:has(> svg)::after {
 
   /* TRUST BADGES — tighter, horizontal scroll */
   .trust-section {
-    padding: var(--space-lg) var(--space-md);
+    padding: var(--space-md) var(--space-md);
   }
 
   .trust-badges {
@@ -6599,12 +6599,20 @@ a[target="_blank"]:has(> svg)::after {
 
   .footer-contact {
     text-align: left;
-    gap: var(--space-2xs);
+    gap: 2px;
+  }
+
+  .footer-contact h4 {
+    margin-bottom: var(--space-2xs);
   }
 
   .footer-contact a {
     padding: 2px 0;
     min-height: unset;
+  }
+
+  .footer-contact p {
+    margin-top: 2px;
   }
 
   .footer-bottom {
