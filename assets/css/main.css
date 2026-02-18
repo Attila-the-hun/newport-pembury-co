@@ -1278,6 +1278,9 @@ nav.scrolled {
   color: var(--color-action-text);
   font-weight: 600;
   transition: color var(--duration-normal) var(--ease-smooth);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .director-content a:hover {
@@ -1352,6 +1355,7 @@ nav.scrolled {
 .lead-form input[type="text"] {
   flex: 1;
   width: auto;
+  min-height: 44px;
   padding: var(--space-sm) var(--space-md);
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -1386,6 +1390,7 @@ nav.scrolled {
 .lead-form button,
 .lead-form button[type="submit"] {
   width: auto;
+  min-height: 44px;
   padding: var(--space-xs) var(--space-lg);
   background: var(--color-action-primary);
   color: var(--color-bg-inverse);
@@ -3200,6 +3205,9 @@ footer > section {
   color: var(--color-accent-gold);
   text-decoration: underline;
   text-underline-offset: 3px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .form-note {
