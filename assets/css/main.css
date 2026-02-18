@@ -804,7 +804,8 @@ li.nav-cta-mobile {
   }
 
   #navbar > div {
-    padding: var(--space-2xs) 0;
+    padding: 0;
+    height: 100%;
     position: static; /* Dropdown anchors to <nav> (sticky = containing block), not this div */
   }
 
