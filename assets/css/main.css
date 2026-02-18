@@ -781,10 +781,25 @@ nav.scrolled {
 }
 
 /* Mobile navigation */
+.nav-actions {
+  display: contents;
+}
+
 @media (max-width: 768px) {
   nav {
-    padding: 0 var(--space-lg);
-    height: 64px;
+    padding: 0 var(--space-md);
+    height: 56px;
+  }
+
+  nav > div {
+    padding: var(--space-sm) 0;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin-left: auto;
   }
 
   .hamburger {
@@ -799,12 +814,12 @@ nav.scrolled {
     right: 0;
     transform: none;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.99);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(27, 40, 56, 0.08);
-    padding: var(--space-md) 0;
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: var(--space-sm) 0 var(--space-md);
     gap: 0;
+    z-index: 100;
     animation: slideDown var(--duration-normal) var(--ease-smooth);
   }
 
@@ -817,10 +832,17 @@ nav.scrolled {
   }
 
   .nav-links a {
-    padding: var(--space-xs) var(--space-lg);
+    padding: var(--space-sm) var(--space-lg);
     font-size: var(--font-size-base);
     width: 100%;
-    text-align: center;
+    text-align: left;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-links a::after {
+    display: none;
   }
 
   .nav-links:hover a {
@@ -1217,20 +1239,47 @@ nav.scrolled {
 /* Services responsive */
 @media (max-width: 768px) {
   .services {
-    padding: var(--space-3xl) var(--space-md);
+    padding: var(--space-2xl) var(--space-md);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-lg);
   }
 
   .services-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
+    gap: 0;
   }
 
   .service-card {
-    padding: var(--space-xl) var(--space-lg);
+    padding: var(--space-lg) 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .service-card:first-child {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .service-card::before {
+    display: none;
+  }
+
+  .service-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--color-border);
   }
 
   .card-number {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
+    margin-bottom: 0;
+  }
+
+  .services-cta {
+    margin-top: var(--space-xl);
   }
 }
 
@@ -1293,23 +1342,29 @@ nav.scrolled {
 /* Director responsive */
 @media (max-width: 768px) {
   .director-section {
-    padding: var(--space-3xl) var(--space-md);
+    padding: var(--space-2xl) var(--space-md);
   }
 
   .director-container {
     grid-template-columns: 1fr;
-    gap: var(--space-2xl);
+    gap: var(--space-lg);
     text-align: center;
   }
 
   .director-monogram {
-    width: 200px;
-    height: 200px;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
   }
 
   .director-content p {
     margin-left: auto;
     margin-right: auto;
+    text-align: left;
+  }
+
+  .director-industries {
+    text-align: left;
   }
 }
 
@@ -6177,5 +6232,203 @@ a[target="_blank"]:has(> svg)::after {
   a[href^="mailto:"]::after,
   a[href^="tel:"]::after {
     content: none;
+  }
+}
+
+/* ==========================================================================
+   MOBILE UX OVERHAUL — Feb 2026
+   Comprehensive mobile fixes based on manual review
+   ========================================================================== */
+
+/* --- Director industries tag cloud --- */
+.director-industries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  margin-bottom: var(--space-md);
+}
+
+.director-industries span {
+  display: inline-block;
+  padding: var(--space-3xs, 2px) var(--space-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* --- Proof object replacement classes (removing inline styles) --- */
+.proof-object-subtitle {
+  text-align: left;
+  margin-bottom: var(--space-xs);
+  font-family: 'DM Sans', sans-serif;
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-action-text);
+}
+
+.proof-object-note {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+.proof-object-client-label {
+  text-align: center;
+  font-size: 0.8125rem;
+  opacity: 0.6;
+  margin: 0;
+}
+
+/* --- Mobile-specific overhaul (max-width: 768px) --- */
+@media (max-width: 768px) {
+
+  /* TESTIMONIALS — full width, no card boxes */
+  .testimonials-section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .testimonials-grid {
+    gap: 0;
+  }
+
+  .testimonial-card {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-lg) var(--space-md);
+    margin: 0;
+  }
+
+  .testimonial-card:first-child {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .testimonial-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* PROOF OBJECT — tighter mobile layout */
+  .proof-object-section {
+    padding: var(--space-2xl) var(--space-md);
+  }
+
+  .proof-object-cta {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .proof-object-preview {
+    padding: var(--space-lg);
+  }
+
+  /* LEAD CAPTURE — tighter spacing */
+  .lead-capture {
+    padding: var(--space-2xl) var(--space-md);
+  }
+
+  .lead-capture h2 {
+    font-size: clamp(24px, 6vw, 32px);
+  }
+
+  .lead-capture p {
+    margin-bottom: var(--space-md);
+  }
+
+  .lead-form input::placeholder {
+    text-align: center;
+  }
+
+  .lead-form-note {
+    margin-top: var(--space-md);
+  }
+
+  /* TRUST BADGES — tighter, horizontal scroll */
+  .trust-section {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .trust-badges {
+    margin-top: var(--space-sm);
+    gap: var(--space-xs);
+  }
+
+  .trust-badge {
+    font-size: var(--font-size-xs);
+    padding: var(--space-3xs, 2px) var(--space-sm);
+  }
+
+  /* CTA BANNER — tighter on mobile */
+  .cta-banner {
+    padding: var(--space-2xl) var(--space-md);
+  }
+
+  .cta-banner h2 {
+    font-size: clamp(24px, 6vw, 36px);
+  }
+
+  .cta-email-alt {
+    font-size: var(--font-size-sm);
+  }
+
+  /* FOOTER — clean up spacing */
+  footer {
+    padding: var(--space-xl) var(--space-md) var(--space-md);
+  }
+
+  footer > section {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .footer-brand {
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .footer-links {
+    gap: var(--space-2xs);
+  }
+
+  .footer-links a {
+    min-height: 40px;
+  }
+
+  .footer-links h4 {
+    margin-top: var(--space-xs);
+    margin-bottom: 0;
+  }
+
+  .footer-contact {
+    text-align: left;
+  }
+
+  .footer-bottom {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .footer-bottom p {
+    font-size: var(--font-size-xs);
+  }
+
+  /* Remove sticky mobile CTA (element removed from HTML) */
+  .mobile-cta {
+    display: none !important;
+  }
+
+  body.mobile-cta-visible {
+    padding-bottom: 0;
   }
 }

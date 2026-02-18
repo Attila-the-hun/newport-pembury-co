@@ -77,22 +77,12 @@
     <!-- Noise overlay -->
     <div class="noise-overlay"></div>
 
-    <!-- Sticky mobile CTA -->
-    <div class="mobile-cta" id="mobileCTA">
-        <button class="btn btn-primary btn-sm mobile-cta-btn-block" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
-            Get My Free Strategy Call
-        </button>
-    </div>
+    <!-- Mobile CTA removed — was consuming too much screen real estate -->
 
     <!-- Navigation -->
     <nav id="navbar">
         <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
             <a href="/" class="nav-logo">Newport Pembury <span class="gold-amp">&amp;</span> Co</a>
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="/about">Our Firm</a></li>
                 <li><a href="/services">What We Do</a></li>
@@ -101,10 +91,17 @@
             <a href="/contact" class="btn btn-primary btn-sm nav-cta">
                 Get My Free Strategy Call
             </a>
-            <button class="theme-toggle-btn" aria-label="Switch to dark mode" title="Toggle theme">
-                <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
-                <span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
-            </button>
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" aria-label="Switch to dark mode" title="Toggle theme">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+                    <span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -188,7 +185,17 @@
                     <p class="director-label">Meet the Director</p>
                     <h2>Timothy Messieh</h2>
                     <p class="director-role">Director & Fractional CFO</p>
-                    <p>Having acquired two businesses, led a successful business sale, and implemented enterprise systems from NetSuite to bespoke booking platforms, Timothy now combines operator-level experience with AI-powered financial tools. His approach: let AI handle the volume — reconciliation, forecasting, reporting — while human judgment drives the strategy.</p>
+                    <p>20 years across motor vehicle franchises, oil &amp; gas exploration, hotels &amp; gaming, multi-site pet services (8 sites, 350+ staff), HR platforms, transaction processing, and public practice accounting. Tim has led M&amp;A from both sides — acquiring two businesses and orchestrating a multi-year exit with PwC, KPMG, and private equity.</p>
+                    <p class="director-industries">
+                        <span>Automotive &amp; Trucks</span>
+                        <span>Oil &amp; Gas</span>
+                        <span>Hotels &amp; Gaming</span>
+                        <span>Tourism &amp; Logistics</span>
+                        <span>Insurance</span>
+                        <span>HR Services</span>
+                        <span>Transactions</span>
+                        <span>Public Practice</span>
+                    </p>
                     <a href="/about">Learn more about Tim →</a>
                 </div>
             </div>
@@ -223,11 +230,11 @@
         <section class="proof-object-section scroll-reveal">
             <div class="proof-object-card">
                 <div class="proof-object-content">
-                    <p class="hero-subtitle" style="text-align:left; margin-bottom: 8px;">See our work — before you commit</p>
+                    <p class="proof-object-subtitle">See our work — before you commit</p>
                     <h2>Cash Flow Intelligence Report</h2>
                     <p>This is what financial clarity looks like. A 13-week rolling forecast with scenario modelling, sensitivity analysis, and APES 320 compliance — built for a real client, powered by our AI pipeline.</p>
-                    <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 1.5rem;">No forms. No email required. Just proof.</p>
-                    <a href="/assets/demos/cashflow-intelligence-report.html" class="btn btn-primary">View the Sample Report</a>
+                    <p class="proof-object-note">No forms. No email required. Just proof.</p>
+                    <a href="/assets/demos/cashflow-intelligence-report.html" class="btn btn-primary proof-object-cta">View the Sample Report</a>
                 </div>
                 <div class="proof-object-preview">
                     <div class="proof-object-kpi-row">
@@ -250,7 +257,7 @@
                         <span>Sensitivity analysis</span>
                         <span>APES 320 compliant</span>
                     </div>
-                    <p style="text-align: center; font-size: 0.8125rem; opacity: 0.6; margin: 0;">Coastal Brewing Co — Base Case</p>
+                    <p class="proof-object-client-label">Coastal Brewing Co — Base Case</p>
                 </div>
             </div>
         </section>
@@ -441,22 +448,7 @@
             observer.observe(element);
         });
 
-        // Mobile CTA visibility
-        const mobileCTA = document.getElementById('mobileCTA');
-        window.addEventListener('scroll', () => {
-            const contact = document.getElementById('contact');
-            const contactRect = contact.getBoundingClientRect();
-
-            if (window.innerWidth <= 768) {
-                if (contactRect.top > window.innerHeight) {
-                    mobileCTA.classList.add('active');
-                    document.body.classList.add('mobile-cta-visible');
-                } else {
-                    mobileCTA.classList.remove('active');
-                    document.body.classList.remove('mobile-cta-visible');
-                }
-            }
-        });
+        // Mobile CTA removed — was consuming too much screen real estate
 
         // Smooth scroll behavior for all anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
