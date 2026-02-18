@@ -804,8 +804,13 @@ li.nav-cta-mobile {
   }
 
   #navbar > div {
-    padding: var(--space-sm) 0;
+    padding: var(--space-2xs) 0;
     position: static; /* Dropdown anchors to <nav> (sticky = containing block), not this div */
+  }
+
+  .nav-logo {
+    letter-spacing: 0.01em;
+    font-size: var(--font-size-base);
   }
 
   .nav-actions {
