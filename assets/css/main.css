@@ -5751,46 +5751,60 @@ body.mobile-cta-visible {
 @media (max-width: 768px) {
   .proof-object-card {
     grid-template-columns: 1fr;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
   }
 
-  .proof-object-content,
+  .proof-object-content {
+    text-align: center;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .proof-object-content h2 {
+    font-size: clamp(24px, 6vw, 32px);
+    margin-bottom: var(--space-xs);
+  }
+
+  .proof-object-content p {
+    margin-bottom: var(--space-sm);
+  }
+
   .proof-object-preview {
     min-width: 0;
     max-width: 100%;
     overflow: hidden;
+    padding: var(--space-md);
+  }
+
+  .proof-object-preview:hover {
+    transform: none;
   }
 
   .proof-object-kpi-row {
-    flex-wrap: wrap;
-    gap: var(--space-sm);
+    flex-wrap: nowrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
   }
 
   .proof-object-kpi {
     min-width: 0;
+    flex: 1;
   }
 
   .proof-object-kpi-value {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-base);
     word-break: break-word;
   }
 
-  .proof-object-preview {
-    padding: var(--space-md);
-  }
-
-  .proof-object-kpi-row {
-    gap: var(--space-xs);
-    margin-bottom: var(--space-md);
-  }
-
   .proof-object-kpi-label {
-    font-size: 10px;
+    font-size: 9px;
+    letter-spacing: 0.05em;
   }
 
   .proof-object-features {
     gap: var(--space-2xs);
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
+    justify-content: center;
   }
 
   .proof-object-features span {
@@ -5800,6 +5814,7 @@ body.mobile-cta-visible {
 
   .proof-object-client-label {
     font-size: var(--font-size-sm);
+    text-align: center;
   }
 }
 
@@ -6501,10 +6516,6 @@ a[target="_blank"]:has(> svg)::after {
     width: 100%;
     text-align: center;
     justify-content: center;
-  }
-
-  .proof-object-preview {
-    padding: var(--space-lg);
   }
 
   /* LEAD CAPTURE — tighter spacing, balanced padding */
