@@ -2255,13 +2255,7 @@ footer > section {
   }
 }
 
-/* Hero background image */
-.hero-section-insights {
-  background-image: url('/assets/images/npc-04-insights-hero.webp');
-  background-size: cover;
-  background-position: center 40%;
-  background-repeat: no-repeat;
-}
+/* Hero background image — see .hero-section-insights override after .hero-section */
 
 /* Hero editorial refinements */
 .hero-editorial-line {
@@ -2436,6 +2430,11 @@ footer > section {
   color: var(--color-text-inverse);
   padding: var(--space-4xl) var(--space-lg) var(--space-3xl);
   min-height: 40vh;
+}
+
+.hero-section.hero-section-insights {
+  background: linear-gradient(135deg, rgba(15, 25, 35, 0.82) 0%, rgba(27, 40, 56, 0.75) 100%),
+              url('/assets/images/npc-04-insights-hero.webp') center 40% / cover no-repeat;
 }
 
 .hero-section::before {
