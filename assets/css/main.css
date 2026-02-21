@@ -1111,9 +1111,9 @@ li.nav-cta-mobile {
 .hero-trust-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xl);
+  gap: var(--space-sm) var(--space-xl);
   justify-content: center;
-  padding-top: var(--space-md);
+  padding-top: var(--space-sm);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -1126,9 +1126,9 @@ li.nav-cta-mobile {
 .hero-trust-item strong {
   color: var(--color-action-text);
   font-family: 'Cormorant Garamond', serif;
-  font-size: var(--font-size-lg);
-  display: block;
-  margin-bottom: var(--space-2xs);
+  font-size: var(--font-size-md);
+  display: inline;
+  margin-right: var(--space-2xs);
 }
 
 /* Hero responsive — layout overrides in mobile overhaul block below */
