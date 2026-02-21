@@ -1603,7 +1603,7 @@ li.nav-cta-mobile {
 
 .cta-banner {
   position: relative;
-  padding: var(--space-3xl) var(--space-lg);
+  padding: var(--space-2xl) var(--space-lg);
   color: var(--color-text-inverse);
   text-align: center;
   background: linear-gradient(135deg, var(--color-bg-inverse) 0%, var(--color-text-primary) 100%);
@@ -2411,7 +2411,7 @@ footer > section {
   }
 
   .cta-banner {
-    padding: var(--space-3xl) var(--space-md);
+    padding: var(--space-2xl) var(--space-md);
   }
 
   .section-header {
@@ -3963,7 +3963,7 @@ footer > section {
 /* ---------- Newsletter CTA (article page) ---------- */
 .newsletter-cta {
   background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-bg-inverse) 100%);
-  padding: var(--space-5xl) var(--space-xl);
+  padding: var(--space-3xl) var(--space-xl);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -4575,7 +4575,7 @@ footer > section {
 /* --- Article Hero --- */
 .article-hero {
   background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-bg-inverse) 100%);
-  padding: var(--space-5xl) var(--space-xl) var(--space-3xl);
+  padding: var(--space-3xl) var(--space-xl) var(--space-2xl);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -5162,7 +5162,7 @@ footer > section {
 .author-section {
   max-width: 780px;
   margin: 0 auto;
-  padding: 0 var(--space-xl) var(--space-3xl);
+  padding: 0 var(--space-xl) var(--space-2xl);
 }
 
 .author-section-inner {
@@ -5242,7 +5242,7 @@ footer > section {
 .related-articles {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 var(--space-xl) var(--space-3xl);
+  padding: 0 var(--space-xl) var(--space-2xl);
 }
 
 .related-inner {
@@ -5377,7 +5377,7 @@ body.mobile-cta-visible {
 /* --- Article hero responsive --- */
 @media (max-width: 640px) {
   .article-hero {
-    padding: var(--space-3xl) var(--space-md) var(--space-2xl);
+    padding: var(--space-2xl) var(--space-md) var(--space-xl);
   }
 
   .article-hero-toprow {
