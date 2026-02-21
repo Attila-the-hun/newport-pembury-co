@@ -318,6 +318,18 @@
   font-weight: 700;
 }
 
+.hero-trust-bar-section {
+  display: flex;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(197, 165, 90, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
 /* Horizontal divider line */
 .divider-line {
   width: var(--space-xl);
@@ -413,6 +425,51 @@
   color: var(--color-text-primary);
   line-height: 1.2;
   margin-bottom: 0;
+}
+
+.section-heading-lg-40 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+  margin-bottom: 0;
+  text-wrap: balance;
+}
+
+.section-heading-lg-36-inverse {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 600;
+  color: var(--color-text-inverse);
+  line-height: 1.25;
+  margin-bottom: 0;
+  text-wrap: balance;
+}
+
+/* Section intro label — eyebrow above section headings */
+.section-intro-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-action-primary);
+  margin-bottom: var(--space-md);
+}
+
+.section-intro-label span {
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--color-action-primary);
+}
+
+.section-intro-label--centered {
+  justify-content: center;
 }
 
 /* Director monogram — decorative */
@@ -1737,38 +1794,8 @@ footer > section {
 .footer-contact {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: 0;
   font-size: var(--font-size-sm);
-}
-
-.footer-contact h4 {
-  font-family: 'DM Sans', sans-serif;
-  font-size: var(--font-size-sm);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: rgba(245, 240, 232, 0.6);
-  margin-bottom: var(--space-xs);
-}
-
-.footer-contact a {
-  color: var(--color-text-secondary);
-  transition: color var(--duration-normal) var(--ease-smooth);
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-xs) 0;
-  min-height: 44px;
-  line-height: 1.6;
-}
-
-.footer-contact a:hover {
-  color: var(--color-action-text);
-}
-
-.footer-contact p {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-  margin-top: var(--space-xs);
 }
 
 .footer-contact h4 {
@@ -1779,6 +1806,20 @@ footer > section {
   color: white;
   font-weight: 700;
   margin-bottom: var(--space-sm);
+}
+
+.footer-contact a {
+  color: var(--color-text-secondary);
+  transition: color var(--duration-normal) var(--ease-smooth);
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2xs) 0;
+  min-height: 44px;
+  line-height: 1.6;
+}
+
+.footer-contact a:hover {
+  color: var(--color-action-text);
 }
 
 .footer-contact p.footer-location {
@@ -2455,10 +2496,13 @@ footer > section {
   justify-content: center;
   text-align: center;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--color-bg-inverse) 0%, var(--color-text-primary) 100%);
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(197, 165, 90, 0.1) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(197, 165, 90, 0.06) 0%, transparent 45%),
+    linear-gradient(135deg, var(--color-bg-inverse) 0%, var(--color-text-primary) 50%, var(--color-bg-inverse) 100%);
   color: var(--color-text-inverse);
   padding: var(--space-4xl) var(--space-lg) var(--space-3xl);
-  min-height: 40vh;
+  min-height: 50vh;
 }
 
 .hero-section::before {
@@ -2468,8 +2512,18 @@ footer > section {
   right: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(197, 165, 90, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(197, 165, 90, 0.08) 0%, transparent 60%);
   animation: shimmer 20s ease-in-out infinite;
+}
+
+.hero-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(197, 165, 90, 0.06) 0%, transparent 50%),
+    linear-gradient(to bottom, transparent 60%, rgba(15, 25, 35, 0.4) 100%);
+  pointer-events: none;
 }
 
 @keyframes shimmer {
@@ -2932,11 +2986,11 @@ footer > section {
 .approach-grid::before {
   content: '';
   position: absolute;
-  top: 24px;
+  top: 28px;
   left: 10%;
   right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(197, 165, 90, 0.3) 20%, rgba(197, 165, 90, 0.3) 80%, transparent 100%);
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(197, 165, 90, 0.25) 15%, rgba(197, 165, 90, 0.25) 85%, transparent 100%);
 }
 
 .approach-step {
@@ -2946,32 +3000,41 @@ footer > section {
 
 .approach-step-num {
   display: flex;
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   background: var(--color-text-primary);
+  border: 2px solid var(--color-action-primary);
   border-radius: var(--radius-full);
   align-items: center;
   justify-content: center;
   font-family: 'Cormorant Garamond', serif;
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--color-action-text);
-  margin: 0 auto var(--space-sm);
+  margin: 0 auto var(--space-md);
   position: relative;
   z-index: 1;
+  box-shadow: 0 4px 16px rgba(197, 165, 90, 0.15);
+  transition: transform 300ms var(--ease-smooth), box-shadow 300ms var(--ease-smooth);
+}
+
+.approach-step:hover .approach-step-num {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(197, 165, 90, 0.25);
 }
 
 .approach-step h3 {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-md);
+  font-weight: 600;
   color: var(--color-text-primary);
-  margin-bottom: var(--space-2xs);
+  margin-bottom: var(--space-xs);
 }
 
 .approach-step p {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  line-height: 1.5;
-  max-width: 200px;
+  line-height: 1.6;
+  max-width: 220px;
   margin: 0 auto;
 }
 
@@ -4169,8 +4232,8 @@ footer > section {
 .testimonial-container {
   text-align: center;
   max-width: 720px;
-  margin: var(--space-4xl) auto;
-  padding: var(--space-3xl) var(--space-xl);
+  margin: var(--space-2xl) auto;
+  padding: var(--space-2xl) var(--space-xl);
   border-top: 1px solid var(--color-border-subtle);
   border-bottom: 1px solid var(--color-border-subtle);
 }
