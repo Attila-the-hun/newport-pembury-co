@@ -1025,13 +1025,13 @@ li.nav-cta-mobile {
 
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - 85px);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-text-inverse);
   overflow: hidden;
-  padding: var(--space-3xl) var(--space-lg) 80px;
+  padding: var(--space-2xl) var(--space-lg) 72px;
 }
 
 .hero::before {
