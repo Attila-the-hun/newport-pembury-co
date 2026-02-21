@@ -3963,7 +3963,7 @@ footer > section {
 /* ---------- Newsletter CTA (article page) ---------- */
 .newsletter-cta {
   background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-bg-inverse) 100%);
-  padding: var(--space-3xl) var(--space-xl);
+  padding: var(--space-2xl) var(--space-xl);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -4011,10 +4011,11 @@ footer > section {
   font-size: var(--font-size-base);
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: var(--space-xl);
-  max-width: 50ch;
+  margin-bottom: var(--space-lg);
+  max-width: 580px;
   margin-left: auto;
   margin-right: auto;
+  text-wrap: balance;
 }
 
 .newsletter-form {
@@ -4023,7 +4024,7 @@ footer > section {
   gap: var(--space-sm);
   justify-content: center;
   align-items: center;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
 }
 
 .newsletter-form input[type="email"] {
