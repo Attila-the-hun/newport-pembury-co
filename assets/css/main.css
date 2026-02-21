@@ -1031,7 +1031,7 @@ li.nav-cta-mobile {
   justify-content: center;
   color: var(--color-text-inverse);
   overflow: hidden;
-  padding: var(--space-3xl) var(--space-lg) var(--space-2xl);
+  padding: var(--space-2xl) var(--space-lg) var(--space-lg);
 }
 
 .hero::before {
