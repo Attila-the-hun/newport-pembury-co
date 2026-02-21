@@ -1081,7 +1081,7 @@ li.nav-cta-mobile {
   font-size: var(--font-size-md);
   opacity: 0.9;
   max-width: 600px;
-  margin: 0 auto var(--space-xl);
+  margin: 0 auto var(--space-lg);
   line-height: 1.7;
 }
 
@@ -1090,7 +1090,7 @@ li.nav-cta-mobile {
   flex-wrap: wrap;
   gap: var(--space-md);
   justify-content: center;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .hero-subtitle {
