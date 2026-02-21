@@ -603,7 +603,7 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   color: var(--color-text-tertiary);
   text-decoration: none;
   font-size: var(--font-size-sm);
@@ -1074,7 +1074,7 @@ li.nav-cta-mobile {
   font-weight: 700;
   letter-spacing: -1px;
   line-height: 1.15;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .hero-description {
@@ -1113,7 +1113,7 @@ li.nav-cta-mobile {
   flex-wrap: wrap;
   gap: var(--space-xl);
   justify-content: center;
-  padding-top: var(--space-xl);
+  padding-top: var(--space-md);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
