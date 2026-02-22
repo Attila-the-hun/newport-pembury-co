@@ -1813,8 +1813,7 @@ footer > section {
   transition: color var(--duration-normal) var(--ease-smooth);
   display: inline-flex;
   align-items: center;
-  padding: var(--space-2xs) 0;
-  min-height: 44px;
+  padding: 2px 0;
   line-height: 1.6;
 }
 
@@ -2532,8 +2531,9 @@ footer > section {
 }
 
 .hero-section h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(36px, 5vw, 56px);
   font-weight: 700;
+  letter-spacing: -1px;
   margin-bottom: var(--space-lg);
   line-height: 1.15;
   position: relative;
@@ -2541,13 +2541,23 @@ footer > section {
 }
 
 .hero-section p {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-size-md);
+  color: rgba(255, 255, 255, 0.9);
   max-width: 600px;
-  margin: 0 auto;
+  margin: 0 auto var(--space-md);
   line-height: 1.7;
   position: relative;
   z-index: 1;
+}
+
+.hero-section .label-uppercase {
+  font-size: var(--font-size-xs);
+  color: var(--color-action-text);
+  letter-spacing: 0.2em;
+  font-weight: 500;
+  text-transform: uppercase;
+  max-width: none;
+  margin-bottom: var(--space-md);
 }
 
 /* ==========================================================================
@@ -2951,9 +2961,8 @@ footer > section {
 
 /* Approach strip */
 .approach-strip {
-  padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+  padding: var(--space-xl) var(--space-lg) var(--space-lg);
   background: var(--color-bg-secondary);
-  border-bottom: 1px solid rgba(197, 165, 90, 0.15);
 }
 
 .approach-container {
@@ -4232,8 +4241,8 @@ footer > section {
 .testimonial-container {
   text-align: center;
   max-width: 720px;
-  margin: var(--space-2xl) auto;
-  padding: var(--space-2xl) var(--space-xl);
+  margin: var(--space-lg) auto;
+  padding: var(--space-xl) var(--space-xl);
   border-top: 1px solid var(--color-border-subtle);
   border-bottom: 1px solid var(--color-border-subtle);
 }
