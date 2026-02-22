@@ -2544,7 +2544,7 @@ footer > section {
   font-size: var(--font-size-md);
   color: rgba(255, 255, 255, 0.9);
   max-width: 600px;
-  margin: 0 auto var(--space-lg);
+  margin: 0 auto var(--space-xl);
   line-height: 1.7;
   position: relative;
   z-index: 1;
