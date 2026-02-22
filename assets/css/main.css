@@ -1660,7 +1660,7 @@ li.nav-cta-mobile {
 
 .cta-banner {
   position: relative;
-  padding: var(--space-2xl) var(--space-lg);
+  padding: var(--space-xl) var(--space-lg);
   color: var(--color-text-inverse);
   text-align: center;
   background: linear-gradient(135deg, var(--color-bg-inverse) 0%, var(--color-text-primary) 100%);
@@ -1700,15 +1700,15 @@ li.nav-cta-mobile {
 footer {
   background: var(--footer-bg);
   color: var(--footer-text);
-  padding: var(--space-2xl) var(--space-lg) var(--space-lg);
+  padding: var(--space-xl) var(--space-lg) var(--space-md);
 }
 
 footer > section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-xl);
+  gap: var(--space-lg);
   max-width: 1200px;
-  margin: 0 auto var(--space-xl);
+  margin: 0 auto var(--space-md);
 }
 
 .footer-brand h3 {
@@ -1752,7 +1752,6 @@ footer > section {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   transition: color var(--duration-normal) var(--ease-smooth);
-  min-height: 36px;
   display: inline-flex;
   align-items: center;
 }
@@ -1786,8 +1785,7 @@ footer > section {
 .footer-links nav ul li a {
   display: inline-flex;
   align-items: center;
-  padding: var(--space-2xs) 0;
-  min-height: 32px;
+  padding: 2px 0;
   line-height: 1.5;
 }
 
@@ -1805,7 +1803,7 @@ footer > section {
   font-size: var(--font-size-sm);
   color: white;
   font-weight: 700;
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
 }
 
 .footer-contact a {
@@ -1829,7 +1827,7 @@ footer > section {
 
 .footer-bottom {
   border-top: 1px solid rgba(245, 240, 232, 0.08);
-  padding-top: var(--space-lg);
+  padding-top: var(--space-md);
   text-align: center;
   font-size: var(--font-size-xs);
   color: rgba(245, 240, 232, 0.35);
@@ -2740,7 +2738,7 @@ footer > section {
    ========================================================================== */
 
 .service-block {
-  padding: var(--space-xl) 0;
+  padding: var(--space-lg) 0;
   border-bottom: 1px solid var(--color-bg-secondary);
   position: relative;
 }
@@ -3051,7 +3049,7 @@ footer > section {
 .engagement-section {
   background: var(--color-bg-inverse);
   color: var(--color-text-inverse);
-  padding: var(--space-3xl) 0;
+  padding: var(--space-xl) 0;
   width: 100vw;
   position: relative;
   left: 50%;
